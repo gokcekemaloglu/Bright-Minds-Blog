@@ -1,4 +1,3 @@
-import './App.css'
 import ErrorBoundary from './components/ErrorBoundary'
 import AppRouter from './router/AppRouter'
 
