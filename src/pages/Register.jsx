@@ -4,8 +4,12 @@ import LockIcon from "@mui/icons-material/Lock";
 import { Formik } from "formik";
 import RegisterForm, { SignupSchema } from "../components/auth/RegisterForm";
 import { Link } from "react-router-dom";
+import useAuthCall from "../hooks/useAuthCall";
 
 const Register = () => {
+
+  const {register} = useAuthCall()
+
   return (
     <Container>
       <Grid 
@@ -32,14 +36,19 @@ const Register = () => {
           <Typography textAlign="center">Register</Typography>
           <Formik
             initialValues={{
+              username: "",
               firstName: "",
               lastName: "",
               email: "",
+              image:"",
+              bio: "",
+              password: "",
             }}
             validationSchema={SignupSchema}
             onSubmit={(values, actions) => {
-              // same shape as initial values
-              console.log(values);
+              console.log(values)
+              register(values)
+              console.log(actions);
             }}
             component={(props) => <RegisterForm {...props} />}
           ></Formik>

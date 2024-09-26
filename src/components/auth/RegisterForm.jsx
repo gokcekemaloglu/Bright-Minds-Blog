@@ -51,6 +51,7 @@ const RegisterForm = ({
             onBlur={handleBlur}
             error={touched.username && Boolean(errors.username)}
             helperText={touched.username && errors.username}
+            required
           />
           <TextField
             id="firstName"
@@ -62,6 +63,7 @@ const RegisterForm = ({
             onBlur={handleBlur}
             error={touched.firstName && Boolean(errors.firstName)}
             helperText={touched.firstName && errors.firstName}
+            required
           />
           <TextField
             id="lastName"
@@ -73,6 +75,7 @@ const RegisterForm = ({
             onBlur={handleBlur}
             error={touched.lastName && Boolean(errors.lastName)}
             helperText={touched.lastName && errors.lastName}
+            required
           />
           <TextField
             id="email"
@@ -84,6 +87,29 @@ const RegisterForm = ({
             onBlur={handleBlur}
             error={touched.email && Boolean(errors.email)}
             helperText={touched.email && errors.email}
+            required
+          />
+          <TextField
+            id="image"
+            name="image"
+            label="Image"
+            type="url"
+            value={values.image}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.image && Boolean(errors.image)}
+            helperText={touched.image && errors.image}
+          />
+          <TextField
+            id="bio"
+            name="bio"
+            label="Bio"
+            type="text"
+            value={values.bio}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.bio && Boolean(errors.bio)}
+            helperText={touched.bio && errors.bio}
           />
           <TextField
             id="password"
@@ -95,6 +121,7 @@ const RegisterForm = ({
             onBlur={handleBlur}
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
+            required
           />
           <Button type="submit" variant="contained" disabled={isSubmitting}>
             {isSubmitting ? "Loading..." : "Sign Up"}
