@@ -13,13 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import logoPng from "../assets/GK-logo.png"
+import useAuthCall from '../hooks/useAuthCall';
 
-const pages = ['Dashboard', 'New Blog', 'About'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const {logout, login} = useAuthCall()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -87,11 +90,16 @@ function NavBar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Dashboard</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>New Blog</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>About</Typography>
+                </MenuItem>
+              
             </Menu>
           </Box>
           {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
@@ -114,15 +122,28 @@ function NavBar() {
             Bright Minds
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            
               <Button
-                key={page}
+                
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                DashBoard
               </Button>
-            ))}
+              <Button
+                
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                New Blog
+              </Button>
+              <Button
+                
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                About
+              </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -146,11 +167,28 @@ function NavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+              
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Account</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Dashboard</Typography>
+                </MenuItem>
+                <MenuItem onClick={()=>{
+                  login()
+                  handleCloseUserMenu()
+                }}>
+                  <Typography sx={{ textAlign: 'center' }}>Login</Typography>
+                </MenuItem>
+                <MenuItem onClick={()=>{
+                  logout()
+                  handleCloseUserMenu()
+                }}>
+                  <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

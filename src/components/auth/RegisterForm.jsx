@@ -34,7 +34,7 @@ const RegisterForm = ({
   touched,
   handleChange,
   handleBlur,
-  handleSubmit,
+  // handleSubmit,
   isSubmitting,
   /* and other goodies */
 }) => {
