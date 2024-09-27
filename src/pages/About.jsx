@@ -23,14 +23,23 @@ export default function About() {
         boxShadow: "revert",
       }}
     >
-      <Card sx={{ width: 600 }}>
+      <Card sx={{ width: 600, pt:3, mt:3 }}>
         <CardMedia
           sx={{ p: 1, objectFit: "contain", height: "250px" }}
         component="img"
           image={logoPng}
           title="Gokce Kemaloglu"
         />
-        <CardContent>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography gutterBottom variant="h5" component="div">
+            Gokce Kemaloglu
+          </Typography>
           <Typography gutterBottom variant="h5" component="div">
             FullStack Developer
           </Typography>
