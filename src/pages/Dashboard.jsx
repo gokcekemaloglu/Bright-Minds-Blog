@@ -9,7 +9,7 @@ const Dashboard = () => {
       <CssBaseline />
       <Box>
         <NavBar />
-        Drawer
+        {/* Drawer */}
       </Box>
       <Outlet />
     </Box>

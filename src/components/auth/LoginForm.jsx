@@ -32,7 +32,6 @@ const LoginForm = ({
     <div>
       <Form>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        
           <TextField
             id="email"
             name="email"
