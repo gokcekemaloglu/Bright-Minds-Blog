@@ -1,9 +1,37 @@
-import React from 'react'
+import { createSlice } from '@reduxjs/toolkit';
 
-const blogSlice = () => {
-  return (
-    <div>blogSlice</div>
-  )
-}
+const blogSlice = createSlice({
+  name: "blog",
 
-export default blogSlice
+  initialState: {
+    loading: false,
+    error: false,
+    blogs: [],
+    categories: [],
+  }, 
+  reducers: {
+    fetchStart: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
+    fetchFail: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
+    getBlogsDataSuccess:(state,{payload}) => {
+      state.loading = false;
+      state.error = false;
+      state[payload.endpoint] = payload.blog
+      console.log("blogs:", payload)
+    },    
+  },
+});
+
+export const {
+  fetchStart,
+  fetchFail,
+  getBlogsDataSuccess,
+ 
+} = blogSlice.actions;
+
+export default blogSlice.reducer
