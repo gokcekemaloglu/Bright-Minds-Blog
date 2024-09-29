@@ -18,6 +18,17 @@ const useBlogCalls = () => {
       dispatch(fetchFail())
     }
   }
+
+  const getLike = async () => {
+    dispatch(fetchStart())
+    try {
+      
+    } catch (error) {
+      console.log(error);
+      dispatch(fetchFail())
+      
+    }
+  }
   
   
   return {getBlogsData}

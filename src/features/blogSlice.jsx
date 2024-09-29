@@ -24,6 +24,10 @@ const blogSlice = createSlice({
       state[payload.endpoint] = payload.blog
       console.log("blogs:", payload)
     },    
+    getLikeSuccess: (state, {payload}) => {
+      state.loading = false;
+      state.error = false;
+    }
   },
 });
 
