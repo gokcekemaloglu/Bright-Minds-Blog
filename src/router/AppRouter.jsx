@@ -5,6 +5,8 @@ import Register from '../pages/Register'
 import Dashboard from '../pages/Dashboard'
 import About from '../pages/About'
 import Home from '../pages/Home'
+import PrivateRouter from './PrivateRouter'
+import Detail from '../pages/Detail'
 
 const AppRouter = () => {
   return (
@@ -17,10 +19,9 @@ const AppRouter = () => {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="about" element={<About />} />
-          {/* <Route index element={<Home}
-          <Route privaterouter>
-
-          </Route> */}
+          <Route path="/detail" element={<PrivateRouter/>}>
+            <Route path="" element={<Detail/>}/>
+          </Route>
         </Route>
       </Routes>
     </Router>
