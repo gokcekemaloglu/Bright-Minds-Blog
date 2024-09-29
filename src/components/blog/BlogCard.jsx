@@ -13,12 +13,14 @@ import CommentIcon from '@mui/icons-material/Comment';
 const BlogCard = ({
   _id,
   image,
+  comments,
   content,
   title,
   createdAt,
   countOfVisitors,
   isPublish,
   likes,
+  postLike
 }) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -51,16 +53,23 @@ const BlogCard = ({
           Published Date: {createdAt}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions 
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Box>
           <Button size="small">
-            <FavoriteIcon sx={{}} /> {}
+            <FavoriteIcon
+              onClick={() => postLike(_id)}
+            /> <span>{likes?.length}</span>
           </Button>
           <Button size="small">
-            <CommentIcon/>
+            <CommentIcon/> <span>{comments.length}</span>
           </Button>
           <Button size="small">
-            <VisibilityIcon/>
+            <VisibilityIcon/> <span>{countOfVisitors}</span>
           </Button> 
           
         </Box>
