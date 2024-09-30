@@ -15,9 +15,11 @@ import AdbIcon from "@mui/icons-material/Adb";
 
 import useAuthCall from "../hooks/useAuthCall";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function NavBar() {
   const navigate = useNavigate();
+  const {currentUser} = useSelector(state => state.auth)
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -98,9 +100,27 @@ function NavBar() {
               >
                 <Typography sx={{ textAlign: "center" }}>Dashboard</Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography sx={{ textAlign: "center" }}>New Blog</Typography>
-              </MenuItem>
+              {currentUser ? (
+                <MenuItem 
+                  onClick={() => {
+                    navigate("/new-blog");
+                    handleCloseNavMenu();
+                  }}
+                >
+                  <Typography sx={{ textAlign: "center" }}>New Blog</Typography>
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    navigate("/login");
+                    handleCloseNavMenu();
+                  }}
+                >
+                  <Typography sx={{ textAlign: "center" }}>New Blog</Typography>
+                </MenuItem>
+              )}
+              
+              
               <MenuItem
                 onClick={() => {
                   navigate("/about");
@@ -140,13 +160,28 @@ function NavBar() {
             >
               DashBoard
             </Button>
-            {/* {currentUser ? () : ()} */}
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              New Blog
-            </Button>
+            {currentUser ? (
+              <Button
+                onClick={() => {
+                navigate("/new-blog");
+                handleCloseNavMenu();
+              }}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                New Blog
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                navigate("/login");
+                handleCloseNavMenu();
+              }}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                New Blog
+              </Button>
+            )}
+
             <Button
               onClick={() => {
                 navigate("/about");
@@ -191,7 +226,7 @@ function NavBar() {
               <MenuItem
                 onClick={() => {
                   // login();
-                  navigate("/login")
+                  navigate("/login");
                   handleCloseUserMenu();
                 }}
               >
