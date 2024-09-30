@@ -140,6 +140,7 @@ function NavBar() {
             >
               DashBoard
             </Button>
+            {/* {currentUser ? () : ()} */}
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -184,9 +185,9 @@ function NavBar() {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography sx={{ textAlign: "center" }}>Account</Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              {/* <MenuItem onClick={handleCloseUserMenu}>
                 <Typography sx={{ textAlign: "center" }}>Dashboard</Typography>
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 onClick={() => {
                   // login();

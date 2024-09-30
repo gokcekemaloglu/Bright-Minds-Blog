@@ -10,6 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const BlogCard = ({
   _id,
@@ -25,6 +26,7 @@ const BlogCard = ({
 }) => {
   
   const navigate = useNavigate()
+  const {currentUser} = useSelector(state => state.auth)
   
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -80,7 +82,8 @@ const BlogCard = ({
           </Button> 
           
         </Box>
-        <Box>
+        {currentUser ? (
+          <Box>
           <Button
             size="small"
             onClick={() => {
@@ -90,6 +93,20 @@ const BlogCard = ({
             Read More
           </Button>
         </Box>
+        ) : (
+          <Box>
+          <Button
+            size="small"
+            onClick={() => {
+              navigate("/login")
+            }}
+          >
+            Read More
+          </Button>
+        </Box>
+        )}
+        
+        
       </CardActions>
     </Card>
   );
