@@ -189,7 +189,8 @@ function NavBar() {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  login();
+                  // login();
+                  navigate("/login")
                   handleCloseUserMenu();
                 }}
               >

@@ -4,8 +4,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import * as Yup from "yup"
 
-export const SignInSchema = Yup.object().shape({
-   
+export const SignInSchema = Yup.object().shape({   
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
     .required()

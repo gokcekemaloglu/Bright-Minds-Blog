@@ -37,7 +37,7 @@ const Login = () => {
           <Typography textAlign="center">Login</Typography>
           <Formik
             initialValues={{
-              username: "",
+              
               email: "",
               password: "",
             }}
