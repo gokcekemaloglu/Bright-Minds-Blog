@@ -198,7 +198,8 @@ function NavBar() {
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
-            <Menu
+            {currentUser ? (
+              <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -220,9 +221,36 @@ function NavBar() {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography sx={{ textAlign: "center" }}>Account</Typography>
               </MenuItem>
-              {/* <MenuItem onClick={handleCloseUserMenu}>
-                <Typography sx={{ textAlign: "center" }}>Dashboard</Typography>
-              </MenuItem> */}
+              <MenuItem
+                onClick={() => {
+                  logout();
+                  handleCloseUserMenu();
+                }}
+              >
+                <Typography sx={{ textAlign: "center" }}>Logout</Typography>
+              </MenuItem>
+              
+              
+            </Menu>
+            ) : (
+              <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              
+              
               <MenuItem
                 onClick={() => {
                   // login();
@@ -232,15 +260,9 @@ function NavBar() {
               >
                 <Typography sx={{ textAlign: "center" }}>Login</Typography>
               </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  logout();
-                  handleCloseUserMenu();
-                }}
-              >
-                <Typography sx={{ textAlign: "center" }}>Logout</Typography>
-              </MenuItem>
             </Menu>
+            )}
+            
           </Box>
         </Toolbar>
       </Container>

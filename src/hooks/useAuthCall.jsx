@@ -39,7 +39,7 @@ const useAuthCall = () => {
     try {
       await axiosWithToken("auth/logout")
       dispatch(logoutSuccess())
-      navigate("/register")
+      navigate("/login")
     } catch (error) {
       console.log(error);
       dispatch(fetchFail())
