@@ -9,6 +9,7 @@ import { Box, Divider } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
+import { useNavigate } from "react-router-dom";
 
 const BlogCard = ({
   _id,
@@ -22,6 +23,9 @@ const BlogCard = ({
   likes,
   postLike
 }) => {
+  
+  const navigate = useNavigate()
+  
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -63,18 +67,28 @@ const BlogCard = ({
           <Button size="small">
             <FavoriteIcon
               onClick={() => postLike(_id)}
-            /> <span>{likes?.length}</span>
+            /> 
+            <span>{likes?.length}</span>
           </Button>
           <Button size="small">
-            <CommentIcon/> <span>{comments.length}</span>
+            <CommentIcon/> 
+            <span>{comments.length}</span>
           </Button>
           <Button size="small">
-            <VisibilityIcon/> <span>{countOfVisitors}</span>
+            <VisibilityIcon/> 
+            <span>{countOfVisitors}</span>
           </Button> 
           
         </Box>
         <Box>
-          <Button size="small">Read More</Button>
+          <Button
+            size="small"
+            onClick={() => {
+              navigate("/details")
+            }}
+          >
+            Read More
+          </Button>
         </Box>
       </CardActions>
     </Card>

@@ -22,7 +22,7 @@ const Home = () => {
   },[])
   
   const {blogs} = useSelector(state=>state.blog)
-  console.log("blog:", blogs);
+  // console.log("blog:", blogs);
 
   
 
@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <Grid container spacing={2} mt={3}>
       {blogs.map((blog)=>(
-        <Grid key={blog._id} item xs={12} md={6} lg={4} xl={3}>
+        <Grid key={blog._id} xs={12} md={6} lg={4} xl={3}>
           <BlogCard {...blog} postLike={postLike} initialState={initialState} setInitialState={setInitialState} />
         </Grid>
         

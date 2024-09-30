@@ -1,6 +1,7 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, CircularProgress, TextField } from '@mui/material';
 import { Form } from 'formik';
 import React from 'react'
+import { useSelector } from 'react-redux';
 import * as Yup from "yup"
 
 export const SignInSchema = Yup.object().shape({
@@ -28,6 +29,8 @@ const LoginForm = ({
   isSubmitting,
   /* and other goodies */
 }) => {
+  const {loading} = useSelector(state=>state.auth)
+
   return (
     <div>
       <Form>
@@ -57,9 +60,18 @@ const LoginForm = ({
             helperText={touched.password && errors.password}
             required
           />
-          <Button type="submit" variant="contained" disabled={isSubmitting}>
+          {!loading ? (
+            <Button type="submit" variant="contained">
+              Sign In
+            </Button>
+          ) : (
+            <Button variant="contained" disabled={loading}>
+              <CircularProgress />
+            </Button>            
+          )}
+          {/* <Button type="submit" variant="contained" disabled={isSubmitting}>
             {isSubmitting ? "Loading..." : "Sign In"}
-          </Button>
+          </Button> */}
         </Box>
       </Form>
     </div>

@@ -46,6 +46,8 @@ const Login = () => {
               console.log(values)
               login(values)
               console.log(actions);
+              actions.resetForm();//* 
+              actions.setSubmitting(false);
             }}
             component={(props) => <LoginForm {...props} />}
           ></Formik>
