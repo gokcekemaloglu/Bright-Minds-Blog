@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 
 function NavBar() {
   const navigate = useNavigate();
-  const {currentUser} = useSelector(state => state.auth)
+  const { currentUser } = useSelector((state) => state.auth);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -101,7 +101,7 @@ function NavBar() {
                 <Typography sx={{ textAlign: "center" }}>Dashboard</Typography>
               </MenuItem>
               {currentUser ? (
-                <MenuItem 
+                <MenuItem
                   onClick={() => {
                     navigate("/new-blog");
                     handleCloseNavMenu();
@@ -119,8 +119,7 @@ function NavBar() {
                   <Typography sx={{ textAlign: "center" }}>New Blog</Typography>
                 </MenuItem>
               )}
-              
-              
+
               <MenuItem
                 onClick={() => {
                   navigate("/about");
@@ -163,9 +162,9 @@ function NavBar() {
             {currentUser ? (
               <Button
                 onClick={() => {
-                navigate("/new-blog");
-                handleCloseNavMenu();
-              }}
+                  navigate("/new-blog");
+                  handleCloseNavMenu();
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 New Blog
@@ -173,9 +172,9 @@ function NavBar() {
             ) : (
               <Button
                 onClick={() => {
-                navigate("/login");
-                handleCloseNavMenu();
-              }}
+                  navigate("/login");
+                  handleCloseNavMenu();
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 New Blog
@@ -200,69 +199,64 @@ function NavBar() {
             </Tooltip>
             {currentUser ? (
               <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography sx={{ textAlign: "center" }}>Profile</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography sx={{ textAlign: "center" }}>Account</Typography>
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  logout();
-                  handleCloseUserMenu();
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
                 }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
               >
-                <Typography sx={{ textAlign: "center" }}>Logout</Typography>
-              </MenuItem>
-              
-              
-            </Menu>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: "center" }}>Profile</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: "center" }}>Account</Typography>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography sx={{ textAlign: "center" }}>Logout</Typography>
+                </MenuItem>
+              </Menu>
             ) : (
               <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              
-              
-              <MenuItem
-                onClick={() => {
-                  // login();
-                  navigate("/login");
-                  handleCloseUserMenu();
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
                 }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
               >
-                <Typography sx={{ textAlign: "center" }}>Login</Typography>
-              </MenuItem>
-            </Menu>
+                <MenuItem
+                  onClick={() => {
+                    // login();
+                    navigate("/login");
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography sx={{ textAlign: "center" }}>Login</Typography>
+                </MenuItem>
+              </Menu>
             )}
-            
           </Box>
         </Toolbar>
       </Container>

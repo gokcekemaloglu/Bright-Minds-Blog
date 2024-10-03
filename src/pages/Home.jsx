@@ -28,7 +28,7 @@ const Home = () => {
 
 
   return (
-    <Grid container spacing={2} mt={3}>
+    <Grid container spacing={2} mt={3} >
       {blogs.map((blog)=>(
         <Grid key={blog._id} xs={12} md={6} lg={4} xl={3}>
           <BlogCard {...blog} postLike={postLike} initialState={initialState} setInitialState={setInitialState} />

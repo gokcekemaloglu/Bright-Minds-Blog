@@ -11,6 +11,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CommentIcon from '@mui/icons-material/Comment';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+// import { useState } from "react";
+// import { useDispatch } from "react-redux";
+// import { fetchFail, fetchStart } from "../../features/blogSlice";
+// import { axiosPublic } from "../../hooks/useAxios";
+// import { useEffect } from "react";
 
 const BlogCard = ({
   _id,
@@ -27,6 +32,25 @@ const BlogCard = ({
   
   const navigate = useNavigate()
   const {currentUser} = useSelector(state => state.auth)
+
+  
+
+  // const dispatch = useDispatch()
+
+  // const getSingleBlog = async () => {
+  //   dispatch(fetchStart())
+  //   try {
+  //     const {data} = await axiosPublic(`blogs/${_id}`)
+  //     console.log(data);
+      
+  //   } catch (error) {
+  //     dispatch(fetchFail())
+  //   }
+  // }
+
+  // useEffect(()=>{
+  //   getSingleBlog()
+  // },[])
   
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -87,7 +111,8 @@ const BlogCard = ({
           <Button
             size="small"
             onClick={() => {
-              navigate("/details")
+              // getSingleBlog(_id)
+              navigate("/details/"+_id)
             }}
           >
             Read More

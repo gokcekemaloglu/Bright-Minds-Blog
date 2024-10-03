@@ -42,8 +42,10 @@ const useBlogCalls = () => {
     } catch (error) {
       console.log(error);
       dispatch(fetchFail())      
-    }
+    } 
   }
+
+  
   
   
   return {getBlogsData, postLike}
