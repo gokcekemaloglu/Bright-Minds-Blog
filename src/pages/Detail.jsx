@@ -18,23 +18,21 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CommentIcon from "@mui/icons-material/Comment";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import useBlogCalls from "../hooks/useBlogCalls";
+import CommentCard from "../components/blog/CommentCard";
+import CommentForm from "../components/blog/CommentForm";
 
 const Detail = () => {
   const [blogDetail, setBlogDetail] = useState("");
+  const [open, SetOpen] = useState(false)
+  const toggleComments = () => SetOpen(!open)
+
+  // console.log(open);
+  
 
   const { _id } = useParams();
 
-  const {
-    comments,
-    content,
-    countOfVisitors,
-    createdAt,
-    image,
-    isPublish,
-    likes,
-    title,
-    userId,
-  } = blogDetail;
+  const {comments, content, countOfVisitors, createdAt, image, isPublish, likes, title, userId} = blogDetail;
 
   const dispatch = useDispatch();
 
@@ -44,7 +42,7 @@ const Detail = () => {
       const { data } = await axiosPublic(`blogs/${_id}`);
       setBlogDetail(data.data);
 
-      console.log(data.data);
+      // console.log(data.data);
     } catch (error) {
       dispatch(fetchFail());
     }
@@ -54,40 +52,46 @@ const Detail = () => {
     getSingleBlog();
   }, []);
 
-  console.log(userId);
+  const { postLike } = useBlogCalls();
+
+  console.log("comments", comments);
 
   return (
-    <Container  maxWidth={"lg"}>
-      {/* <Typography
-        variant="h5"
-        component="h2"
-        sx={{
-          textAlign: "center",
-          mt: 4
-        }}
-      >
-        {title}
-      </Typography> */}
+    <Container
+      maxWidth={"lg"}
+      sx={{ display: "flex", flexDirection: "column", m: 4 }}
+    >      
       <CardMedia
-        sx={{ height: 140 }}
+        sx={{ height: 140, width: 140 }}
         image={image}
         title={title}
         component="img"
       />
-      <br />
-      <br />
-
+          
       {/* User info */}
-      <CardContent sx={{display: "flex", alignItems: "center", justifyContent: "flex-start"}}>
+      <CardContent
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+        }}
+      >
         <div>
           <AccountBoxIcon />
         </div>
         <div>
           <Typography gutterBottom variant="body2" component="div">
-            {/* {userId.username} {userId.firstName} {userId.lasttName} */}
+            {userId?.username} 
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary", mt: 1 }}>
-            Published Date: {createdAt}
+            {new Date(createdAt).toLocaleString("tr-TR", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            })}
           </Typography>
         </div>
 
@@ -106,25 +110,27 @@ const Detail = () => {
         >
           {content}
         </Typography>
-        <br />
-        <Divider />
-        <Typography variant="body2" sx={{ color: "text.secondary", mt: 1 }}>
-          Published Date: {createdAt}
-        </Typography>
       </CardContent>
       <Box>
         <Button size="small">
           <FavoriteIcon onClick={() => postLike(_id)} />
           <span>{likes?.length}</span>
         </Button>
-        <Button size="small">
+        <Button 
+          size="small"
+          onClick={toggleComments}
+        >
           <CommentIcon />
-          {/* <span>{comments.length}</span> */}
+          <span>{comments?.length}</span>
         </Button>
         <Button size="small">
           <VisibilityIcon />
           <span>{countOfVisitors}</span>
         </Button>
+      </Box>
+      <Box>
+        {open && <CommentForm open={open}/> }
+        
       </Box>
     </Container>
   );

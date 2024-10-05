@@ -8,7 +8,7 @@ const blogSlice = createSlice({
     error: false,
     blogs: [],
     categories: [],
-    
+    comments: []
   }, 
   reducers: {
     fetchStart: (state) => {
@@ -32,7 +32,23 @@ const blogSlice = createSlice({
     postLikeSuccess: (state, {payload}) => {
       state.loading = false;
       state.error = false;
+      state.blogs = state.blogs.map(blog => {
+        const {currentUserId, _id, didUserLike} = payload
+        if (blog._id == _id) {
+          return {
+            ...blog,
+            likes: didUserLike == false ? blog?.likes?.filter(l => l != currentUserId) : [...blog.likes,currentUserId]
+          }
+        } else {
+          return blog
+        }
+      })
     },
+    getCommentsSuccess: (state, {payload}) => {
+      state.loading = false;
+      state.error = false;
+      state.comments = payload
+    }
   },
 });
 
@@ -40,7 +56,8 @@ export const {
   fetchStart,
   fetchFail,
   getBlogsDataSuccess,
- 
+  getCommentsSuccess,
+  postLikeSuccess,
 } = blogSlice.actions;
 
 export default blogSlice.reducer
