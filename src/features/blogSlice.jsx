@@ -44,11 +44,11 @@ const blogSlice = createSlice({
         }
       })
     },
-    getCommentsSuccess: (state, {payload}) => {
-      state.loading = false;
-      state.error = false;
-      state.comments = payload
-    }
+    // getCommentsSuccess: (state, {payload}) => {
+    //   state.loading = false;
+    //   state.error = false;
+    //   state.comments = payload
+    // }
   },
 });
 
@@ -56,7 +56,7 @@ export const {
   fetchStart,
   fetchFail,
   getBlogsDataSuccess,
-  getCommentsSuccess,
+  // getCommentsSuccess,
   postLikeSuccess,
 } = blogSlice.actions;
 

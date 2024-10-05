@@ -21,18 +21,29 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import useBlogCalls from "../hooks/useBlogCalls";
 import CommentCard from "../components/blog/CommentCard";
 import CommentForm from "../components/blog/CommentForm";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const Detail = () => {
   const [blogDetail, setBlogDetail] = useState("");
-  const [open, SetOpen] = useState(false)
-  const toggleComments = () => SetOpen(!open)
+  const [open, SetOpen] = useState(false);
+  const toggleComments = () => SetOpen(!open);
 
   // console.log(open);
-  
 
   const { _id } = useParams();
 
-  const {comments, content, countOfVisitors, createdAt, image, isPublish, likes, title, userId} = blogDetail;
+  const {
+    comments,
+    content,
+    countOfVisitors,
+    createdAt,
+    image,
+    isPublish,
+    likes,
+    title,
+    userId,
+  } = blogDetail;
 
   const dispatch = useDispatch();
 
@@ -60,14 +71,14 @@ const Detail = () => {
     <Container
       maxWidth={"lg"}
       sx={{ display: "flex", flexDirection: "column", m: 4 }}
-    >      
+    >
       <CardMedia
         sx={{ height: 140, width: 140 }}
         image={image}
         title={title}
         component="img"
       />
-          
+
       {/* User info */}
       <CardContent
         sx={{
@@ -81,7 +92,7 @@ const Detail = () => {
         </div>
         <div>
           <Typography gutterBottom variant="body2" component="div">
-            {userId?.username} 
+            {userId?.username}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary", mt: 1 }}>
             {new Date(createdAt).toLocaleString("tr-TR", {
@@ -111,27 +122,33 @@ const Detail = () => {
           {content}
         </Typography>
       </CardContent>
-      <Box>
-        <Button size="small">
-          <FavoriteIcon onClick={() => postLike(_id)} />
-          <span>{likes?.length}</span>
-        </Button>
-        <Button 
-          size="small"
-          onClick={toggleComments}
-        >
-          <CommentIcon />
-          <span>{comments?.length}</span>
-        </Button>
-        <Button size="small">
-          <VisibilityIcon />
-          <span>{countOfVisitors}</span>
-        </Button>
+      <Box
+        sx={{display:"flex", justifyContent:"space-around"}}
+      >
+        <Box>
+          <Button size="small">
+            <FavoriteIcon onClick={() => postLike(_id)} />
+            <span>{likes?.length}</span>
+          </Button>
+          <Button size="small" onClick={toggleComments}>
+            <CommentIcon />
+            <span>{comments?.length}</span>
+          </Button>
+          <Button size="small">
+            <VisibilityIcon />
+            <span>{countOfVisitors}</span>
+          </Button>
+        </Box>
+        <Box>
+          <Button size="small">
+            <EditIcon  />
+          </Button>
+          <Button size="small">
+            <DeleteOutlineIcon />
+          </Button>
+        </Box>
       </Box>
-      <Box>
-        {open && <CommentForm open={open}/> }
-        
-      </Box>
+      <Box>{open && <CommentForm open={open} comments={comments} />}</Box>
     </Container>
   );
 };

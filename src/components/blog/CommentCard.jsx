@@ -1,7 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
-import useBlogCalls from "../../hooks/useBlogCalls";
-import { useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import useBlogCalls from "../../hooks/useBlogCalls";
+// import { useSelector } from "react-redux";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
@@ -9,17 +9,20 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { Box, Button } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-const CommentCard = () => {
-  const { comments } = useSelector((state) => state.blog);
+const CommentCard = ({comments}) => {
+  // const { comments } = useSelector((state) => state.blog);
 
-  const { getComments } = useBlogCalls();
+  // const { getComments } = useBlogCalls();
 
-  useEffect(() => {
-    getComments();
-  }, []);
+  // useEffect(() => {
+  //   getComments();
+  // }, []);
 
-  console.log("comments:", comments);
+  // console.log("comments:", comments);
 
   return (
     <List sx={{ width: "100%",  bgcolor: "background.paper" }}>
@@ -52,8 +55,19 @@ const CommentCard = () => {
             }
           />
           <br />
-          <Divider variant="inset" component="li" />
+          <Divider/>
+          <Box
+            sx={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}
+          >
+            <Button size="small">
+              <EditIcon  />
+            </Button>
+            <Button size="small">
+              <DeleteOutlineIcon />
+            </Button>
+          </Box>
         </ListItem>
+        
       )})}
       
     </List>

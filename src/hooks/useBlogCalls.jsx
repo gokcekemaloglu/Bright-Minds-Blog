@@ -1,8 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { fetchFail, fetchStart, getBlogsDataSuccess, getCommentsSuccess, postLikeSuccess } from '../features/blogSlice'
+import { fetchFail, fetchStart, getBlogsDataSuccess, postLikeSuccess } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const useBlogCalls = () => {
@@ -71,22 +70,24 @@ const useBlogCalls = () => {
 
   
 
-  const getComments = async () => {
-    dispatch(fetchStart())
-    try {
-      const {data} = await axiosWithToken.get("comments/")
-      dispatch(getCommentsSuccess(data.data))
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-      dispatch(fetchFail())      
-    } 
-  }
+  // const getComments = async () => {
+  //   dispatch(fetchStart())
+  //   try {
+  //     const {data} = await axiosWithToken.get("comments/")
+  //     dispatch(getCommentsSuccess(data.data))
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     dispatch(fetchFail())      
+  //   } 
+  // }
 
   
   
   
-  return {getBlogsData, postLike, getComments}
+  return {getBlogsData, postLike,
+    //  getComments
+    }
 }
 
 export default useBlogCalls

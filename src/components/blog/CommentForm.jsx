@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Button, Container, FormControl, TextField } from "@mui/material";
 import CommentCard from './CommentCard';
 
-const CommentForm = ({open}) => {
+const CommentForm = ({open, comments}) => {
   return (
     <Container>
       <FormControl fullWidth sx={{ mt: 3 }}>
@@ -19,7 +19,7 @@ const CommentForm = ({open}) => {
         </Button>
       </FormControl>
       <Box>
-        {open && <CommentCard/>}
+        {open && <CommentCard comments={comments}/>}
       </Box>
     </Container>
   )
