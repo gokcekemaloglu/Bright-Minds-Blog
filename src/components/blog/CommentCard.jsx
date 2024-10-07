@@ -13,7 +13,7 @@ import { Box, Button } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-const CommentCard = ({comments}) => {
+const CommentCard = ({comments, open, SetOpen}) => {
   // const { comments } = useSelector((state) => state.blog);
 
   // const { getComments } = useBlogCalls();
@@ -24,8 +24,12 @@ const CommentCard = ({comments}) => {
 
   // console.log("comments:", comments);
 
+  // const [open, setOpen] = useState(false);
+    // const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
   return (
-    <List sx={{ width: "100%",  bgcolor: "background.paper" }}>
+    <List sx={{ width: "100%",  bgcolor: "background.paper", mt: 4}}>
       {comments.map((comment) => {
         const formattedDate = new Date(comment.createdAt).toLocaleDateString("en-GB", {
           weekday: "short",
@@ -62,6 +66,24 @@ const CommentCard = ({comments}) => {
             <Button size="small">
               <EditIcon  />
             </Button>
+            {/* {open && <FirmModal open={open} handleClose={handleClose} initialState={initialState} />} */}
+            {/* <GridActionsCellItem
+            key={"edit"}
+            icon={<EditIcon />}
+            label="Edit"
+            onClick={() => {
+              handleOpen();
+              setInitialState({
+                _id,
+                brandId,
+                productId,
+                quantity,
+                price,
+                firmId,
+              });
+            }}
+            sx={btnStyle}
+          /> */}
             <Button size="small">
               <DeleteOutlineIcon />
             </Button>

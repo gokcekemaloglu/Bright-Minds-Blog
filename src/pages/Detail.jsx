@@ -19,7 +19,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import CommentIcon from "@mui/icons-material/Comment";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import useBlogCalls from "../hooks/useBlogCalls";
-import CommentCard from "../components/blog/CommentCard";
+// import CommentCard from "../components/blog/CommentCard";
 import CommentForm from "../components/blog/CommentForm";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -148,7 +148,7 @@ const Detail = () => {
           </Button>
         </Box>
       </Box>
-      <Box>{open && <CommentForm open={open} comments={comments} />}</Box>
+      <Box>{open && <CommentForm open={open} SetOpen={SetOpen} comments={comments} />}</Box>
     </Container>
   );
 };
