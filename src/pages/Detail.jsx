@@ -23,15 +23,30 @@ import useBlogCalls from "../hooks/useBlogCalls";
 import CommentForm from "../components/blog/CommentForm";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useSelector } from "react-redux";
 
 const Detail = () => {
-  const [blogDetail, setBlogDetail] = useState("");
-  const [open, SetOpen] = useState(false);
-  const toggleComments = () => SetOpen(!open);
+
+  const {getSingleBlog} = useBlogCalls()
+
+  const {blog} = useSelector((state) => state.blog)
+  console.log(blog);
+  
+
+  // const [blogDetail, setBlogDetail] = useState("");
+  const [open, setOpen] = useState(false);
+  const toggleComments = () => setOpen(!open);
 
   // console.log(open);
 
   const { _id } = useParams();
+  // console.log(_id);
+  
+
+  const [initialState, setInitialState] = useState({
+    blogId: "",
+    comment: ""
+  });
 
   const {
     comments,
@@ -43,29 +58,29 @@ const Detail = () => {
     likes,
     title,
     userId,
-  } = blogDetail;
+  } = blog;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const getSingleBlog = async () => {
-    dispatch(fetchStart());
-    try {
-      const { data } = await axiosPublic(`blogs/${_id}`);
-      setBlogDetail(data.data);
+  // const getSingleBlog = async () => {
+  //   dispatch(fetchStart());
+  //   try {
+  //     const { data } = await axiosPublic(`blogs/${_id}`);
+  //     setBlogDetail(data.data);
 
-      // console.log(data.data);
-    } catch (error) {
-      dispatch(fetchFail());
-    }
-  };
+  //     // console.log(data.data);
+  //   } catch (error) {
+  //     dispatch(fetchFail());
+  //   }
+  // };
 
   useEffect(() => {
-    getSingleBlog();
+    getSingleBlog(_id);
   }, []);
 
   const { postLike } = useBlogCalls();
 
-  console.log("comments", comments);
+  // console.log("comments", comments);
 
   return (
     <Container
@@ -148,7 +163,10 @@ const Detail = () => {
           </Button>
         </Box>
       </Box>
-      <Box>{open && <CommentForm open={open} SetOpen={SetOpen} comments={comments} />}</Box>
+      <Box>{open && <CommentForm open={open} setOpen={setOpen} comments={comments} initialState={initialState} setInitialState={setInitialState} _id={_id} 
+      // getSingleBlog={getSingleBlog}  
+
+      />}</Box>
     </Container>
   );
 };
