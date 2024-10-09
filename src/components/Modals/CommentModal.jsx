@@ -47,6 +47,7 @@ const CommentModal = ({ comment, open, handleClose, initialState }) => {
       blogId: "",
       comment: "",
     })
+    
   }
 
   return (

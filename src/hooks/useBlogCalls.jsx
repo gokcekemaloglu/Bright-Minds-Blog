@@ -11,10 +11,10 @@ const useBlogCalls = () => {
   const dispatch = useDispatch()
   const axiosWithToken = useAxios()
 
-  const getBlogsData = async (endpoint) => {
+  const getBlogsData = async (endpoint, options) => {
     dispatch(fetchStart())
     try {
-      const {data} = await axiosPublic(`${endpoint}/`)
+      const {data} = await axiosPublic(`${endpoint}/`, options)
       // console.log(data);
       dispatch(getBlogsDataSuccess({blog:data.data, endpoint}))      
     } catch (error) {
@@ -47,6 +47,7 @@ const useBlogCalls = () => {
     }
   }
 
+  //? veri backend'den geldiği için bu fonksiyonu yoruma alıyoruz.
   // const postLike = async (blogId) => {
   //   try {
   //     const { data } = await axiosWithToken.post(`/blogs/${blogId}/postLike`);
@@ -87,7 +88,7 @@ const useBlogCalls = () => {
     try {
       const { data } = await axiosPublic(`blogs/${id}`);
       dispatch(getSingleBlogSuccess(data.data))
-      // setBlogDetail(data.data);
+      
 
       console.log(data.data);
     } catch (error) {

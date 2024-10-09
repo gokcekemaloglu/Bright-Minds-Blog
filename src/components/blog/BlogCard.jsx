@@ -32,23 +32,6 @@ const BlogCard = ({
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.auth);
 
-  // const dispatch = useDispatch()
-
-  // const getSingleBlog = async () => {
-  //   dispatch(fetchStart())
-  //   try {
-  //     const {data} = await axiosPublic(`blogs/${_id}`)
-  //     console.log(data);
-
-  //   } catch (error) {
-  //     dispatch(fetchFail())
-  //   }
-  // }
-
-  // useEffect(()=>{
-  //   getSingleBlog()
-  // },[])
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -104,8 +87,7 @@ const BlogCard = ({
           <Box>
             <Button
               size="small"
-              onClick={() => {
-                // getSingleBlog(_id)
+              onClick={() => {                
                 navigate("/details/" + _id);
               }}
             >

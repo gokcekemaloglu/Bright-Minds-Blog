@@ -35,6 +35,7 @@ const blogSlice = createSlice({
     //   state.loading = false;
     //   state.error = false;
     // },
+    
     // postLikeSuccess: (state, {payload}) => {
     //   state.loading = false;
     //   state.error = false;
@@ -50,6 +51,7 @@ const blogSlice = createSlice({
     //     }
     //   })
     // },
+
     // getCommentsSuccess: (state, {payload}) => {
     //   state.loading = false;
     //   state.error = false;
