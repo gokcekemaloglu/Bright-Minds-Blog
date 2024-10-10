@@ -27,7 +27,7 @@ const Home = () => {
   }, [page]);
 
   const { blogs } = useSelector((state) => state.blog);
-  // console.log("blog:", blogs);
+  console.log("blog:", blogs);
 
   return (
     <Grid

@@ -69,7 +69,7 @@ const useBlogCalls = () => {
   //     );
   //     return null;
   //   }
-  // };  
+  // };
 
   // const getComments = async () => {
   //   dispatch(fetchStart())
@@ -88,8 +88,6 @@ const useBlogCalls = () => {
     try {
       const { data } = await axiosPublic(`blogs/${id}`);
       dispatch(getSingleBlogSuccess(data.data))
-      
-
       console.log(data.data);
     } catch (error) {
       dispatch(fetchFail());
@@ -126,6 +124,17 @@ const useBlogCalls = () => {
       dispatch(fetchFail())
     }
   } 
+
+  const postBlog = async (blogs, info) => {
+    dispatch(fetchStart())
+    try {
+      await axiosWithToken.post(`${blogs}/`, info)
+    } catch (error) {
+      dispatch(fetchFail())
+    } finally {
+      getBlogsData("blogs")
+    }
+  }
   
   
   return {
@@ -136,6 +145,7 @@ const useBlogCalls = () => {
     //  getComments
     getSingleBlog,
     putComment,
+    postBlog,
     }
 }
 
