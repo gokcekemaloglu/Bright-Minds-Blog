@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { fetchFail, fetchStart, getBlogsDataSuccess, getSingleBlogSuccess, postLikeSuccess } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 const useBlogCalls = () => {
 
@@ -132,7 +133,18 @@ const useBlogCalls = () => {
     } catch (error) {
       dispatch(fetchFail())
     } finally {
-      getBlogsData("blogs")
+      getBlogsData("blogs", { params: { limit: 10, page } })
+    }
+  }
+
+  const deleteBlog = async (id) => {
+    dispatch(fetchStart())
+    try {
+      await axiosWithToken.delete(`blogs/${id}`)
+    } catch (error) {
+      dispatch(fetchFail())
+    } finally {
+      getBlogsData("blogs", { params: { limit: 10, page } })
     }
   }
   
@@ -146,7 +158,8 @@ const useBlogCalls = () => {
     getSingleBlog,
     putComment,
     postBlog,
-    }
+    deleteBlog,
+  }
 }
 
 export default useBlogCalls
