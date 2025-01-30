@@ -37,7 +37,7 @@ const Home = () => {
       sx={{ minHeight: "100vh", py: 5, m: 2 }}
     >
       <Grid container spacing={2} mt={3} sx={{ flex: "1 0 auto" }}>
-        {blogs.map((blog) => (
+        {blogs?.map((blog) => ( 
           <Grid key={blog._id} xs={12} md={6} lg={4} xl={3}>
             <BlogCard
               {...blog}
