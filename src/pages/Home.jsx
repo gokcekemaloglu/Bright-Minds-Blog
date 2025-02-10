@@ -34,11 +34,11 @@ const Home = () => {
       container
       direction="column"
       justifyContent="space-between"
-      sx={{ minHeight: "100vh", py: 5, m: 2 }}
+      sx={{ minHeight: "100vh", py: 5, m: 2, bgcolor: "secondary.main" }}
     >
-      <Grid container spacing={2} mt={3} sx={{ flex: "1 0 auto" }}>
+      <Grid container spacing={2} mt={6} sx={{ flex: "1 0 auto", justifyContent:"center", alignItems: "center" }}>
         {blogs?.map((blog) => ( 
-          <Grid key={blog._id} xs={12} md={6} lg={4} xl={3}>
+          <Grid key={blog._id} xs={12} md={6} lg={4} xl={3} sx={{boxShadow: "0 0 10px gray", borderRadius: "20px"}}>
             <BlogCard
               {...blog}
               postLike={postLike}

@@ -77,16 +77,16 @@ const BlogCard = ({
         }}
       >
         <Box>
-          <Button size="small">
-            <FavoriteIcon onClick={() => postLike(_id)} />
+          <Button size="small" >
+            <FavoriteIcon onClick={() => postLike(_id)} sx={{color: "red"}}/>
             <span>{likes?.length}</span>
           </Button>
           <Button size="small">
-            <CommentIcon />
+            <CommentIcon sx={{color: "navy"}}/>
             <span>{comments.length}</span>
           </Button>
           <Button size="small">
-            <VisibilityIcon />
+            <VisibilityIcon sx={{color: "secondary.second"}}/>
             <span>{countOfVisitors}</span>
           </Button>
         </Box>
