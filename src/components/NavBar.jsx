@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+// import AdbIcon from "@mui/icons-material/Adb";
 
 import useAuthCall from "../hooks/useAuthCall";
 import { useNavigate } from "react-router-dom";
@@ -45,6 +45,8 @@ function NavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+
+          {/* SM Screen Hamburger Menu */}
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           {/* <img src={logoPng} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, height: "20px" }}/> */}
           <Typography
@@ -65,6 +67,7 @@ function NavBar() {
             Bright Minds
           </Typography>
 
+          {/* Hamburger Menu */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -130,6 +133,8 @@ function NavBar() {
               </MenuItem>
             </Menu>
           </Box>
+
+          {/* MD-LG Screen Menu */}
           {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
@@ -215,13 +220,21 @@ function NavBar() {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>MyBlog</Typography>
+                  <Typography
+                    sx={{ textAlign: "center" }}
+                  >
+                    MyBlog
+                  </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>Profile</Typography>
+                  <Typography sx={{ textAlign: "center" }}>
+                    Profile
+                  </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>Account</Typography>
+                  <Typography sx={{ textAlign: "center" }}>
+                    Account
+                  </Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
