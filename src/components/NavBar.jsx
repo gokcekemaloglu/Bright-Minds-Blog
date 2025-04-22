@@ -24,7 +24,7 @@ function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const { logout, login } = useAuthCall();
+  const {logout} = useAuthCall();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -219,19 +219,28 @@ function NavBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={() => {
+                  navigate("/myblogs")
+                  handleCloseUserMenu()
+                }}>
                   <Typography
                     sx={{ textAlign: "center" }}
                   >
-                    MyBlog
+                    MyBlogs
                   </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={() => {
+                  // navigate("/myprofile")
+                  handleCloseUserMenu()
+                }}>
                   <Typography sx={{ textAlign: "center" }}>
                     Profile
                   </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={() => {
+                  navigate("/account")
+                  handleCloseUserMenu()
+                }}>
                   <Typography sx={{ textAlign: "center" }}>
                     Account
                   </Typography>
@@ -264,7 +273,6 @@ function NavBar() {
               >
                 <MenuItem
                   onClick={() => {
-                    // login();
                     navigate("/login");
                     handleCloseUserMenu();
                   }}
