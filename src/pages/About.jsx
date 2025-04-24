@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -26,7 +25,7 @@ export default function About() {
       <Card sx={{ width: 600, pt:3, mt:3 }}>
         <CardMedia
           sx={{ p: 1, objectFit: "contain", height: "250px" }}
-        component="img"
+          component="img"
           image={logoPng}
           title="Gokce Kemaloglu"
         />
@@ -66,6 +65,7 @@ export default function About() {
             size="small"
             href="https://www.linkedin.com/in/gokcekemaloglu/"
             target="_blank"
+            title="LinkedIn"
           >
             <LinkedInIcon fontSize="large"/>
           </Button>
@@ -74,6 +74,7 @@ export default function About() {
             size="small"
             href="https://github.com/gokcekemaloglu"
             target="_blank"
+            title="GitHub"
           >
             <GitHubIcon  fontSize="large"/>
           </Button>
@@ -82,6 +83,7 @@ export default function About() {
             size="small"
             href="https://www.instagram.com/gokce_kemaloglu/"
             target="_blank"
+            title="Instagram"
           >
             <InstagramIcon fontSize="large"/>
           </Button>
