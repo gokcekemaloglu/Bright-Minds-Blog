@@ -1,11 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
-import useBlogCalls from "../hooks/useBlogCalls";
-import Grid from "@mui/material/Grid2";
 import { useSelector } from "react-redux";
-import BlogCard from "../components/blog/BlogCard";
 import { useState } from "react";
 import { Pagination, Stack } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import useBlogCalls from "../hooks/useBlogCalls";
+import BlogCard from "../components/blog/BlogCard";
 
 const Home = () => {
   const { getBlogsData, postLike } = useBlogCalls();

@@ -30,9 +30,12 @@ const CommentCard = ({ comments }) => {
     setSelectedComment(null);
   };
 
+  console.log(comments);
+  
+
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper", mt: 4 }}>
-      {comments.map((comment) => {
+      {comments.map((comment, index) => {
         const formattedDate = new Date(comment.createdAt).toLocaleDateString(
           "en-GB",
           {
@@ -43,7 +46,7 @@ const CommentCard = ({ comments }) => {
           }
         );
         return (
-          <ListItem key={comment._id} alignItems="flex-start">
+          <ListItem key={index} alignItems="flex-start">
             <ListItemAvatar>
               <Avatar alt={comment?.userId?.username} src="/static/images/avatar/1.jpg" />
               <Typography>{comment?.userId?.username}</Typography>

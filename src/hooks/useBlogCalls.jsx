@@ -1,13 +1,12 @@
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchFail, fetchStart, getBlogsDataSuccess, getSingleBlogSuccess, postLikeSuccess } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
-import { useSelector } from 'react-redux'
-import axios from 'axios'
+// import { useSelector } from 'react-redux'
+// import axios from 'axios'
 
 const useBlogCalls = () => {
 
-  const {currentUserId} = useSelector(state=>state.auth)
+  // const {currentUserId} = useSelector(state=>state.auth)
 
   const dispatch = useDispatch()
   const axiosWithToken = useAxios()

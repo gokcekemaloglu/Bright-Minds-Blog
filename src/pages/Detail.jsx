@@ -20,11 +20,11 @@ import CommentIcon from "@mui/icons-material/Comment";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import useBlogCalls from "../hooks/useBlogCalls";
 // import CommentCard from "../components/blog/CommentCard";
-import CommentForm from "../components/blog/CommentForm";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import CommentForm from "../components/blog/CommentForm";
 
 const Detail = () => {
 
@@ -33,7 +33,7 @@ const Detail = () => {
   const {getSingleBlog, deleteBlog} = useBlogCalls()
 
   const {blog} = useSelector((state) => state.blog)
-  console.log(blog);
+  // console.log(blog);
   
 
   // const [blogDetail, setBlogDetail] = useState("");
@@ -83,7 +83,7 @@ const Detail = () => {
 
   const { postLike } = useBlogCalls();
 
-  // console.log("comments", comments);
+  console.log("comments", comments);
 
   return (
     <Container
