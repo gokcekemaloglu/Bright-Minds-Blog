@@ -11,9 +11,7 @@ const useCommentCall = () => {
     const getSingleBlogComments = async (blogId) => {
         dispatch(fetchStart());
         try {
-          const { data } = await axiosWithToken.get(
-            `comments/blog/${blogId}`
-          );
+          const { data } = await axiosWithToken.get(`comments/blog/${blogId}`);
           dispatch(getSingleBlogCommentsSuccess(data.data));
         } catch (error) {
           dispatch(fetchFail());
