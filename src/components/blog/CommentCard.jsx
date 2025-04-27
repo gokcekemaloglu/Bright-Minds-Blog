@@ -16,8 +16,8 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const CommentCard = ({ blogId }) => {
-  const { deleteComment } = useBlogCalls();
-  const {getSingleBlogComments} = useCommentCall()
+  // const {  } = useBlogCalls();
+  const {getSingleBlogComments, deleteComment} = useCommentCall()
   const {singleBlogComments, loading, error} = useSelector((state) => state.comments)
   console.log(singleBlogComments);
   
@@ -98,7 +98,7 @@ const CommentCard = ({ blogId }) => {
               )}
 
               {/* Delete Butonu */}
-              <Button size="small" onClick={() => deleteComment(comment._id)}>
+              <Button size="small" onClick={() => deleteComment(comment._id, comment.blogId)}>
                 <DeleteOutlineIcon />
               </Button>
             </Box>

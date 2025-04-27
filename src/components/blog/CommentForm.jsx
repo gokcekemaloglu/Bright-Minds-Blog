@@ -13,7 +13,7 @@ const CommentForm = ({
   setInitialState,
   _id,
 }) => {
-  const { postComment } = useBlogCalls();
+  const { postComment } = useCommentCall();
   const [info, setInfo] = useState(initialState);
   // const [lastComments,setLastComments] = useState([])
   
