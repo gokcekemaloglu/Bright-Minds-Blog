@@ -45,8 +45,13 @@ const useCommentCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.put(`comments/${id}`, info);
+      toastSuccessNotify("Successfully updated your comment")
     } catch (error) {
       dispatch(fetchFail());
+      toastErrorNotify(
+        error.response.data.message ||
+          "Something went wrong while updating the comment of the blog"
+      );
     } finally {
       getSingleBlogComments(info.blogId);
     }
@@ -56,8 +61,13 @@ const useCommentCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.delete(`comments/${_id}`);
+      toastSuccessNotify("Successfully deleted your comment")
     } catch (error) {
       dispatch(fetchFail());
+      toastErrorNotify(
+        error.response.data.message ||
+          "Something went wrong while deleting the comment of the blog"
+      );
     } finally {
       getSingleBlogComments(blogId);
     }
