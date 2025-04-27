@@ -5,7 +5,7 @@ import {
 } from "../features/commentSlice";
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
-import { toastErrorNotify } from "../helper/ToastNotify";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useCommentCall = () => {
   const dispatch = useDispatch();
@@ -29,8 +29,13 @@ const useCommentCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.post(`${comments}/`, info);
+      toastSuccessNotify("Successfully posted your comment")
     } catch (error) {
       dispatch(fetchFail());
+      toastErrorNotify(
+        error.response.data.message ||
+          "Something went wrong while posting comment of the blog"
+      );
     } finally {
       getSingleBlogComments(info.blogId);
     }

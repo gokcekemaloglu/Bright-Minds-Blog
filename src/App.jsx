@@ -5,6 +5,7 @@ import store, { persistor } from './app/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import theme from './theme'
+import { ToastContainer } from 'react-toastify'
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <AppRouter />
+            <ToastContainer/>
           </PersistGate>
         </Provider>
       </ThemeProvider>
