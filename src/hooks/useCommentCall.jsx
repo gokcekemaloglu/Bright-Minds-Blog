@@ -36,6 +36,17 @@ const useCommentCall = () => {
     }
   };
 
+  const putComment = async (id, info) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.put(`comments/${id}`, info);
+    } catch (error) {
+      dispatch(fetchFail());
+    } finally {
+      getSingleBlogComments(info.blogId);
+    }
+  };
+
   const deleteComment = async (_id, blogId) => {
     dispatch(fetchStart());
     try {
@@ -50,7 +61,8 @@ const useCommentCall = () => {
   return {
     getSingleBlogComments,
     postComment,
-    deleteComment
+    putComment,
+    deleteComment,
   };
 };
 

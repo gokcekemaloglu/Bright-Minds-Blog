@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { FormControl, TextField } from "@mui/material";
 import useBlogCalls from "../../hooks/useBlogCalls";
+import useCommentCall from "../../hooks/useCommentCall";
 
 const style = {
   position: "absolute",
@@ -21,7 +22,7 @@ const style = {
 const CommentModal = ({ comment, open, handleClose, initialState }) => {
 
   console.log(comment);
-  const {putComment} = useBlogCalls()
+  const {putComment} = useCommentCall()
 
   const [info, setInfo] = useState({
     blogId: comment.blogId,

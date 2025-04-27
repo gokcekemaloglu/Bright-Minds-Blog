@@ -94,26 +94,6 @@ const useBlogCalls = () => {
     }
   };
 
-  const putComment = async (id, info) => {
-    dispatch(fetchStart())
-    try {
-      await axiosWithToken.put(`comments/${id}`, info)
-    } catch (error) {
-      dispatch(fetchFail())
-    } finally {
-      getSingleBlog(info.blogId)
-    }
-  }
-
-  // const deleteComment = async (_id) => {
-  //   dispatch(fetchStart())    
-  //     try {        
-  //       await axiosWithToken.delete(`comments/${_id}`)
-  //   } catch (error) {
-  //     dispatch(fetchFail())
-  //   }
-  // } 
-
   const postBlog = async (blogs, info) => {
     dispatch(fetchStart())
     try {
@@ -140,10 +120,7 @@ const useBlogCalls = () => {
   return {
     getBlogsData, 
     postLike, 
-    // deleteComment,
-    //  getComments
     getSingleBlog,
-    putComment,
     postBlog,
     deleteBlog,
   }
