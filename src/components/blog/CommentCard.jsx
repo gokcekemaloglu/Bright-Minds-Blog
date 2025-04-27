@@ -11,11 +11,22 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import useBlogCalls from "../../hooks/useBlogCalls";
 import CommentModal from "../Modals/CommentModal";
+import useCommentCall from "../../hooks/useCommentCall";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const CommentCard = ({ comments }) => {
+const CommentCard = ({ blogId }) => {
   const { deleteComment } = useBlogCalls();
+  const {getSingleBlogComments} = useCommentCall()
+  const {singleBlogComments, loading, error} = useSelector((state) => state.comments)
+  console.log(singleBlogComments);
+  
 
-  const [open, setOpen] = useState(false); // Modal açık mı kontrolü
+  useEffect(() => {
+    getSingleBlogComments(blogId);
+  }, [blogId]);
+
+  const [open, setOpen] = useState(false); // Modal control
   const [selectedComment, setSelectedComment] = useState(null); // Seçilen yorumu tutar
 
   // Modal'ı açarken tıklanan yorumu seçer ve state'e ekler
@@ -24,18 +35,18 @@ const CommentCard = ({ comments }) => {
     setOpen(true);
   };
 
-  // Modal'ı kapatır ve seçilen yorumu sıfırlar
+  // Close Modal
   const handleClose = () => {
     setOpen(false);
     setSelectedComment(null);
   };
 
-  console.log(comments);
+  // console.log(comments);
   
 
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper", mt: 4 }}>
-      {comments.map((comment, index) => {
+      {singleBlogComments.map((comment, index) => {
         const formattedDate = new Date(comment.createdAt).toLocaleDateString(
           "en-GB",
           {

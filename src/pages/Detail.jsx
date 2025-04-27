@@ -33,8 +33,7 @@ const Detail = () => {
   const {getSingleBlog, deleteBlog} = useBlogCalls()
 
   const {blog} = useSelector((state) => state.blog)
-  // console.log(blog);
-  
+  // console.log(blog);  
 
   // const [blogDetail, setBlogDetail] = useState("");
   const [open, setOpen] = useState(false);
@@ -43,7 +42,7 @@ const Detail = () => {
   // console.log(open);
 
   const { _id } = useParams();
-  // console.log(_id);
+  console.log(_id);
   
 
   const [initialState, setInitialState] = useState({
@@ -83,7 +82,7 @@ const Detail = () => {
 
   const { postLike } = useBlogCalls();
 
-  console.log("comments", comments);
+  // console.log("comments", comments);
 
   return (
     <Container
@@ -169,7 +168,7 @@ const Detail = () => {
           </Button>
         </Box>
       </Box>
-      <Box>{open && <CommentForm open={open} setOpen={setOpen} comments={comments} initialState={initialState} setInitialState={setInitialState} _id={_id} 
+      <Box>{open && <CommentForm open={open} setOpen={setOpen} initialState={initialState} setInitialState={setInitialState} _id={_id} 
       // getSingleBlog={getSingleBlog}  
 
       />}</Box>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { fetchFail, fetchStart, getSingleBlogCommentsSuccess } from '../features/commentSlice';
 import { useDispatch } from 'react-redux';
 import useAxios from './useAxios';

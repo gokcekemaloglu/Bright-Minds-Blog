@@ -1,31 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Container, FormControl, TextField } from "@mui/material";
 import CommentCard from "./CommentCard";
 import { useState } from "react";
 import useBlogCalls from "../../hooks/useBlogCalls";
+import useCommentCall from "../../hooks/useCommentCall"
+import { useSelector } from "react-redux";
 
 const CommentForm = ({
   open,
-  comments,
   setOpen,
   initialState,
   setInitialState,
   _id,
-  getSingleBlog,
 }) => {
+  const { postComment } = useBlogCalls();
   const [info, setInfo] = useState(initialState);
   // const [lastComments,setLastComments] = useState([])
-
+  
   // console.log(info);
-  console.log(comments);
-
-  const { postComment } = useBlogCalls();
+  // console.log(comments);
+  
   // console.log(open);
+  
 
   const handleChange = (e) => {
     // console.log(e.target);
-    console.log(e.target.value);
-
+    // console.log(e.target.value);
     setInfo({ ...info, blogId: _id, [e.target.name]: e.target.value });
     // console.log(info);
   };
@@ -63,7 +63,7 @@ const CommentForm = ({
       <Box>
         {open && (
           <CommentCard
-            comments={comments}
+            blogId={_id}
             open={open}
             setOpen={setOpen}
             initialState={initialState}

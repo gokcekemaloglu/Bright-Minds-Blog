@@ -25,7 +25,7 @@ const store = configureStore({
     // auth: authReducer,
     auth: persistedReducer,
     blog: blogReducer,
-    comment: commentReducer,
+    comments: commentReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
