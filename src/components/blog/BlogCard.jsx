@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Box, Divider } from "@mui/material";
+import { Box, CircularProgress, Divider } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -30,7 +30,15 @@ const BlogCard = ({
   postLike,
 }) => {
   const navigate = useNavigate();
-  const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser, loading } = useSelector((state) => state.auth);
+
+  if (loading) {
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center" minHeight="100vh">
+        <CircularProgress color="primary" />
+      </Box>
+    )
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>

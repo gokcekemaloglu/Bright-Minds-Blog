@@ -9,14 +9,12 @@ import Typography from "@mui/material/Typography";
 import { Box, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import useBlogCalls from "../../hooks/useBlogCalls";
 import CommentModal from "../Modals/CommentModal";
 import useCommentCall from "../../hooks/useCommentCall";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const CommentCard = ({ blogId }) => {
-  // const {  } = useBlogCalls();
   const {getSingleBlogComments, deleteComment} = useCommentCall()
   const {singleBlogComments, loading, error} = useSelector((state) => state.comments)
   console.log(singleBlogComments);
@@ -83,7 +81,7 @@ const CommentCard = ({ blogId }) => {
                 justifyContent: "space-between",
               }}
             >
-              {/* Edit Butonu */}
+              {/* Edit Button */}
               <Button size="small" onClick={() => handleOpen(comment)}>
                 <EditIcon />
               </Button>
@@ -97,7 +95,7 @@ const CommentCard = ({ blogId }) => {
                 />
               )}
 
-              {/* Delete Butonu */}
+              {/* Delete Button */}
               <Button size="small" onClick={() => deleteComment(comment._id, comment.blogId)}>
                 <DeleteOutlineIcon />
               </Button>

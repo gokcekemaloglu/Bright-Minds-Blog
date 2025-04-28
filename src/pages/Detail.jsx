@@ -3,6 +3,7 @@ import {
   Button,
   CardContent,
   CardMedia,
+  CircularProgress,
   Container,
   Divider,
   Typography,
@@ -32,7 +33,7 @@ const Detail = () => {
 
   const {getSingleBlog, deleteBlog} = useBlogCalls()
 
-  const {blog} = useSelector((state) => state.blog)
+  const {blog, loading} = useSelector((state) => state.blog)
   // console.log(blog);  
 
   // const [blogDetail, setBlogDetail] = useState("");
@@ -83,6 +84,14 @@ const Detail = () => {
   const { postLike } = useBlogCalls();
 
   // console.log("comments", comments);
+
+  if (loading) {
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center" minHeight="100vh">
+        <CircularProgress color="primary" />
+      </Box>
+    )
+  }
 
   return (
     <Container
