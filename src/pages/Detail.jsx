@@ -32,7 +32,7 @@ const Detail = () => {
 
   const navigate = useNavigate()
 
-  const {getSingleBlog, deleteBlog, postLike} = useBlogCalls()
+  const {getSingleBlog, deleteBlog, postLikeBlog} = useBlogCalls()
 
   const {blog, loading} = useSelector((state) => state.blog)
   // console.log(blog);  
@@ -139,7 +139,7 @@ const Detail = () => {
         sx={{display:"flex", justifyContent:"space-around"}}
       >
         <Box>
-          <Button size="small" onClick={() => postLike(_id)} >
+          <Button size="small" onClick={() => postLikeBlog(_id)} >
             {likedBlog() ? (
               <FavoriteIcon sx={{color: "red"}}/>
             ) : (

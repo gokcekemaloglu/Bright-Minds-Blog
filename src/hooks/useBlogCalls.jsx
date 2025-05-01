@@ -35,7 +35,7 @@ const useBlogCalls = () => {
   //   }
   // }
 
-  const postLike = async (blogId, blogInfo) => {
+  const postLikeBlog = async (blogId, blogInfo) => {
     dispatch(fetchStart())
     try {
       await axiosWithToken.post(`blogs/${blogId}/postLike`,blogInfo)
@@ -122,7 +122,7 @@ const useBlogCalls = () => {
   
   return {
     getBlogsData, 
-    postLike, 
+    postLikeBlog, 
     getSingleBlog,
     postBlog,
     deleteBlog,
