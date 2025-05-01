@@ -107,7 +107,7 @@ const CommentCard = ({ blogId }) => {
                 {/* Like Button */}
                 <Button 
                   size="small" 
-                  // onClick={() => postLikeComment(_id)} 
+                  onClick={() => postLikeComment(comment?._id, comment)} 
                 >
                   {likedComment(comment) ? (
                     <FavoriteIcon sx={{color: "red"}}/>
@@ -148,7 +148,7 @@ const CommentCard = ({ blogId }) => {
                 {/* Like Button */}
                 <Button 
                   size="small" 
-                  // onClick={() => postLikeComment(_id)} 
+                  onClick={() => postLikeComment(comment?._id, comment)} 
                 >
                   {likedComment(comment) ? (
                     <FavoriteIcon sx={{color: "red"}}/>

@@ -2,6 +2,7 @@ import {
   fetchFail,
   fetchStart,
   getSingleBlogCommentsSuccess,
+  getSingleCommentSuccess,
 } from "../features/commentSlice";
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
@@ -13,6 +14,21 @@ const useCommentCall = () => {
   const axiosWithToken = useAxios();
 
   const { getSingleBlog } = useBlogCalls();
+
+  const getSingleComment = async (id) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken(`comments/${id}`);
+      dispatch(getSingleCommentSuccess(data.data))
+      console.log(data.data);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(
+        error.response.data.message ||
+          "Something went wrong while fetching comments of the blog"
+      );
+    }
+  };
 
   const getSingleBlogComments = async (blogId) => {
     dispatch(fetchStart());
@@ -85,10 +101,11 @@ const useCommentCall = () => {
       console.log(error);
       dispatch(fetchFail());
       toastErrorNotify(
-        error.response.data.message ||"Something went wrong while liking the comment"
+        error.response.data.message ||
+          "Something went wrong while liking the comment"
       );
     } finally {
-      getSingleBlogComments(commentInfo.blogId);
+      getSingleBlogComments(commentInfo?.blogId);
     }
   };
 
@@ -98,6 +115,7 @@ const useCommentCall = () => {
     putComment,
     deleteComment,
     postLikeComment,
+    getSingleComment
   };
 };
 
