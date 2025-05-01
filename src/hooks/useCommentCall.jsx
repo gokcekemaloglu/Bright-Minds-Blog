@@ -12,7 +12,7 @@ const useCommentCall = () => {
   const dispatch = useDispatch();
   const axiosWithToken = useAxios();
 
-  const {getSingleBlog} = useBlogCalls()
+  const { getSingleBlog } = useBlogCalls();
 
   const getSingleBlogComments = async (blogId) => {
     dispatch(fetchStart());
@@ -32,7 +32,7 @@ const useCommentCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.post(`${comments}/`, info);
-      toastSuccessNotify("Successfully posted your comment")
+      toastSuccessNotify("Successfully posted your comment");
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(
@@ -41,7 +41,7 @@ const useCommentCall = () => {
       );
     } finally {
       getSingleBlogComments(info.blogId);
-      getSingleBlog(info.blogId)
+      getSingleBlog(info.blogId);
     }
   };
 
@@ -49,7 +49,7 @@ const useCommentCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.put(`comments/${id}`, info);
-      toastSuccessNotify("Successfully updated your comment")
+      toastSuccessNotify("Successfully updated your comment");
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(
@@ -65,7 +65,7 @@ const useCommentCall = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.delete(`comments/${_id}`);
-      toastSuccessNotify("Successfully deleted your comment")
+      toastSuccessNotify("Successfully deleted your comment");
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify(
@@ -77,11 +77,27 @@ const useCommentCall = () => {
     }
   };
 
+  const postLikeComment = async (commentId, commentInfo) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.post(`comments/${commentId}/postLike`, commentInfo);
+    } catch (error) {
+      console.log(error);
+      dispatch(fetchFail());
+      toastErrorNotify(
+        error.response.data.message ||"Something went wrong while liking the comment"
+      );
+    } finally {
+      getSingleBlogComments(commentInfo.blogId);
+    }
+  };
+
   return {
     getSingleBlogComments,
     postComment,
     putComment,
     deleteComment,
+    postLikeComment,
   };
 };
 

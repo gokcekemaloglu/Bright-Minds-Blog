@@ -38,7 +38,7 @@ const Detail = () => {
   // console.log(blog);  
 
   const {currentUserId} = useSelector(state => state.auth)
-  console.log("currentUserId", currentUserId);
+  // console.log("currentUserId", currentUserId);
   
 
   const [open, setOpen] = useState(false);
@@ -47,7 +47,7 @@ const Detail = () => {
   // console.log(open);
 
   const { _id } = useParams();
-  console.log(_id);
+  // console.log(_id);
   
 
   const [initialState, setInitialState] = useState({
@@ -57,7 +57,7 @@ const Detail = () => {
 
   const {comments, content, countOfVisitors, createdAt, image, isPublish, likes, title, userId} = blog;
 
-  console.log(likes);
+  // console.log(likes);
   
 
   useEffect(() => {
@@ -69,8 +69,7 @@ const Detail = () => {
     return likes.some((like) => like === currentUserId)
   }
 
-  console.log(likedBlog());
-  
+  // console.log(likedBlog());  
 
   if (loading) {
     return (
