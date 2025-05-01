@@ -43,7 +43,7 @@ const useBlogCalls = () => {
       console.log(error);
       dispatch(fetchFail())      
     } finally {
-      getBlogsData("blogs")
+      getSingleBlog(blogId)
     }
   }
 

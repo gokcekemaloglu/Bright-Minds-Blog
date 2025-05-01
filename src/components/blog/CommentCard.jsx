@@ -6,7 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CommentModal from "../Modals/CommentModal";
@@ -40,6 +40,13 @@ const CommentCard = ({ blogId }) => {
   };
 
   // console.log(comments);
+  if (loading) {
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center" minHeight="100vh">
+        <CircularProgress color="primary" />
+      </Box>
+    )
+  }
   
 
   return (
@@ -83,7 +90,7 @@ const CommentCard = ({ blogId }) => {
             >
               {/* Edit Button */}
               <Button size="small" onClick={() => handleOpen(comment)}>
-                <EditIcon />
+                <EditIcon sx={{color: "blue"}}/>
               </Button>
 
               {/* CommentModal */}
@@ -97,7 +104,7 @@ const CommentCard = ({ blogId }) => {
 
               {/* Delete Button */}
               <Button size="small" onClick={() => deleteComment(comment._id, comment.blogId)}>
-                <DeleteOutlineIcon />
+                <DeleteOutlineIcon sx={{color: "red"}}/>
               </Button>
             </Box>
           </ListItem>

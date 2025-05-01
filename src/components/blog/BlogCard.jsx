@@ -27,7 +27,6 @@ const BlogCard = ({
   countOfVisitors,
   isPublish,
   likes,
-  postLike,
 }) => {
   const navigate = useNavigate();
   const { currentUser, loading } = useSelector((state) => state.auth);
@@ -85,17 +84,17 @@ const BlogCard = ({
         }}
       >
         <Box>
-          <Button size="small" >
-            <FavoriteIcon onClick={() => postLike(_id)} sx={{color: "red"}}/>
-            <span>{likes?.length}</span>
+          <Button size="small" disabled>
+            <FavoriteIcon sx={{color: "red"}}/>
+            <span><strong>{likes?.length}</strong></span>
           </Button>
-          <Button size="small">
+          <Button size="small" disabled>
             <CommentIcon sx={{color: "navy"}}/>
-            <span>{comments.length}</span>
+            <span><strong>{comments.length}</strong></span>
           </Button>
-          <Button size="small">
+          <Button size="small" disabled>
             <VisibilityIcon sx={{color: "secondary.second"}}/>
-            <span>{countOfVisitors}</span>
+            <span><strong>{countOfVisitors}</strong></span>
           </Button>
         </Box>
         {currentUser ? (

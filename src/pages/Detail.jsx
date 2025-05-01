@@ -153,27 +153,27 @@ const Detail = () => {
       >
         <Box>
           <Button size="small">
-            <FavoriteIcon onClick={() => postLike(_id)} />
+            <FavoriteIcon onClick={() => postLike(_id)} sx={{color: "red"}}/>
             <span>{likes?.length}</span>
           </Button>
           <Button size="small" onClick={toggleComments}>
-            <CommentIcon />
+            <CommentIcon sx={{color: "navy"}} />
             <span>{comments?.length}</span>
           </Button>
           <Button size="small">
-            <VisibilityIcon />
+            <VisibilityIcon sx={{color: "secondary.second"}} />
             <span>{countOfVisitors}</span>
           </Button>
         </Box>
         <Box>
           <Button size="small">
-            <EditIcon  />
+            <EditIcon sx={{color: "blue"}} />
           </Button>
           <Button size="small" onClick={()=>{
             deleteBlog(_id)
             navigate("/")
           } }>
-            <DeleteOutlineIcon />
+            <DeleteOutlineIcon sx={{color: "red"}} />
           </Button>
         </Box>
       </Box>

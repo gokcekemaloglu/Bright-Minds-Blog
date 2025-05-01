@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
@@ -8,7 +7,7 @@ import useBlogCalls from "../hooks/useBlogCalls";
 import BlogCard from "../components/blog/BlogCard";
 
 const Home = () => {
-  const { getBlogsData, postLike } = useBlogCalls();
+  const { getBlogsData } = useBlogCalls();
 
   const [initialState, setInitialState] = useState({
     error: false,
@@ -41,7 +40,6 @@ const Home = () => {
           <Grid key={blog._id} xs={12} md={6} lg={4} xl={3} sx={{boxShadow: "0 0 10px gray", borderRadius: "20px"}}>
             <BlogCard
               {...blog}
-              postLike={postLike}
               initialState={initialState}
               setInitialState={setInitialState}
             />
