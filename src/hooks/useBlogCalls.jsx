@@ -91,7 +91,7 @@ const useBlogCalls = () => {
     try {
       const { data } = await axiosPublic(`blogs/${id}`);
       dispatch(getSingleBlogSuccess(data.data))
-      console.log(data.data);
+      // console.log(data.data);
     } catch (error) {
       dispatch(fetchFail());
     }

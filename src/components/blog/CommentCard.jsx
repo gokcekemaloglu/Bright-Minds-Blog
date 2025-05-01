@@ -19,9 +19,9 @@ import { useEffect } from "react";
 const CommentCard = ({ blogId }) => {
   const {getSingleBlogComments, deleteComment, postLikeComment} = useCommentCall()
   const {singleBlogComments, loading, error} = useSelector((state) => state.comments)
-  console.log(singleBlogComments);
+  // console.log("singleBlogComments", singleBlogComments);
   const {currentUserId} = useSelector(state => state.auth)
-  console.log("currentUserId", currentUserId);
+  // console.log("currentUserId", currentUserId);
   
 
   useEffect(() => {
@@ -108,6 +108,9 @@ const CommentCard = ({ blogId }) => {
                 <Button 
                   size="small" 
                   onClick={() => postLikeComment(comment?._id, comment)} 
+                  sx={{
+                    gap: "3px"
+                  }}
                 >
                   {likedComment(comment) ? (
                     <FavoriteIcon sx={{color: "red"}}/>
@@ -149,6 +152,9 @@ const CommentCard = ({ blogId }) => {
                 <Button 
                   size="small" 
                   onClick={() => postLikeComment(comment?._id, comment)} 
+                  sx={{
+                    gap: "3px"
+                  }}
                 >
                   {likedComment(comment) ? (
                     <FavoriteIcon sx={{color: "red"}}/>
