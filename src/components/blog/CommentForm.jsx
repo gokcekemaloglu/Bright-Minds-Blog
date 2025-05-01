@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
 import { Box, Button, Container, FormControl, TextField } from "@mui/material";
 import CommentCard from "./CommentCard";
 import { useState } from "react";
-import useBlogCalls from "../../hooks/useBlogCalls";
 import useCommentCall from "../../hooks/useCommentCall"
-import { useSelector } from "react-redux";
 
 const CommentForm = ({
   open,

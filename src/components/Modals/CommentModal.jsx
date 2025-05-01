@@ -64,16 +64,17 @@ const CommentModal = ({ comment, open, handleClose, initialState }) => {
         // Allow scrolling of the background content
         disableScrollLock={true}
         // Customize backdrop to be semi-transparent
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          sx: {
-            backgroundColor: "rgba(0, 0, 0, 0.1)", // Semi-transparent backdrop
+        slotProps={{
+          backdrop: {
+            sx: {
+              backgroundColor: "rgba(0, 0, 0, 0.1)", // Semi-transparent backdrop
+            },
           },
         }}
         // Animation for sliding up from bottom
         sx={{
           "& .MuiBox-root": {
-            transition: "transform 0.3s ease-out",
+            transition: "transform 3s ease-out",
             transform: open ? "translateY(0)" : "translateY(100%)",
           },
         }}

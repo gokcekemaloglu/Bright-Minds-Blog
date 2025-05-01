@@ -16,67 +16,75 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CommentIcon from "@mui/icons-material/Comment";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import useBlogCalls from "../hooks/useBlogCalls";
 // import CommentCard from "../components/blog/CommentCard";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CommentForm from "../components/blog/CommentForm";
+import UpdateMyBlogModal from "../components/Modals/UpdateMyBlogModal";
 
 const Detail = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const { getSingleBlog, deleteBlog, postLikeBlog } = useBlogCalls();
 
-  const {getSingleBlog, deleteBlog, postLikeBlog} = useBlogCalls()
-
-  const {blog, loading} = useSelector((state) => state.blog)
-  // console.log(blog);  
-
-  const {currentUserId} = useSelector(state => state.auth)
-  // console.log("currentUserId", currentUserId);
-  
+  const { blog, loading } = useSelector((state) => state.blog);
+  const { currentUserId } = useSelector((state) => state.auth);
 
   const [open, setOpen] = useState(false);
   const toggleComments = () => setOpen(!open);
 
-  // console.log(open);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const handleEditModalOpen = () => setEditModalOpen(true);
+  const handleEditModalClose = () => setEditModalOpen(false);
 
   const { _id } = useParams();
-  // console.log(_id);
-  
 
   const [initialState, setInitialState] = useState({
     blogId: "",
-    comment: ""
+    comment: "",
   });
 
-  const {comments, content, countOfVisitors, createdAt, image, isPublish, likes, title, userId} = blog;
+  const {
+    comments,
+    content,
+    countOfVisitors,
+    createdAt,
+    image,
+    isPublish,
+    likes,
+    title,
+    userId,
+  } = blog;
 
   // console.log(likes);
-  
 
   useEffect(() => {
     getSingleBlog(_id);
   }, []);
 
   const likedBlog = () => {
-    if (!likes || !currentUserId) return false
-    return likes.some((like) => like === currentUserId)
-  }
-
-  // console.log(likedBlog());  
+    if (!likes || !currentUserId) return false;
+    return likes.some((like) => like === currentUserId);
+  };
 
   if (loading) {
     return (
-      <Box display="flex" alignItems="center" justifyContent="center" minHeight="100vh">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="100vh"
+      >
         <CircularProgress color="primary" />
       </Box>
-    )
+    );
   }
 
   return (
@@ -134,44 +142,62 @@ const Detail = () => {
           {content}
         </Typography>
       </CardContent>
-      <Box
-        sx={{display:"flex", justifyContent:"space-around"}}
-      >
+      <Box sx={{ display: "flex", justifyContent: "space-around" }}>
         <Box>
-          <Button size="small" onClick={() => postLikeBlog(_id)} >
+          <Button size="small" onClick={() => postLikeBlog(_id)}>
             {likedBlog() ? (
-              <FavoriteIcon sx={{color: "red"}}/>
+              <FavoriteIcon sx={{ color: "red" }} />
             ) : (
               <FavoriteBorderIcon sx={{ color: "red" }} />
             )}
-            
+
             <span>{likes?.length}</span>
           </Button>
           <Button size="small" onClick={toggleComments}>
-            <CommentIcon sx={{color: "navy"}} />
+            <CommentIcon sx={{ color: "navy" }} />
             <span>{comments?.length}</span>
           </Button>
           <Button size="small">
-            <VisibilityIcon sx={{color: "secondary.second"}} />
+            <VisibilityIcon sx={{ color: "secondary.second" }} />
             <span>{countOfVisitors}</span>
           </Button>
         </Box>
         <Box>
-          <Button size="small">
-            <EditIcon sx={{color: "blue"}} />
+          <Button size="small" onClick={handleEditModalOpen}>
+            <EditIcon sx={{ color: "blue" }} />
           </Button>
-          <Button size="small" onClick={()=>{
-            deleteBlog(_id)
-            navigate("/")
-          } }>
-            <DeleteOutlineIcon sx={{color: "red"}} />
+          <Button
+            size="small"
+            onClick={() => {
+              deleteBlog(_id);
+              navigate("/");
+            }}
+          >
+            <DeleteOutlineIcon sx={{ color: "red" }} />
           </Button>
         </Box>
       </Box>
-      <Box>{open && <CommentForm open={open} setOpen={setOpen} initialState={initialState} setInitialState={setInitialState} _id={_id} 
-      // getSingleBlog={getSingleBlog}  
-
-      />}</Box>
+      <Box>
+        {editModalOpen && (
+          <UpdateMyBlogModal
+            open={editModalOpen}
+            handleClose={handleEditModalClose}
+            blog={blog}
+            categories={[]} // Kategorileri buraya ekleyin
+          />
+        )}
+      </Box>
+      <Box>
+        {open && (
+          <CommentForm
+            open={open}
+            setOpen={setOpen}
+            initialState={initialState}
+            setInitialState={setInitialState}
+            _id={_id}
+          />
+        )}
+      </Box>
     </Container>
   );
 };
