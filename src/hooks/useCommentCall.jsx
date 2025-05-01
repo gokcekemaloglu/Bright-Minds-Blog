@@ -6,10 +6,13 @@ import {
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import useBlogCalls from "./useBlogCalls";
 
 const useCommentCall = () => {
   const dispatch = useDispatch();
   const axiosWithToken = useAxios();
+
+  const {getSingleBlog} = useBlogCalls()
 
   const getSingleBlogComments = async (blogId) => {
     dispatch(fetchStart());
@@ -38,6 +41,7 @@ const useCommentCall = () => {
       );
     } finally {
       getSingleBlogComments(info.blogId);
+      getSingleBlog(info.blogId)
     }
   };
 

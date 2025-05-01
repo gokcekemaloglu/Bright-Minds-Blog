@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CommentIcon from "@mui/icons-material/Comment";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -31,12 +32,15 @@ const Detail = () => {
 
   const navigate = useNavigate()
 
-  const {getSingleBlog, deleteBlog} = useBlogCalls()
+  const {getSingleBlog, deleteBlog, postLike} = useBlogCalls()
 
   const {blog, loading} = useSelector((state) => state.blog)
   // console.log(blog);  
 
-  // const [blogDetail, setBlogDetail] = useState("");
+  const {currentUserId} = useSelector(state => state.auth)
+  console.log("currentUserId", currentUserId);
+  
+
   const [open, setOpen] = useState(false);
   const toggleComments = () => setOpen(!open);
 
@@ -51,39 +55,22 @@ const Detail = () => {
     comment: ""
   });
 
-  const {
-    comments,
-    content,
-    countOfVisitors,
-    createdAt,
-    image,
-    isPublish,
-    likes,
-    title,
-    userId,
-  } = blog;
+  const {comments, content, countOfVisitors, createdAt, image, isPublish, likes, title, userId} = blog;
 
-  // const dispatch = useDispatch();
-
-  // const getSingleBlog = async () => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axiosPublic(`blogs/${_id}`);
-  //     setBlogDetail(data.data);
-
-  //     // console.log(data.data);
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //   }
-  // };
+  console.log(likes);
+  
 
   useEffect(() => {
     getSingleBlog(_id);
   }, []);
 
-  const { postLike } = useBlogCalls();
+  const likedBlog = () => {
+    if (!likes || !currentUserId) return false
+    return likes.some((like) => like === currentUserId)
+  }
 
-  // console.log("comments", comments);
+  console.log(likedBlog());
+  
 
   if (loading) {
     return (
@@ -152,8 +139,13 @@ const Detail = () => {
         sx={{display:"flex", justifyContent:"space-around"}}
       >
         <Box>
-          <Button size="small">
-            <FavoriteIcon onClick={() => postLike(_id)} sx={{color: "red"}}/>
+          <Button size="small" onClick={() => postLike(_id)} >
+            {likedBlog() ? (
+              <FavoriteIcon sx={{color: "red"}}/>
+            ) : (
+              <FavoriteBorderIcon sx={{ color: "red" }} />
+            )}
+            
             <span>{likes?.length}</span>
           </Button>
           <Button size="small" onClick={toggleComments}>

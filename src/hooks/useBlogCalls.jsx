@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { fetchFail, fetchStart, getBlogsDataSuccess, getSingleBlogSuccess, postLikeSuccess } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
+import { toastErrorNotify } from '../helper/ToastNotify'
 // import { useSelector } from 'react-redux'
 // import axios from 'axios'
 
@@ -37,11 +38,13 @@ const useBlogCalls = () => {
   const postLike = async (blogId, blogInfo) => {
     dispatch(fetchStart())
     try {
-      const {data} = await axiosWithToken.post(`blogs/${blogId}/postLike`,blogInfo)
-      console.log(data);
+      await axiosWithToken.post(`blogs/${blogId}/postLike`,blogInfo)
     } catch (error) {
       console.log(error);
-      dispatch(fetchFail())      
+      dispatch(fetchFail())
+      toastErrorNotify(
+        error.response.data.message || "Something went wrong while liking the blog"
+      );
     } finally {
       getSingleBlog(blogId)
     }
