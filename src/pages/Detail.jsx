@@ -9,8 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart } from "../features/blogSlice";
 import { axiosPublic } from "../hooks/useAxios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -32,10 +30,13 @@ import UpdateMyBlogModal from "../components/Modals/UpdateMyBlogModal";
 const Detail = () => {
   const navigate = useNavigate();
 
-  const { getSingleBlog, deleteBlog, postLikeBlog } = useBlogCalls();
+  const { getSingleBlog, deleteBlog, postLikeBlog, getBlogsData } = useBlogCalls();
 
-  const { blog, loading } = useSelector((state) => state.blog);
+  const { blog, loading, categories } = useSelector((state) => state.blog);
   const { currentUserId } = useSelector((state) => state.auth);
+
+  console.log("categories", categories);
+
 
   const [open, setOpen] = useState(false);
   const toggleComments = () => setOpen(!open);
@@ -61,12 +62,14 @@ const Detail = () => {
     likes,
     title,
     userId,
+    categoryId
   } = blog;
 
-  // console.log(likes);
+  console.log(blog);
 
   useEffect(() => {
     getSingleBlog(_id);
+    getBlogsData("categories");
   }, []);
 
   const likedBlog = () => {
@@ -141,6 +144,14 @@ const Detail = () => {
         >
           {content}
         </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+          }}
+        >
+          Category: {categoryId?.name}
+        </Typography>
       </CardContent>
       <Box sx={{ display: "flex", justifyContent: "space-around" }}>
         <Box>
@@ -183,7 +194,7 @@ const Detail = () => {
             open={editModalOpen}
             handleClose={handleEditModalClose}
             blog={blog}
-            categories={[]} // Kategorileri buraya ekleyin
+            categories={categories}
           />
         )}
       </Box>

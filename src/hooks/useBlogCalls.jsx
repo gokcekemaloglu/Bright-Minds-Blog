@@ -12,6 +12,7 @@ const useBlogCalls = () => {
   const dispatch = useDispatch()
   const axiosWithToken = useAxios()
 
+  //Dynamic get data function
   const getBlogsData = async (endpoint, options) => {
     dispatch(fetchStart())
     try {

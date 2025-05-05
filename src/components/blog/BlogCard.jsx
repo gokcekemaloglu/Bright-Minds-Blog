@@ -27,6 +27,7 @@ const BlogCard = ({
   countOfVisitors,
   isPublish,
   likes,
+  categoryId
 }) => {
   const navigate = useNavigate();
   const { currentUser, loading } = useSelector((state) => state.auth);
@@ -66,6 +67,9 @@ const BlogCard = ({
         </Typography>
         <br />
         <Divider />
+        <Typography variant="body2" sx={{ color: "text.secondary", mt: 1 }}>
+          Category: {categoryId?.name}
+        </Typography>
         <Typography variant="body2" sx={{ color: "text.secondary", mt: 1 }}>
           Published Date: {new Date(createdAt).toLocaleDateString(
           "en-GB",

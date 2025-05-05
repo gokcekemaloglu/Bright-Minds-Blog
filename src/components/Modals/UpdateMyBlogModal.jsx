@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import useBlogCalls from "../../hooks/useBlogCalls";
 
 const style = {
   position: "absolute",
@@ -31,12 +32,13 @@ const style = {
 };
 
 const UpdateMyBlogModal = ({ open, handleClose, blog, categories }) => {
+  const {putBlog} = useBlogCalls()
   const [formData, setFormData] = useState({
     title: blog?.title || "",
     content: blog?.content || "",
     image: blog?.image || "",
-    categoryId: blog?.categoryId || "",
-    isPublish: blog?.isPublish || true,
+    categoryId: blog?.categoryId?._id || "",
+    isPublish: blog?.isPublish ?? true,
   });
 
   const handleChange = (e) => {
@@ -56,10 +58,15 @@ const UpdateMyBlogModal = ({ open, handleClose, blog, categories }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form submit işlemi burada yapılacak
+    putBlog(blog?._id, formData)
     console.log("Form data:", formData);
     handleClose();
   };
+
+  console.log("categories", categories);
+  console.log("Form data:", formData);
+  console.log("blog:", blog);
+  console.log("blog.categoryId", blog.categoryId);
 
   return (
     <Modal
@@ -125,6 +132,10 @@ const UpdateMyBlogModal = ({ open, handleClose, blog, categories }) => {
               label="Blog Category"
               onChange={handleChange}
             >
+              {/* Add an empty option */}
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
               {categories?.map((category) => (
                 <MenuItem key={category._id} value={category._id}>
                   {category.name}

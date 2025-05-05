@@ -27,7 +27,7 @@ const style = {
 }
 
 const CommentModal = ({ comment, open, handleClose, initialState }) => {
-  console.log(comment)
+  // console.log(comment)
   const { putComment } = useCommentCall()
 
   const [info, setInfo] = useState({
@@ -39,10 +39,10 @@ const CommentModal = ({ comment, open, handleClose, initialState }) => {
     // setInfo({...info, [e.target.name]: e.target.value})
     setInfo({ ...info, comment: e.target.value })
   }
-  console.log(info)
+  // console.log(info)
 
   const id = comment._id
-  console.log(id)
+  // console.log(id)
 
   const handleSubmit = (e) => {
     e.preventDefault()
