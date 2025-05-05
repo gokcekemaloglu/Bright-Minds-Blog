@@ -25,7 +25,7 @@ const NewBlog = () => {
   }, []);
 
   const { categories } = useSelector((state) => state.blog);
-  console.log("categories", categories);
+  // console.log("categories", categories);
 
   const [initialState, setInitialState] = useState({
     categoryId: "",
@@ -42,12 +42,12 @@ const NewBlog = () => {
   }
 
   const handleSubmit = () => {
-    console.log("newBlog", newBlog)
+    // console.log("newBlog", newBlog)
     postBlog("blogs", newBlog)
     navigate("/")
   }
 
-  console.log(newBlog);  
+  // console.log(newBlog);  
 
   return (
     <Box
