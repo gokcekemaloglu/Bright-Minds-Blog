@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { fetchFail, fetchStart, getBlogsDataSuccess, getSingleBlogSuccess, postLikeSuccess } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
-import { toastErrorNotify } from '../helper/ToastNotify'
+import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify'
 // import { useSelector } from 'react-redux'
 // import axios from 'axios'
 
@@ -67,8 +67,13 @@ const useBlogCalls = () => {
     dispatch(fetchStart())
     try {
       await axiosWithToken.delete(`blogs/${id}`)
+      toastSuccessNotify("Successfully deleted your blog!");
     } catch (error) {
       dispatch(fetchFail())
+      toastErrorNotify(
+        error.response.data.message ||
+          "Something went wrong while deleting the blog!"
+      );
     } finally {
       getBlogsData("blogs", { params: { limit: 10, page } })
     }

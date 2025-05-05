@@ -209,6 +209,21 @@ const Detail = () => {
           />
         )}
       </Box>
+      <Box
+        sx={{display: "flex", justifyContent: "center", alignItems: "center", my: "5px", mx: "10px"}}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <Button
+            size="small"
+            sx={{border: "1px solid gray", py: "10px", px: "20px"}}
+          >
+         
+            Go Back
+         
+        </Button>
+      </Box>
     </Container>
   );
 };
