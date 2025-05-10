@@ -43,7 +43,7 @@ const useBlogCalls = () => {
     } catch (error) {
       dispatch(fetchFail())
     } finally {
-      getBlogsData("blogs", { params: { limit: 10, page } })
+      getBlogsData("blogs", { params: { limit: 10, page: 1 } })
     }
   }
 

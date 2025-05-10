@@ -17,6 +17,12 @@ const categorySlice = createSlice({
             state.loading = true;
             state.error = false;
         },
+        getCategoriesSuccess: (state, {payload}) => {
+            // console.log(payload);
+            state.loading= false;
+            state.error = false;
+            state.categories = payload
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -27,5 +33,6 @@ const categorySlice = createSlice({
 export const {
     fetchStart,
     fetchFail,
+    getCategoriesSuccess,
 } = categorySlice.actions
 export default categorySlice.reducer

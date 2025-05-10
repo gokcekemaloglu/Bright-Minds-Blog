@@ -14,17 +14,19 @@ import useBlogCalls from "../hooks/useBlogCalls";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useCategoryCall from "../hooks/useCategoryCall";
 
 const NewBlog = () => {
 
   const navigate = useNavigate()
-  const { getBlogsData, postBlog } = useBlogCalls();
+  const { postBlog } = useBlogCalls();
+  const { getAllCategories } = useCategoryCall();
 
   useEffect(() => {
-    getBlogsData("categories");
+    getAllCategories();
   }, []);
 
-  const { categories } = useSelector((state) => state.blog);
+  const { categories } = useSelector((state) => state.category);
   // console.log("categories", categories);
 
   const [initialState, setInitialState] = useState({
@@ -41,7 +43,8 @@ const NewBlog = () => {
     setNewBlog({ ...newBlog, [e.target.name]: e.target.value});
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     // console.log("newBlog", newBlog)
     postBlog("blogs", newBlog)
     navigate("/")
