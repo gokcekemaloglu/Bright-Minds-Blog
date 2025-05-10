@@ -1,7 +1,9 @@
 import { Box, Typography, TextField, Button } from "@mui/material"
 import Grid from '@mui/material/Grid2'
+import { useSelector } from "react-redux"
 
-const AccountForm = ({ handleChange, handleSubmit, singleUser }) => {
+const AccountForm = ({ handleChange, handleSubmit }) => {
+  const {singleUser} = useSelector(state => state.users)
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", alignItems: "flex-start", gap: 4 }}>
       <Typography variant="h6" mt={10} fontWeight="500">
@@ -20,7 +22,7 @@ const AccountForm = ({ handleChange, handleSubmit, singleUser }) => {
             name="firstName"
             id="firstName"
             value={singleUser?.firstName}
-            placeholder="Adınızı girin"
+            placeholder="Enter First Name"
             autoComplete="given-name"
             onChange={handleChange}
             size="small"
@@ -38,7 +40,7 @@ const AccountForm = ({ handleChange, handleSubmit, singleUser }) => {
             name="lastName"
             id="lastName"
             value={singleUser?.lastName}
-            placeholder="Soyadınızı girin"
+            placeholder="Enter Last Name"
             autoComplete="family-name"
             onChange={handleChange}
             size="small"
@@ -56,7 +58,7 @@ const AccountForm = ({ handleChange, handleSubmit, singleUser }) => {
             name="userName"
             type="text"
             value={singleUser?.userName}
-            placeholder="Kullanıcı adınızı girin"
+            placeholder="Username"
             autoComplete="username"
             disabled
             size="small"
@@ -75,7 +77,7 @@ const AccountForm = ({ handleChange, handleSubmit, singleUser }) => {
             name="email"
             type="email"
             value={singleUser?.email}
-            placeholder="E-posta adresinizi girin"
+            placeholder="Email"
             autoComplete="email"
             disabled
             size="small"
@@ -84,7 +86,7 @@ const AccountForm = ({ handleChange, handleSubmit, singleUser }) => {
         </Grid>
 
         {/* Phone */}
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Typography variant="body2" fontWeight="500" mb={1}>
             Phone
           </Typography>
@@ -99,39 +101,39 @@ const AccountForm = ({ handleChange, handleSubmit, singleUser }) => {
             onChange={handleChange}
             size="small"
           />
-        </Grid>
+        </Grid> */}
 
-        {/* Profession */}
+        {/* Bio */}
         <Grid item xs={12}>
           <Typography variant="body2" fontWeight="500" mb={1}>
-            Profession
+            Bio
           </Typography>
           <TextField
             fullWidth
-            id="profession"
-            name="profession"
+            id="bio"
+            name="bio"
             type="text"
-            value={singleUser?.profession}
-            placeholder="Mesleğinizi girin"
+            value={singleUser?.bio}
+            placeholder="Enter Proffesion"
             autoComplete="organization-title"
             onChange={handleChange}
             size="small"
           />
         </Grid>
 
-        {/* Address */}
+        {/* City */}
         <Grid item xs={12}>
           <Typography variant="body2" fontWeight="500" mb={1}>
-            Address
+            City
           </Typography>
           <TextField
             fullWidth
-            id="address"
-            name="address"
+            id="city"
+            name="city"
             type="text"
-            value={singleUser?.address}
-            placeholder="Adresinizi girin"
-            autoComplete="street-address"
+            value={singleUser?.city}
+            placeholder="Enter Address/City"
+            autoComplete="street-city"
             onChange={handleChange}
             multiline
             rows={4}

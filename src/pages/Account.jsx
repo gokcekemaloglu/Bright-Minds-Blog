@@ -4,37 +4,38 @@ import AccountForm from "../components/auth/AccountForm"
 import AccountChangePasswordForm from "../components/auth/AccountChangePasswordForm"
 import AccountDelete from "../components/auth/AccountDelete"
 import AccountUploadProfilePicture from "../components/auth/AccountUploadProfilePicture"
+import { useSelector } from "react-redux"
+import { getSingleUserSuccess } from "../features/userSlice"
+import { useEffect } from "react"
+import useUserCall from "../hooks/useUserCall"
+import { useDispatch } from "react-redux"
 
 const Account = () => {
-  // This part will be handled with Redux in your actual implementation
-  // Using example data for now
-  const [loading, setLoading] = useState(false)
-  const [singleUser, setSingleUser] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    userName: "johndoe",
-    email: "john@example.com",
-    phone: "+90 555 123 4567",
-    profession: "Developer",
-    address: "Istanbul, Turkey",
-    profilePicture: "/placeholder.svg?height=150&width=150",
-  })
+  const dispatch = useDispatch()
+  const {currentUserId} = useSelector(state => state.auth)
+  const {singleUser, loading} = useSelector(state => state.users)
 
-  const id = "user-id"
+  const {getSingleUser, updateMe} = useUserCall()
+
+  console.log(currentUserId);
+
+  useEffect(() => {
+    getSingleUser(currentUserId)
+  }, [])
+
   const isActive = true
 
-  // Örnek fonksiyonlar - Redux ile değiştirilecek
   const handleChange = (e) => {
-    setSingleUser({
+    dispatch(getSingleUserSuccess({
       ...singleUser,
       [e.target.name]: e.target.value,
-    })
+    }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("Updating user:", singleUser)
-    // updateMe(id, singleUser);
+    updateMe(currentUserId, singleUser);
   }
 
   if (loading) {
@@ -105,10 +106,10 @@ const Account = () => {
       </Box>
 
       {/* Change Password Field */}
-      <AccountChangePasswordForm id={id} />
+      <AccountChangePasswordForm id={currentUserId} />
 
       {/* Account Delete Field */}
-      <AccountDelete id={id} isActive={isActive} />
+      <AccountDelete id={currentUserId} isActive={isActive} />
     </Container>
   )
 }

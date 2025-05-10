@@ -13,6 +13,11 @@ const userSlice = createSlice({
             state.loading = true;
             state.error = false;
         },
+        getSingleUserSuccess: (state, {payload}) => {
+            state.loading = false;
+            state.error = false;
+            state.singleUser = payload
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -23,5 +28,6 @@ const userSlice = createSlice({
 export const {
     fetchStart,
     fetchFail,
+    getSingleUserSuccess,
 } = userSlice.actions
 export default userSlice.reducer
