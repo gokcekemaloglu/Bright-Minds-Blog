@@ -2,8 +2,11 @@ import { useDispatch } from 'react-redux'
 import useAxios from './useAxios'
 import { fetchFail, fetchStart, getSingleUserSuccess } from '../features/userSlice'
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify'
+import { logoutSuccess } from '../features/authSlice'
+import { useNavigate } from 'react-router-dom'
 
 const useUserCall = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const axiosWithToken = useAxios()
   
@@ -31,10 +34,26 @@ const useUserCall = () => {
       getSingleUser(id)
     }
   }
+
+  // Change User's own password
+  const changeMyPassword = async (id, values) => {
+    dispatch(fetchStart())
+    try {
+      await axiosWithToken.patch(`users/${id}/changeMyPassword`, values)
+      toastSuccessNotify("Password changed successfully!!")
+      await axiosWithToken.get("auth/logout")
+      dispatch(logoutSuccess())
+      navigate("/login")
+    } catch (error) {
+      dispatch(fetchFail())
+      toastErrorNotify(error.response?.data?.message || "Something went wrong while changing your password!")
+    }
+  }
   
   return {
     updateMe,
     getSingleUser,
+    changeMyPassword
   }
 }
 

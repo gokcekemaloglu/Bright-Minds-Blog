@@ -47,9 +47,9 @@ const Register = () => {
             }}
             validationSchema={SignupSchema}
             onSubmit={(values, actions) => {
-              console.log(values)
+              // console.log(values)
               register(values)
-              console.log(actions);
+              // console.log(actions);
             }}
             component={(props) => <RegisterForm {...props} />}
           ></Formik>
