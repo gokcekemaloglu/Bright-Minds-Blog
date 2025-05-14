@@ -108,7 +108,7 @@ const NewBlog = () => {
             required
           >
             <MenuItem value="" disabled>Please choose...</MenuItem>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <MenuItem key={category._id} value={category._id}>
                 {category.name}
               </MenuItem>

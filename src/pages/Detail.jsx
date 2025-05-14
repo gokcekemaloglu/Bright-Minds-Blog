@@ -212,7 +212,7 @@ const Detail = () => {
       <Box
         sx={{display: "flex", justifyContent: "center", alignItems: "center", my: "5px", mx: "10px"}}
         onClick={() => {
-          navigate("/");
+          navigate(-1);
         }}
       >
         <Button
