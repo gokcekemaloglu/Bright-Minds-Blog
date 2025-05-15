@@ -18,7 +18,7 @@ const CommentForm = ({
   });
   
   // console.log(info);
-  // console.log(comments);  
+  // console.log(comments);
   // console.log(open);
 
   const handleChange = (e) => {
@@ -58,17 +58,13 @@ const CommentForm = ({
           Add Comment
         </Button>
       </FormControl>
-      <Box>
+      {/* <Box>
         {open && (
           <CommentCard
             blogId={_id}
-            // open={open}
-            // setOpen={setOpen}
-            // initialState={initialState}
-            // setInitialState={setInitialState}
           />
         )}
-      </Box>
+      </Box> */}
     </Container>
   );
 };

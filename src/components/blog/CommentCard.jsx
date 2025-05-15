@@ -23,7 +23,6 @@ const CommentCard = ({ blogId }) => {
   const {currentUserId} = useSelector(state => state.auth)
   // console.log("currentUserId", currentUserId);
   
-
   useEffect(() => {
     getSingleBlogComments(blogId);
   }, [blogId]);
@@ -60,7 +59,7 @@ const CommentCard = ({ blogId }) => {
         <CircularProgress color="primary" />
       </Box>
     )
-  }  
+  }
 
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper", mt: 4 }}>
