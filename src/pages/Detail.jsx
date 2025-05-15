@@ -47,10 +47,10 @@ const Detail = () => {
 
   const { _id } = useParams();
 
-  const [initialState, setInitialState] = useState({
-    blogId: "",
-    comment: "",
-  });
+  // const [initialState, setInitialState] = useState({
+  //   blogId: "",
+  //   comment: "",
+  // });
 
   const {
     comments,
@@ -95,6 +95,7 @@ const Detail = () => {
       maxWidth={"lg"}
       sx={{ display: "flex", flexDirection: "column", m: 4 }}
     >
+      {/* Blog Image */}
       <CardMedia
         sx={{ height: 140, width: 140 }}
         image={image}
@@ -132,6 +133,7 @@ const Detail = () => {
         <br />
         <Divider />
       </CardContent>
+      {/* Blog Info */}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
@@ -153,6 +155,7 @@ const Detail = () => {
           Category: {categoryId?.name}
         </Typography>
       </CardContent>
+      {/* Blog Icons / Like-Comments-CountofVisitors */}
       <Box sx={{ display: "flex", justifyContent: "space-around" }}>
         <Box>
           <Button size="small" onClick={() => postLikeBlog(_id)}>
@@ -173,6 +176,7 @@ const Detail = () => {
             <span>{countOfVisitors}</span>
           </Button>
         </Box>
+        {/* Icons / Edit-Delete */}
         <Box>
           <Button size="small" onClick={handleEditModalOpen}>
             <EditIcon sx={{ color: "blue" }} />
@@ -188,6 +192,8 @@ const Detail = () => {
           </Button>
         </Box>
       </Box>
+
+      {/* Edit Blog Modal */}
       <Box>
         {editModalOpen && (
           <UpdateMyBlogModal
@@ -198,17 +204,19 @@ const Detail = () => {
           />
         )}
       </Box>
+      {/* Comment Form */}
       <Box>
         {open && (
           <CommentForm
             open={open}
             setOpen={setOpen}
-            initialState={initialState}
-            setInitialState={setInitialState}
+            // initialState={initialState}
+            // setInitialState={setInitialState}
             _id={_id}
           />
         )}
       </Box>
+      {/* Go Back Button */}
       <Box
         sx={{display: "flex", justifyContent: "center", alignItems: "center", my: "5px", mx: "10px"}}
         onClick={() => {
@@ -216,12 +224,10 @@ const Detail = () => {
         }}
       >
         <Button
-            size="small"
-            sx={{border: "1px solid gray", py: "10px", px: "20px"}}
-          >
-         
-            Go Back
-         
+          size="small"
+          sx={{border: "1px solid gray", py: "10px", px: "20px"}}
+        >         
+          Go Back
         </Button>
       </Box>
     </Container>

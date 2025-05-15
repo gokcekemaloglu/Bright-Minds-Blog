@@ -4,21 +4,22 @@ import { useState } from "react";
 import useCommentCall from "../../hooks/useCommentCall"
 
 const CommentForm = ({
+  _id,
   open,
   setOpen,
-  initialState,
-  setInitialState,
-  _id,
+  // initialState,
+  // setInitialState,
 }) => {
   const { postComment } = useCommentCall();
-  const [info, setInfo] = useState(initialState);
-  // const [lastComments,setLastComments] = useState([])
+  // const [info, setInfo] = useState(initialState);
+  const [info, setInfo] = useState({
+    blogId: "",
+    comment: "",
+  });
   
   // console.log(info);
-  // console.log(comments);
-  
+  // console.log(comments);  
   // console.log(open);
-  
 
   const handleChange = (e) => {
     // console.log(e.target);
@@ -63,8 +64,8 @@ const CommentForm = ({
             blogId={_id}
             open={open}
             setOpen={setOpen}
-            initialState={initialState}
-            setInitialState={setInitialState}
+            // initialState={initialState}
+            // setInitialState={setInitialState}
           />
         )}
       </Box>
