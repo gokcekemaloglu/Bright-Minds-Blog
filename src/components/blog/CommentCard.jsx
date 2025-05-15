@@ -161,7 +161,7 @@ const CommentCard = ({ blogId }) => {
                     <FavoriteBorderIcon sx={{ color: "red" }} />
                   )}            
                   <span>{comment?.likes?.length}</span>
-                </Button>                
+                </Button>
               </Box>
             )}            
           </ListItem>

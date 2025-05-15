@@ -6,7 +6,7 @@ import useCommentCall from "../../hooks/useCommentCall"
 const CommentForm = ({
   _id,
   open,
-  setOpen,
+  // setOpen,
   // initialState,
   // setInitialState,
 }) => {
@@ -62,8 +62,8 @@ const CommentForm = ({
         {open && (
           <CommentCard
             blogId={_id}
-            open={open}
-            setOpen={setOpen}
+            // open={open}
+            // setOpen={setOpen}
             // initialState={initialState}
             // setInitialState={setInitialState}
           />
