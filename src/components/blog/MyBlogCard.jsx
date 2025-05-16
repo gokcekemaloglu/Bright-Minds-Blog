@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import {
   Card,
@@ -55,7 +53,7 @@ const MyBlogCard = ({
 
   // Handle card click to navigate to details
   const handleCardClick = () => {
-    navigate("/details/" + _id)
+    navigate("/my-blog-details/" + _id)
   }
 
   // Handle edit click
