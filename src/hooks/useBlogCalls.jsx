@@ -101,6 +101,10 @@ const useBlogCalls = () => {
       dispatch(getSingleUserBlogsSuccess(data.data))
     } catch (error) {
       dispatch(fetchFail())
+      toastErrorNotify(
+        error.response.data.message ||
+        "Something went wrong while fetching user blogs"
+      );
     }
   }
   
