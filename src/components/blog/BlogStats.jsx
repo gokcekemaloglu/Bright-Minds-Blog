@@ -51,22 +51,22 @@ const BlogStats = ({ totalBlogs, publishedBlogs, draftBlogs, totalViews, totalLi
   return (
     <Box sx={{ mb: 4 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid size={{xs: 12, sm: 6, md: 2}}>
           <StatCard icon={<ArticleIcon />} title="Total Blogs" value={totalBlogs} color="primary" />
         </Grid>
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid xs={12} sm={6} md={2}>
           <StatCard icon={<PublishIcon />} title="Published" value={publishedBlogs} color="success" />
         </Grid>
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid xs={12} sm={6} md={2}>
           <StatCard icon={<DraftIcon />} title="Drafts" value={draftBlogs} color="warning" />
         </Grid>
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid xs={12} sm={6} md={2}>
           <StatCard icon={<VisibilityIcon />} title="Total Views" value={totalViews} color="info" />
         </Grid>
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid xs={12} sm={6} md={2}>
           <StatCard icon={<FavoriteIcon />} title="Total Likes" value={totalLikes} color="error" />
         </Grid>
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid xs={12} sm={6} md={2}>
           <StatCard icon={<CommentIcon />} title="Comments" value={totalComments} color="secondary" />
         </Grid>
       </Grid>
