@@ -1,5 +1,4 @@
 import { Button, Container, FormControl, TextField } from "@mui/material";
-// import CommentCard from "./CommentCard";
 import { useState } from "react";
 import useCommentCall from "../../hooks/useCommentCall"
 

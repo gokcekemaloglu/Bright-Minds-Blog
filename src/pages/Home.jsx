@@ -138,7 +138,6 @@ const Home = () => {
               {filteredBlogs?.map((blog) => (
                 <Grid 
                   key={blog._id} 
-                  // xs={12} sm={6} md={4}
                   size= {{xs: 12, sm:6, md: 4}}
                 >
                   <BlogCard {...blog} />

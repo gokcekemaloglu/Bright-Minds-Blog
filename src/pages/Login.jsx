@@ -23,9 +23,7 @@ const Login = () => {
           p: 2,
         }}
       >
-        <Grid size={{ xs: 12, sm: 10, md: 6 }}
-        //  xs={12} sm={10} md={6}
-         >
+        <Grid size={{ xs: 12, sm: 10, md: 6 }}>
           <Avatar
             sx={{
               backgroundColor: "secondary.light",
