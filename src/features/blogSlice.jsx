@@ -9,7 +9,8 @@ const blogSlice = createSlice({
     blogs: [],
     categories: [],
     comments: [], 
-    blog: {}
+    blog: {},
+    singleUserBlogs: null
   }, 
   reducers: {
     fetchStart: (state) => {
@@ -25,38 +26,19 @@ const blogSlice = createSlice({
       state.error = false;
       state[payload.endpoint] = payload.blog
       // console.log(`${payload.endpoint}`, payload)
-    },    
+    },
     getSingleBlogSuccess: (state, {payload}) => {
       state.loading = false;
       state.error = false;
       state.blog = payload;
     },
-    // getLikeSuccess: (state, {payload}) => {
-    //   state.loading = false;
-    //   state.error = false;
-    // },
-    
-    // postLikeSuccess: (state, {payload}) => {
-    //   state.loading = false;
-    //   state.error = false;
-    //   state.blogs = state.blogs.map(blog => {
-    //     const {currentUserId, _id, didUserLike} = payload
-    //     if (blog._id == _id) {
-    //       return {
-    //         ...blog,
-    //         likes: didUserLike == false ? blog?.likes?.filter(l => l != currentUserId) : [...blog.likes,currentUserId]
-    //       }
-    //     } else {
-    //       return blog
-    //     }
-    //   })
-    // },
+    getSingleUserBlogsSuccess: (state, {payload}) => {
+      // console.log(payload);
+      state.loading = false;
+      state.error = false;
+      state.singleUserBlogs = payload;
+    },
 
-    // getCommentsSuccess: (state, {payload}) => {
-    //   state.loading = false;
-    //   state.error = false;
-    //   state.comments = payload
-    // },
   },
 });
 
@@ -67,6 +49,7 @@ export const {
   // getCommentsSuccess,
   postLikeSuccess,
   getSingleBlogSuccess,
+  getSingleUserBlogsSuccess,
 } = blogSlice.actions;
 
 export default blogSlice.reducer

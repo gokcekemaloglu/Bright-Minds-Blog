@@ -1,11 +1,11 @@
-import { Box, Button, Container, FormControl, TextField } from "@mui/material";
-import CommentCard from "./CommentCard";
+import { Button, Container, FormControl, TextField } from "@mui/material";
+// import CommentCard from "./CommentCard";
 import { useState } from "react";
 import useCommentCall from "../../hooks/useCommentCall"
 
 const CommentForm = ({
   _id,
-  open,
+  // open,
   // setOpen,
   // initialState,
   // setInitialState,

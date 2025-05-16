@@ -8,8 +8,8 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { axiosPublic } from "../hooks/useAxios";
+// import React from "react";
+// import { axiosPublic } from "../hooks/useAxios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";

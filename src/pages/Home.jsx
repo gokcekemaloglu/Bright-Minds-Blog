@@ -9,12 +9,6 @@ import BlogCard from "../components/blog/BlogCard";
 const Home = () => {
   const { getBlogsData } = useBlogCalls();
 
-  // const [initialState, setInitialState] = useState({
-  //   error: false,
-  //   didUserLike: false,
-  //   countOfLikes: 0,
-  // });
-
   const [page, setPage] = useState(1); // İlk sayfa 1 olsun
 
   const handlePageChange = (event, value) => {
@@ -40,8 +34,6 @@ const Home = () => {
           <Grid key={blog._id} xs={12} md={6} lg={4} xl={3} sx={{boxShadow: "0 0 10px gray", borderRadius: "20px"}}>
             <BlogCard
               {...blog}
-              // initialState={initialState}
-              // setInitialState={setInitialState}
             />
           </Grid>
         ))}
