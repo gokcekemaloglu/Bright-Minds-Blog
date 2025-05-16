@@ -3,15 +3,8 @@ import { Button, Container, FormControl, TextField } from "@mui/material";
 import { useState } from "react";
 import useCommentCall from "../../hooks/useCommentCall"
 
-const CommentForm = ({
-  _id,
-  // open,
-  // setOpen,
-  // initialState,
-  // setInitialState,
-}) => {
+const CommentForm = ({_id}) => {
   const { postComment } = useCommentCall();
-  // const [info, setInfo] = useState(initialState);
   const [info, setInfo] = useState({
     blogId: "",
     comment: "",
@@ -58,13 +51,6 @@ const CommentForm = ({
           Add Comment
         </Button>
       </FormControl>
-      {/* <Box>
-        {open && (
-          <CommentCard
-            blogId={_id}
-          />
-        )}
-      </Box> */}
     </Container>
   );
 };
