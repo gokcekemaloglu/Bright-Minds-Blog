@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { fetchFail, fetchStart, getBlogsDataSuccess, getSingleBlogSuccess, getSingleUserBlogsSuccess, postLikeSuccess } from '../features/blogSlice'
+import { fetchFail, fetchStart, getBlogsDataSuccess, getPublishedBlogsSuccess, getSingleBlogSuccess, getSingleUserBlogsSuccess, postLikeSuccess } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify'
 // import { useSelector } from 'react-redux'
@@ -107,6 +107,19 @@ const useBlogCalls = () => {
       );
     }
   }
+  const getPublishedBlogs = async(endpoint, options) => {
+    dispatch(fetchStart())
+    try {
+      const {data} = await axiosWithToken.get(`blogs/${endpoint}/`, options)
+      dispatch(getPublishedBlogsSuccess(data.data))
+    } catch (error) {
+      dispatch(fetchFail())
+      toastErrorNotify(
+        error.response.data.message ||
+        "Something went wrong while fetching published blogs"
+      );
+    }
+  }
   
   
   return {
@@ -116,7 +129,8 @@ const useBlogCalls = () => {
     postBlog,
     deleteBlog,
     putBlog,
-    getSingleUserBlogs
+    getSingleUserBlogs,
+    getPublishedBlogs
   }
 }
 

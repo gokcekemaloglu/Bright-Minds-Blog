@@ -10,7 +10,8 @@ const blogSlice = createSlice({
     categories: [],
     comments: [], 
     blog: {},
-    singleUserBlogs: null
+    singleUserBlogs: null,
+    publishedBlogs: null,
   }, 
   reducers: {
     fetchStart: (state) => {
@@ -38,6 +39,12 @@ const blogSlice = createSlice({
       state.error = false;
       state.singleUserBlogs = payload;
     },
+    getPublishedBlogsSuccess: (state, {payload}) => {
+      // console.log(payload);
+      state.loading = false;
+      state.error = false;
+      state.publishedBlogs = payload;
+    },
 
   },
 });
@@ -50,6 +57,7 @@ export const {
   postLikeSuccess,
   getSingleBlogSuccess,
   getSingleUserBlogsSuccess,
+  getPublishedBlogsSuccess
 } = blogSlice.actions;
 
 export default blogSlice.reducer
