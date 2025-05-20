@@ -4,6 +4,7 @@ import userReducer from "../features/userSlice";
 import blogReducer from "../features/blogSlice"
 import commentReducer from "../features/commentSlice"
 import categoryReducer from "../features/categorySlice"
+import paginationReducer from "../features/paginationSlice"
 import { persistStore, persistReducer,
   FLUSH,
   REHYDRATE,
@@ -26,10 +27,11 @@ const store = configureStore({
   reducer: {
     // auth: authReducer,
     auth: persistedReducer,
-    blog: blogReducer,
-    comments: commentReducer,
     users: userReducer,
-    category: categoryReducer
+    blog: blogReducer,
+    category: categoryReducer,
+    comments: commentReducer,
+    pagination: paginationReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
