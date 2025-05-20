@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { fetchFail, fetchStart, getBlogsDataSuccess, getPublishedBlogsSuccess, getSingleBlogSuccess, getSingleUserBlogsSuccess, postLikeSuccess } from '../features/blogSlice'
+import { fetchFail, fetchStart, getBlogsDataSuccess, getPublishedBlogsSuccess, getSingleBlogSuccess, getSingleUserBlogsSuccess } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify'
 // import { useSelector } from 'react-redux'
@@ -107,6 +107,7 @@ const useBlogCalls = () => {
       );
     }
   }
+
   const getPublishedBlogs = async(endpoint, options) => {
     dispatch(fetchStart())
     try {

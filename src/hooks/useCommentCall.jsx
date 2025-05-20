@@ -12,7 +12,6 @@ import useBlogCalls from "./useBlogCalls";
 const useCommentCall = () => {
   const dispatch = useDispatch();
   const axiosWithToken = useAxios();
-
   const { getSingleBlog } = useBlogCalls();
 
   const getSingleComment = async (id) => {
