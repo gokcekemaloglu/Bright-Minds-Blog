@@ -4,6 +4,7 @@ const categorySlice = createSlice({
     name: "category",
     initialState: {
         categories: [],
+        filteredCategories: [],
         selectedCategory: null,
         loading: false,
         error: false,
@@ -23,6 +24,9 @@ const categorySlice = createSlice({
             state.error = false;
             state.categories = payload
         },
+        setSelectedCategory: (state, { payload }) => {
+            state.selectedCategory = payload;
+        },
         fetchFail: (state) => {
             state.loading = false;
             state.error = true;
@@ -34,5 +38,6 @@ export const {
     fetchStart,
     fetchFail,
     getCategoriesSuccess,
+    setSelectedCategory
 } = categorySlice.actions
 export default categorySlice.reducer
