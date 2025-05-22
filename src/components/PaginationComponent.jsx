@@ -7,13 +7,13 @@ import {
   Box,
   Typography,
 //   Pagination,
-  PaginationItem,
-  Button,
+//   PaginationItem,
+//   Button,
 } from "@mui/material";
-import {
-  NavigateBefore as NavigateBeforeIcon,
-  NavigateNext as NavigateNextIcon,
-} from "@mui/icons-material";
+// import {
+//   NavigateBefore as NavigateBeforeIcon,
+//   NavigateNext as NavigateNextIcon,
+// } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
 import Pagination from '@mui/material/Pagination';
 
@@ -25,7 +25,7 @@ const PaginationComponent = ({ endpoint, slice, data, query }) => {
     (state) => state.pagination
   );
 
-  console.log("`${data}`", data);
+//   console.log("`${data}`", data);
 
   const totalPages = Math.ceil(data?.length / itemsPerPage);
 

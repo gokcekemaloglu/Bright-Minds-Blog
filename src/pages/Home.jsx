@@ -27,16 +27,16 @@ const Home = () => {
   const { getPublishedBlogs } = useBlogCalls();
 
   // State for pagination
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
 
   // State for search
   const [searchTerm, setSearchTerm] = useState("");
 
   // Handle page change
-  const handlePageChange = (event, value) => {
-    setPage(value);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // const handlePageChange = (event, value) => {
+  //   setPage(value);
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // };
 
   // Handle search change
   const handleSearchChange = (e) => {
@@ -50,19 +50,46 @@ const Home = () => {
   };
 
   // Filter blogs based on search term
-  const filteredBlogs = publishedBlogs?.filter((blog) => {
-    if (!searchTerm) return true;
+  // const filteredBlogs = publishedBlogs?.filter((blog) => {
+  //   if (!searchTerm) return true;
 
-    return (
-      blog?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      blog?.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      blog?.categoryId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
+  //   return (
+  //     blog?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     blog?.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     blog?.categoryId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  // });
 
-  console.log("filteredBlogs", filteredBlogs);
-  console.log("pagPublishedBlogs", pagPublishedBlogs);
-  
+  const searchFilteredBlog =
+    searchTerm.trim() === ""
+      ? publishedBlogs
+      : publishedBlogs?.filter((blog) =>
+          [blog?.title, blog?.content, blog?.categoryId?.name]
+            .filter(Boolean)
+            .some((name) =>
+              name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+
+  const searchFilteredPagBlog =
+    searchTerm.trim() === ""
+      ? pagPublishedBlogs
+      : pagPublishedBlogs?.filter((blog) =>
+          [blog?.title, blog?.content, blog?.categoryId?.name]
+            .filter(Boolean)
+            .some((name) =>
+              name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+
+  const blogsToDisplay =
+    searchFilteredPagBlog?.length > 0
+      ? searchFilteredPagBlog
+      : searchFilteredBlog;
+
+  // console.log("filteredBlogs", filteredBlogs);
+  // console.log("pagPublishedBlogs", pagPublishedBlogs);
+  // console.log("searchFilteredBlog", searchFilteredBlog);
 
   // Get featured blog (first blog or most viewed)
   const featuredBlog =
@@ -73,9 +100,9 @@ const Home = () => {
       : null;
 
   // Get remaining blogs (excluding featured)
-  const remainingBlogs = featuredBlog
-    ? filteredBlogs?.filter((blog) => blog._id !== featuredBlog._id)
-    : filteredBlogs;
+  // const remainingBlogs = featuredBlog
+  //   ? filteredBlogs?.filter((blog) => blog._id !== featuredBlog._id)
+  //   : filteredBlogs;
 
   useEffect(() => {
     // getBlogsData("blogs", { params: { limit: 10, page } });
@@ -85,14 +112,24 @@ const Home = () => {
 
   // console.log(filteredBlogs);
   // console.log(featuredBlog);
+  const searchQuery = searchTerm ? `title=${searchTerm}` : "";
+
+  // const displayedBlogs = searchTerm.trim() === "" ? publishedBlogs : filteredBlogs
+
+  // console.log("displayedBlogs", displayedBlogs);
 
   if (loading) {
-      return (
-        <Box display="flex" alignItems="center" justifyContent="center" minHeight="100vh">
-          <CircularProgress color="primary" />
-        </Box>
-      )
-    }
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="100vh"
+      >
+        <CircularProgress color="primary" />
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ bgcolor: "#f5f5f5", minHeight: "100vh", py: 4 }}>
@@ -100,7 +137,11 @@ const Home = () => {
         {/* Header */}
         <HomeHeader />
         {/* Search Bar */}
-        <SearchBar handleSearchSubmit={handleSearchSubmit} handleSearchChange={handleSearchChange} searchTerm = {searchTerm}/>
+        <SearchBar
+          handleSearchSubmit={handleSearchSubmit}
+          handleSearchChange={handleSearchChange}
+          searchTerm={searchTerm}
+        />
         {/* Featured Blog */}
         {featuredBlog && !searchTerm && <FeaturedBlog {...featuredBlog} />}
         {/* Blog Grid */}
@@ -126,7 +167,7 @@ const Home = () => {
             )}
           </Box>
 
-          {filteredBlogs?.length === 0 ? (
+          {searchFilteredBlog?.length === 0 ? (
             <Paper sx={{ p: 4, textAlign: "center" }}>
               <Typography variant="h6" color="text.secondary">
                 No blogs found matching your search.
@@ -134,7 +175,7 @@ const Home = () => {
             </Paper>
           ) : (
             <Grid container spacing={3}>
-              {pagPublishedBlogs?.map((blog) => (
+              {blogsToDisplay?.map((blog) => (
                 <Grid key={blog._id} size={{ xs: 12, sm: 6, md: 4 }}>
                   <BlogCard {...blog} />
                 </Grid>
@@ -144,33 +185,14 @@ const Home = () => {
         </Box>
 
         {/* Pagination */}
-        {remainingBlogs && 
+        {searchFilteredBlog && (
           <PaginationComponent
             endpoint={"blogs/publishedBlogs"}
             slice={"pagPublishedBlogs"}
-            data={remainingBlogs}
-            query={searchTerm && `search=${searchTerm}`}
+            data={searchFilteredBlog}
+            // query={searchQuery}
           />
-        }
-        
-        {/* <Box sx={{ display: "flex", justifyContent: "center", mt: 6, mb: 2 }}>
-          <Stack spacing={2}>
-            <Pagination
-              count={10}
-              page={page}
-              onChange={handlePageChange}
-              color="primary"
-              size="large"
-              showFirstButton
-              showLastButton
-              sx={{
-                "& .MuiPaginationItem-root": {
-                  fontSize: "1rem",
-                },
-              }}
-            />
-          </Stack>
-        </Box> */}
+        )}
       </Container>
     </Box>
   );
