@@ -17,17 +17,19 @@ import {
 import Stack from "@mui/material/Stack";
 import Pagination from '@mui/material/Pagination';
 
-const PaginationComponent = ({ endpoint, slice, data, query }) => {
+const PaginationComponent = ({ endpoint, slice,  query }) => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const { getDataByPage } = usePaginationCall();
-  const { currentPage, itemsPerPage } = useSelector(
+  const { currentPage, itemsPerPage, totalRecords } = useSelector(
+  // const { currentPage, itemsPerPage } = useSelector(
     (state) => state.pagination
   );
 
 //   console.log("`${data}`", data);
 
-  const totalPages = Math.ceil(data?.length / itemsPerPage);
+  // const totalPages = Math.ceil(data?.length / itemsPerPage);
+  const totalPages = Math.ceil(totalRecords / itemsPerPage);
 
   const pageFromUrl = Number(searchParams.get("page")) || 1;
 
@@ -58,7 +60,7 @@ const PaginationComponent = ({ endpoint, slice, data, query }) => {
       }}
     >
       <Typography variant="body2" color="text.secondary">
-        Showing {data.length} data from 1 to {data.length}
+        Showing {totalRecords} data from 1 to {totalRecords}
       </Typography>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

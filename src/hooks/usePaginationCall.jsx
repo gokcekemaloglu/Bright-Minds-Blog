@@ -13,7 +13,8 @@ const usePaginationCall = () => {
         try {
             const queryString = query ? `&${query}` : ""
             const {data} = await axiosPublic.get(`${BASE_URL}${endpoint}?limit=${limit}&page=${page}${queryString}`)
-            dispatch(getPagDataSuccess({slice, data: data.data}))
+            dispatch(getPagDataSuccess({slice, data}))
+            // dispatch(getPagDataSuccess({slice, data}))
         } catch (error) {
             dispatch(fetchFail())
             toastErrorNotify(error.response?.data?.message || `Failed to fetch ${endpoint}`)

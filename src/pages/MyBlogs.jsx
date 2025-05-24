@@ -23,11 +23,14 @@ import useBlogCalls from "../hooks/useBlogCalls"
 import MyBlogCard from "../components/blog/MyBlogCard"
 import MyBlogListItem from "../components/blog/MyBlogListItem"
 import BlogStats from "../components/blog/BlogStats"
+import PaginationComponent from "../components/PaginationComponent";
 
 const MyBlogs = () => {
   const { getSingleUserBlogs } = useBlogCalls()
   const { currentUserId } = useSelector((state) => state.auth)
   const { singleUserBlogs } = useSelector((state) => state.blog)
+  console.log(singleUserBlogs);
+  
 
   // State for pagination
   const [page, setPage] = useState(1)
@@ -93,7 +96,9 @@ const MyBlogs = () => {
   const filteredBlogs = singleUserBlogs?.filter((blog) => {
     const matchesSearch =
       blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      blog.content.toLowerCase().includes(searchTerm.toLowerCase())
+      blog.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      blog.categoryId.name.toLowerCase().includes(searchTerm.toLowerCase())
+
 
     // Filter based on active tab (All, Published, Drafts)
     if (activeTab === 1 && !blog.isPublish) return false
@@ -127,7 +132,8 @@ const MyBlogs = () => {
   const totalComments = singleUserBlogs?.reduce((sum, blog) => sum + blog.comments.length, 0) || 0
 
   useEffect(() => {
-    getSingleUserBlogs("userBlogs", { params: { limit: 10, page } })
+    // getSingleUserBlogs("userBlogs", { params: { limit: 10, page } })
+    getSingleUserBlogs("userBlogs")
   }, [page])
 
   return (
@@ -243,7 +249,16 @@ const MyBlogs = () => {
 
       {/* Pagination */}
       {sortedBlogs && sortedBlogs.length > 0 && (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+
+        <PaginationComponent
+          endpoint={"blogs/userBlogs"}
+          slice={"pagSingleUserBlogs"}
+          data={singleUserBlogs}
+          // query={searchQuery}
+        />
+        
+      )}
+        {/* <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <Stack spacing={2}>
             <Pagination
               count={10} // You might want to calculate this based on total blogs
@@ -254,8 +269,7 @@ const MyBlogs = () => {
               showLastButton
             />
           </Stack>
-        </Box>
-      )}
+        </Box> */}
     </Container>
   )
 }

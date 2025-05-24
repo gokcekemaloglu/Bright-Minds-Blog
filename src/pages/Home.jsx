@@ -26,17 +26,9 @@ const Home = () => {
   const { pagPublishedBlogs } = useSelector((state) => state.pagination);
   const { getPublishedBlogs } = useBlogCalls();
 
-  // State for pagination
-  // const [page, setPage] = useState(1);
 
   // State for search
   const [searchTerm, setSearchTerm] = useState("");
-
-  // Handle page change
-  // const handlePageChange = (event, value) => {
-  //   setPage(value);
-  //   window.scrollTo({ top: 0, behavior: "smooth" });
-  // };
 
   // Handle search change
   const handleSearchChange = (e) => {
@@ -112,7 +104,9 @@ const Home = () => {
 
   // console.log(filteredBlogs);
   // console.log(featuredBlog);
-  const searchQuery = searchTerm ? `title=${searchTerm}` : "";
+  const searchQuery = searchTerm ? `search[title]=${searchTerm}` || `search[content]=${searchTerm}` || `search[categoryId.name]=${searchTerm}` : "";
+  // const searchQuery = searchTerm ? `search[title]=${searchTerm}&search[content]=${searchTerm}&search[categoryId.name]=${searchTerm}` : ""
+
 
   // const displayedBlogs = searchTerm.trim() === "" ? publishedBlogs : filteredBlogs
 
@@ -188,9 +182,9 @@ const Home = () => {
         {searchFilteredBlog && (
           <PaginationComponent
             endpoint={"blogs/publishedBlogs"}
-            slice={"pagPublishedBlogs"}
-            data={searchFilteredBlog}
-            // query={searchQuery}
+            slice={searchTerm ? "pagFilteredBlogs" : "pagPublishedBlogs"}
+            // data={searchFilteredBlog}
+            query={searchQuery}
           />
         )}
       </Container>

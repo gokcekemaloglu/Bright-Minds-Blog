@@ -10,21 +10,32 @@ const paginationSlice = createSlice({
     pagFilteredComments: [],
     pagPublishedBlogs: [],
     pagFilteredBlogs: [],
+    pagSingleUserBlogs: [],
     currentPage: 1,
     itemsPerPage: 10,
     loading: false,
     error: false,
+    // totalRecords: 0
   },
   reducers: {
     fetchStart: (state) => {
       state.loading = true;
       state.error = false;
     },
+    // getPagDataSuccess: (state, { payload }) => {
+    //   state.loading = false;
+    //   state.error = false;
+    //   state.data = payload.data;
+    //   state[payload.slice] = payload.data;
+    // },
     getPagDataSuccess: (state, { payload }) => {
+      console.log(payload);
+      
       state.loading = false;
       state.error = false;
-      state.data = payload.data;
-      state[payload.slice] = payload.data;
+      state.data = payload.data.data;
+      state.totalRecords = payload.data.details.totalRecords;
+      state[payload.slice] = payload.data.data;
     },
     setPage: (state, { payload }) => {
       state.currentPage = payload;
