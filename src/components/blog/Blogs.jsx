@@ -8,7 +8,7 @@ import { Typography, Paper } from "@mui/material";
 
 export default function Blogs() {
 
-    const { blogs, loading } = useSelector((state) => state.blogs);
+    const { blogs: { data }, loading } = useSelector((state) => state.blogs);
     const { getBlogsData } = useBlogCalls();
 
     const [searchParams] = useSearchParams();
@@ -23,14 +23,14 @@ export default function Blogs() {
         getBlogsData('blogs', { params });
     }, [limit, page, search]);
 
-    if (loading) { 
+    if (loading) { // add loading skeleton
         return (<h1>Loading...</h1>);
     }
 
     return (
         <>
             {
-                blogs.data?.length === 0 ? (
+                data?.length === 0 ? (
                     <Paper sx={{ p: 4, textAlign: "center" }}>
                         <Typography variant="h6" color="text.secondary">
                             No blogs found matching your search.
@@ -38,7 +38,7 @@ export default function Blogs() {
                     </Paper>
                 ) : (
                     <Grid container spacing={3}>
-                        {blogs.data?.map((blog) => (
+                        {data?.map((blog) => (
                             <Grid key={blog._id} size={{ xs: 12, sm: 6, md: 4 }}>
                                 <BlogCard {...blog} />
                             </Grid>

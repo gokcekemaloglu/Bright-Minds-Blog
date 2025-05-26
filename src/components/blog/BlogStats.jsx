@@ -8,6 +8,9 @@ import {
   Publish as PublishIcon,
   Save as DraftIcon,
 } from "@mui/icons-material"
+import { useEffect } from "react";
+import useBlogCalls from "../../hooks/useBlogCalls";
+import { useSelector } from "react-redux";
 
 const StatCard = ({ icon, title, value, color }) => {
   return (
@@ -47,26 +50,44 @@ const StatCard = ({ icon, title, value, color }) => {
   )
 }
 
-const BlogStats = ({ totalBlogs, publishedBlogs, draftBlogs, totalViews, totalLikes, totalComments }) => {
+const BlogStats = ({ currentUserId }) => {
+
+  const { getSingleUserBlogs, getBlogStats } = useBlogCalls();
+  const { loading, stats } = useSelector((state) => state.blogs)
+
+
+  useEffect(() => {
+    getBlogStats(currentUserId);
+  }, [currentUserId])
+
+
+
+  // Calculate blog stats
+  const totalBlogs = stats?.totalRecords || 0
+  const publishedBlogs = stats?.published || 0
+  const draftBlogs = totalBlogs - publishedBlogs
+  const totalViews = stats?.totalVisitors || 0
+  const totalLikes = stats?.totalLikes || 0
+  const totalComments = stats?.totalComments || 0
   return (
     <Box sx={{ mb: 4 }}>
       <Grid container spacing={2}>
-        <Grid size={{xs: 12, sm: 6, md: 2}}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <StatCard icon={<ArticleIcon />} title="Total Blogs" value={totalBlogs} color="primary" />
         </Grid>
-        <Grid size={{xs: 12, sm: 6, md: 2}}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <StatCard icon={<PublishIcon />} title="Published" value={publishedBlogs} color="success" />
         </Grid>
-        <Grid size={{xs: 12, sm: 6, md: 2}}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <StatCard icon={<DraftIcon />} title="Drafts" value={draftBlogs} color="warning" />
         </Grid>
-        <Grid size={{xs: 12, sm: 6, md: 2}}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <StatCard icon={<VisibilityIcon />} title="Total Views" value={totalViews} color="info" />
         </Grid>
-        <Grid size={{xs: 12, sm: 6, md: 2}}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <StatCard icon={<FavoriteIcon />} title="Total Likes" value={totalLikes} color="error" />
         </Grid>
-        <Grid size={{xs: 12, sm: 6, md: 2}}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <StatCard icon={<CommentIcon />} title="Comments" value={totalComments} color="secondary" />
         </Grid>
       </Grid>

@@ -1,53 +1,26 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import usePaginationCall from "../hooks/usePaginationCall";
-import { setPage } from "../features/paginationSlice";
-import {
-  Box,
-  Typography,
-//   Pagination,
-//   PaginationItem,
-//   Button,
-} from "@mui/material";
-// import {
-//   NavigateBefore as NavigateBeforeIcon,
-//   NavigateNext as NavigateNextIcon,
-// } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Pagination from '@mui/material/Pagination';
 
-const PaginationComponent = ({ endpoint, slice,  query }) => {
-  const dispatch = useDispatch();
+const PaginationComponent = ({ details }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { getDataByPage } = usePaginationCall();
-  const { currentPage, itemsPerPage, totalRecords } = useSelector(
-  // const { currentPage, itemsPerPage } = useSelector(
-    (state) => state.pagination
-  );
-
-//   console.log("`${data}`", data);
-
-  // const totalPages = Math.ceil(data?.length / itemsPerPage);
-  const totalPages = Math.ceil(totalRecords / itemsPerPage);
-
-  const pageFromUrl = Number(searchParams.get("page")) || 1;
-
-  // useEffect(() => {
-  //   if (!searchParams.get("page")) {
-  //     setSearchParams({ page: 1 }, { replace: true });
-  //   } else {
-  //     dispatch(setPage(pageFromUrl));
-  //     getDataByPage(endpoint, slice, itemsPerPage, pageFromUrl, query);
-  //   }
-  // }, [searchParams]);
+  
+  const totalRecords = details?.totalRecords;
+  const totalPages = details?.pages?.total !== undefined && details?.pages !== false ? details.pages.total : 1;
+  const currentPage = searchParams.get("page") ? Number(searchParams.get("page")) : (details?.pages?.current || 1);
 
   const handlePageChange = (event, page) => {
     if (page > 0 && page <= totalPages) {
       setSearchParams({ page });
-      dispatch(setPage(page));
     }
   };
+
+  const pageSize = details?.limit || 24;
+  const startRecord = totalRecords === 0 ? 0 : ((currentPage - 1) * pageSize) + 1;
+  const endRecord = Math.min(currentPage * pageSize, totalRecords);
+
 
   return (
     <Box
@@ -60,55 +33,27 @@ const PaginationComponent = ({ endpoint, slice,  query }) => {
       }}
     >
       <Typography variant="body2" color="text.secondary">
-        Showing {totalRecords} data from 1 to {totalRecords}
+        {totalRecords === 0
+          ? "No data to display"
+          : `Showing ${startRecord} to ${endRecord} of ${totalRecords} records`}
       </Typography>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <Stack spacing={2}>
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-            size="medium"
-            showFirstButton 
-            showLastButton
-            // renderItem={(item) => (
-            //   <PaginationItem
-            //     slots={{ previous: NavigateBeforeIcon, next: NavigateNextIcon }}
-            //     //   components={{
-            //     //     previous: () => (
-            //     //       <Button
-            //     //         size="small"
-            //     //         startIcon={<NavigateBeforeIcon />}
-            //     //         disabled={item.disabled}
-            //     //       >
-            //     //         Previous
-            //     //       </Button>
-            //     //     ),
-            //     //     next: () => (
-            //     //       <Button
-            //     //         size="small"
-            //     //         endIcon={<NavigateNextIcon />}
-            //     //         disabled={item.disabled}
-            //     //       >
-            //     //         Next
-            //     //       </Button>
-            //     //     ),
-            //     //   }}
-            //     {...item}
-            //     sx={{
-            //       "&.Mui-selected": {
-            //         bgcolor: "primary.main",
-            //         color: "white",
-            //         "&:hover": {
-            //           bgcolor: "primary.dark",
-            //         },
-            //       },
-            //     }}
-            //   />
-            // )}
-          />
+          {
+            details?.pages && details.pages !== false && (
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                size="medium"
+                showFirstButton
+                showLastButton
+                disabled={totalPages === 0}
+              />
+            )
+          }
         </Stack>
       </Box>
     </Box>

@@ -37,7 +37,7 @@ const Detail = () => {
   const { _id } = useParams()
 
   const { getSingleBlog, postLikeBlog, getBlogsData } = useBlogCalls()
-  const { blog, loading, categories } = useSelector((state) => state.blog)
+  const { blog, loading, categories } = useSelector((state) => state.blogs)
   const { currentUserId } = useSelector((state) => state.auth)
 
   // State for comments section
@@ -72,7 +72,7 @@ const Detail = () => {
   // Fetch blog data
   useEffect(() => {
     getSingleBlog(_id)
-    getBlogsData("categories")
+    // getBlogsData("categories")
   }, [_id])
 
   if (loading) {

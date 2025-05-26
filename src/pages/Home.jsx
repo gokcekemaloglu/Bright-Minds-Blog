@@ -4,13 +4,15 @@ import { Container, Typography, Box, Chip, CircularProgress } from "@mui/materia
 import useBlogCalls from "../hooks/useBlogCalls";
 import FeaturedBlog from "../components/blog/FeaturedBlog";
 import HomeHeader from "../components/home/homeHeader";
-import PaginationComponent from "../components/PaginationComponent";
 import SearchBar from "../components/SearchBar";
 import { useSearchParams } from "react-router-dom";
 const Blogs = lazy(() => import("../components/blog/Blogs"));
+const PaginationComponent = lazy(() => import("../components/PaginationComponent"));
 
 const Home = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { blogs: { details } } = useSelector((state) => state.blogs);
+
   const search = searchParams.get("search[title]") || "";
 
   return (
@@ -39,26 +41,27 @@ const Home = () => {
             {search && (
               <Chip
                 label={`Results for: "${search}"`}
-                // onDelete={() => setSearch("")}
+                onDelete={() => {
+                  const params = new URLSearchParams(searchParams);
+                  params.delete("search[title]");
+                  setSearchParams(params);
+                }}
                 color="primary"
               />
             )}
           </Box>
-          <Suspense fallback={<h1>Loading...</h1>}>
+
+          {/* Blogs */}
+          <Suspense fallback={<h1>Loading...</h1>}> {/* add loading skeleton */}
             <Blogs />
           </Suspense>
 
         </Box>
 
         {/* Pagination */}
-        {/* {searchFilteredBlog && (
-          <PaginationComponent
-            endpoint={"blogs/publishedBlogs"}
-            slice={searchTerm ? "pagFilteredBlogs" : "pagPublishedBlogs"}
-            // data={searchFilteredBlog}
-            query={searchQuery}
-          />
-        )} */}
+        <Suspense fallback={<h1>pagination Loading...</h1>}> {/* add loading skeleton */}
+          <PaginationComponent details={details}  />
+        </Suspense>
       </Container>
     </Box>
   );

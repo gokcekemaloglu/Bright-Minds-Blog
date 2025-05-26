@@ -2,12 +2,24 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
-  error: null, 
+  error: null,
   blogs: {},
-  categories: [],
+  categories: {},
   comments: [],
-  blog: null,
-  singleUserBlogs: [],
+  stats: {},
+  blog: {
+    _id: '',
+    title: '',
+    content: '',
+    image: '',
+    userId: '',
+    categoryId: '',
+    likes: [],
+    comments: [],
+    countOfVisitors: 0,
+    createdAt: '',
+  },
+  singleUserBlogs: {},
   publishedBlogs: [],
 };
 
@@ -24,13 +36,11 @@ const blogSlice = createSlice({
       state.error = payload || 'An error occurred';
     },
     setData: (state, { payload }) => {
-      // payload: { key: 'blogs', data: {...} }
       state.loading = false;
       state.error = null;
       state[payload.key] = payload.data;
     },
     setSingle: (state, { payload }) => {
-      // payload: { key: 'blog', data: {...} }
       state.loading = false;
       state.error = null;
       state[payload.key] = payload.data;

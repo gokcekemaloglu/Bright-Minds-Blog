@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { use } from "react";
 
 const SearchBar = () => {
 
@@ -19,6 +20,7 @@ const SearchBar = () => {
 
       if (query) {
         newParams.set('search[title]', query);
+        newParams.delete('page');
       } else {
         newParams.delete('search[title]');
       }
@@ -43,7 +45,6 @@ const SearchBar = () => {
         mb: 2,
       }}
       elevation={1}
-    // onSubmit={handleSearchSubmit}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}

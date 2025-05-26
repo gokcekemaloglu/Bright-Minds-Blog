@@ -39,7 +39,7 @@ const MyBlogDetail = () => {
   const { _id } = useParams()
 
   const { getSingleBlog, deleteBlog, postLikeBlog, getBlogsData } = useBlogCalls()
-  const { blog, loading, categories } = useSelector((state) => state.blog)
+  const { blog, loading, categories } = useSelector((state) => state.blogs)
   const { currentUserId } = useSelector((state) => state.auth)
 
   // State for comments section
@@ -63,23 +63,23 @@ const MyBlogDetail = () => {
   // Format date
   const formattedDate = createdAt
     ? new Date(createdAt).toLocaleDateString("tr-TR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
     : ""
 
   const formattedTime = createdAt
     ? new Date(createdAt).toLocaleTimeString("tr-TR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
+      hour: "2-digit",
+      minute: "2-digit",
+    })
     : ""
 
   // Fetch blog data
   useEffect(() => {
     getSingleBlog(_id)
-    getBlogsData("categories")
+    getBlogsData("categories", { params: { limit: 100 } })
   }, [_id])
 
   // Handle delete blog
@@ -167,7 +167,7 @@ const MyBlogDetail = () => {
 
           {/* Meta Information */}
           <Grid container spacing={2} sx={{ mb: 3 }}>
-            <Grid size={{xs: 12, sm: 6}}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <Avatar sx={{ bgcolor: "primary.main" }}>
                   <PersonIcon />
@@ -179,7 +179,7 @@ const MyBlogDetail = () => {
               </Box>
             </Grid>
 
-            <Grid size={{xs: 12, sm: 6}}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <Avatar sx={{ bgcolor: "secondary.main" }}>
                   <CalendarIcon />
@@ -194,7 +194,7 @@ const MyBlogDetail = () => {
             </Grid>
 
             {categoryId?.name && (
-              <Grid size={{xs: 12, sm: 6}}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Avatar sx={{ bgcolor: "info.main" }}>
                     <CategoryIcon />
@@ -207,7 +207,7 @@ const MyBlogDetail = () => {
               </Grid>
             )}
 
-            <Grid size={{xs: 12, sm: 6}}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <Avatar sx={{ bgcolor: "success.main" }}>
                   <VisibilityIcon />
@@ -274,7 +274,7 @@ const MyBlogDetail = () => {
           open={editModalOpen}
           handleClose={handleEditModalClose}
           blog={blog}
-          categories={categories}
+          categories={categories.data}
         />
       )}
     </Container>

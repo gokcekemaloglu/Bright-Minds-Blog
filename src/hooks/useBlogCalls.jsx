@@ -15,10 +15,8 @@ const useBlogCalls = () => {
   const getBlogsData = async (key = 'blogs', options) => {
     dispatch(fetchStart())
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)) 
-      
       const { data } = await axiosPublic(`${key}`, options)
-      console.log('getBlogsData', data);
+      console.log(`Fetched ${key} data successfully!`, data)
       dispatch(setData({ key, data }))
     } catch (error) {
       handleError(error, `Something went wrong while fetching ${key}!`)
@@ -28,7 +26,7 @@ const useBlogCalls = () => {
   const getSingleBlog = async (id) => {
     dispatch(fetchStart())
     try {
-      const { data } = await axiosPublic(`blogs/${id}`)
+      const { data: { data } } = await axiosPublic(`blogs/${id}`)
       dispatch(setSingle({ key: 'blog', data }))
     } catch (error) {
       handleError(error, 'Something went wrong while fetching the blog!')
@@ -82,10 +80,20 @@ const useBlogCalls = () => {
     }
   }
 
-  const getSingleUserBlogs = async (endpoint, options) => {
+  const getBlogStats = async (userId) => {
     dispatch(fetchStart())
     try {
-      const { data } = await axiosWithToken.get(`blogs/${endpoint}/`, options)
+      const { data } = await axiosWithToken.get(`blogs/${userId}/stats`)
+      dispatch(setData({ key: 'stats', data }))
+    } catch (error) {
+      handleError(error, 'Something went wrong while fetching blog stats!')
+    }
+  }
+
+  const getSingleUserBlogs = async (options) => {
+    dispatch(fetchStart())
+    try {
+      const { data } = await axiosWithToken.get('blogs', options)
       dispatch(setData({ key: 'singleUserBlogs', data }))
     } catch (error) {
       handleError(error, 'Something went wrong while fetching user blogs!')
@@ -110,7 +118,8 @@ const useBlogCalls = () => {
     deleteBlog,
     putBlog,
     getSingleUserBlogs,
-    getPublishedBlogs
+    getPublishedBlogs,
+    getBlogStats
   }
 }
 
