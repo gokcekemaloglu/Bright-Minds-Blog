@@ -33,14 +33,14 @@ const PaginationComponent = ({ endpoint, slice,  query }) => {
 
   const pageFromUrl = Number(searchParams.get("page")) || 1;
 
-  useEffect(() => {
-    if (!searchParams.get("page")) {
-      setSearchParams({ page: 1 }, { replace: true });
-    } else {
-      dispatch(setPage(pageFromUrl));
-      getDataByPage(endpoint, slice, itemsPerPage, pageFromUrl, query);
-    }
-  }, [searchParams]);
+  // useEffect(() => {
+  //   if (!searchParams.get("page")) {
+  //     setSearchParams({ page: 1 }, { replace: true });
+  //   } else {
+  //     dispatch(setPage(pageFromUrl));
+  //     getDataByPage(endpoint, slice, itemsPerPage, pageFromUrl, query);
+  //   }
+  // }, [searchParams]);
 
   const handlePageChange = (event, page) => {
     if (page > 0 && page <= totalPages) {

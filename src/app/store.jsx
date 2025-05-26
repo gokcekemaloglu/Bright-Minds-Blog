@@ -28,8 +28,8 @@ const store = configureStore({
     // auth: authReducer,
     auth: persistedReducer,
     users: userReducer,
-    blog: blogReducer,
-    category: categoryReducer,
+    blogs: blogReducer,
+    categories: categoryReducer,
     comments: commentReducer,
     pagination: paginationReducer
   },
