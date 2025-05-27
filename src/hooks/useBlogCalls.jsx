@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { fetchFail, fetchStart, getBlogsDataSuccess, getPublishedBlogsSuccess, getSingleBlogSuccess, getSingleUserBlogsSuccess } from '../features/blogSlice'
+import { fetchFail, fetchStart, getBlogsDataSuccess, getPublishedBlogsSuccess, getSingleBlogSuccess, getSingleUserBlogsSuccess, setData, setSingleData } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify'
 // import { useSelector } from 'react-redux'
@@ -11,6 +11,11 @@ const useBlogCalls = () => {
 
   const dispatch = useDispatch()
   const axiosWithToken = useAxios()
+
+  const handleError = (error, fallbackMsg) => {
+    dispatch(fetchFail(error?.response?.data?.message || fallbackMsg))
+    toastErrorNotify(error?.response?.data?.message || fallbackMsg)
+  }
 
   //Dynamic get data function
   const getBlogsData = async (endpoint, options) => {
@@ -25,6 +30,17 @@ const useBlogCalls = () => {
     }
   }
 
+  const getBlogsDataNew = async (key = "blogs", options) => {
+    dispatch(fetchStart())
+    try {
+      const {data} = await axiosPublic(`${key}/`, options)
+      // console.log('getBlogsData', data);
+      dispatch(setData({key, data}))      
+    } catch (error) {
+      handleError(error, `Something went wrong while fetching ${key}!`)
+    }
+  }
+
   const getSingleBlog = async (id) => {
     dispatch(fetchStart());
     try {
@@ -36,14 +52,25 @@ const useBlogCalls = () => {
     }
   };
 
-  const postBlog = async (blogs, info) => {
+  const getSingleBlogNew = async (id) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosPublic(`blogs/${id}`);
+      dispatch(setSingleData({key: "blog", data}))
+      // console.log(data.data);
+    } catch (error) {
+      handleError(error, `Something went wrong while fetching the blog with ID: ${id}!`);
+    }
+  };
+
+  const postBlog = async (endpoint = "blogs", info) => {
     dispatch(fetchStart())
     try {
-      await axiosWithToken.post(`${blogs}/`, info)
+      await axiosWithToken.post(`${endpoint}/`, info)
     } catch (error) {
-      dispatch(fetchFail())
+      handleError(error, "Something went wrong while posting the blog!");
     } finally {
-      getBlogsData("blogs", { params: { limit: 10, page: 1 } })
+      getBlogsDataNew("blogs", { params: { limit: 10, page: 1 } })
     }
   }
 
@@ -53,13 +80,9 @@ const useBlogCalls = () => {
       await axiosWithToken.put(`blogs/${id}`, info);
       toastSuccessNotify("Successfully updated your blog!");
     } catch (error) {
-      dispatch(fetchFail());
-      toastErrorNotify(
-        error.response.data.message ||
-          "Something went wrong while updating the blog!"
-      );
+      handleError(error, 'Something went wrong while updating the blog!')
     } finally {
-      getSingleBlog(id);
+      getSingleBlogNew(id);
     }
   };
 
@@ -69,13 +92,9 @@ const useBlogCalls = () => {
       await axiosWithToken.delete(`blogs/${id}`)
       toastSuccessNotify("Successfully deleted your blog!");
     } catch (error) {
-      dispatch(fetchFail())
-      toastErrorNotify(
-        error.response.data.message ||
-          "Something went wrong while deleting the blog!"
-      );
+      handleError(error, 'Something went wrong while deleting the blog!')
     } finally {
-      getBlogsData("blogs", { params: { limit: 10, page } })
+      getBlogsDataNew("blogs", { params: { limit: 10, page } })
     }
   }
 
@@ -84,13 +103,9 @@ const useBlogCalls = () => {
     try {
       await axiosWithToken.post(`blogs/${blogId}/postLike`,blogInfo)
     } catch (error) {
-      console.log(error);
-      dispatch(fetchFail())
-      toastErrorNotify(
-        error.response.data.message || "Something went wrong while liking the blog"
-      );
+      handleError(error, 'Something went wrong while liking the blog!')
     } finally {
-      getSingleBlog(blogId)
+      getSingleBlogNew(blogId)
     }
   }
 
@@ -98,13 +113,9 @@ const useBlogCalls = () => {
     dispatch(fetchStart())
     try {
       const {data} = await axiosWithToken.get(`blogs/${endpoint}/`, options)
-      dispatch(getSingleUserBlogsSuccess(data.data))
+      dispatch(setData({key: "singleUserBlogs", data}))
     } catch (error) {
-      dispatch(fetchFail())
-      toastErrorNotify(
-        error.response.data.message ||
-        "Something went wrong while fetching user blogs"
-      );
+      handleError(error, 'Something went wrong while fetching user blogs!')
     }
   }
 
@@ -121,9 +132,21 @@ const useBlogCalls = () => {
       );
     }
   }
+
+  const getPublishedBlogsNew = async(endpoint, options) => {
+    dispatch(fetchStart())
+    try {
+      const {data} = await axiosPublic.get(`blogs/${endpoint}/`, options)
+      dispatch(setData({key: "publishedBlogs", data}))
+    } catch (error) {
+      handleError(error, 'Something went wrong while fetching published blogs!')
+    }
+  }
   
   
   return {
+    getBlogsDataNew,
+    getSingleBlogNew,
     getBlogsData, 
     postLikeBlog, 
     getSingleBlog,
@@ -131,7 +154,8 @@ const useBlogCalls = () => {
     deleteBlog,
     putBlog,
     getSingleUserBlogs,
-    getPublishedBlogs
+    getPublishedBlogs,
+    getPublishedBlogsNew
   }
 }
 
