@@ -27,6 +27,8 @@ const SearchBar = ({
 
       if (query) {
         newParams.set("search[title]", query);
+        newParams.delete("page"); // Reset page when searching
+        // newParams.delete("limit"); // Reset limit when searching
       } else {
         newParams.delete("search[title]");
       }
