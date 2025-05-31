@@ -26,8 +26,6 @@ const PaginationComponent = ({ endpoint, slice,  query }) => {
     (state) => state.pagination
   );
 
-//   console.log("`${data}`", data);
-
   // const totalPages = Math.ceil(data?.length / itemsPerPage);
   const totalPages = Math.ceil(totalRecords / itemsPerPage);
 
