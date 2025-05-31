@@ -40,7 +40,11 @@ const PaginationComponent = ({ details }) => {
 
   const handlePageChange = (event, page) => {
     if (page > 0 && page <= totalPages) {
+      // Update the search params with the new page number
       setSearchParams({ page });
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set("page", page.toString());
+      setSearchParams(newParams, { replace: true });
       // dispatch(setPage(page));
     }
   };

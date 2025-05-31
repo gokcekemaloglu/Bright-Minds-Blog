@@ -22,105 +22,16 @@ import HomeHeader from "../components/home/homeHeader";
 import SearchBar from "../components/SearchBar";
 import { useSearchParams } from "react-router-dom";
 import { Suspense } from "react";
-const Blogs = lazy(() => import("../components/blog/Blogs"))
-const PaginationComponent = lazy(() => import("../components/PaginationComponent"))
+const Blogs = lazy(() => import("../components/blog/Blogs"));
+const PaginationComponent = lazy(() =>
+  import("../components/PaginationComponent")
+);
 
 const Home = () => {
-  // const { publishedBlogs, loading } = useSelector((state) => state.blog);
-  // const { pagPublishedBlogs } = useSelector((state) => state.pagination);
-  // const { getPublishedBlogs } = useBlogCalls();
-
-
-  // // State for search
-  // const [searchTerm, setSearchTerm] = useState("");
-
-  // // Handle search change
-  // const handleSearchChange = (e) => {
-  //   setSearchTerm(e.target.value);
-  // };
-
-  // // Handle search submit
-  // const handleSearchSubmit = (e) => {
-  //   e.preventDefault();
-  //   // You could add additional search functionality here
-  // };
-
-  // // Filter blogs based on search term
-  // // const filteredBlogs = publishedBlogs?.filter((blog) => {
-  // //   if (!searchTerm) return true;
-
-  // //   return (
-  // //     blog?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  // //     blog?.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  // //     blog?.categoryId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  // //   );
-  // // });
-
-  // const searchFilteredBlog =
-  //   searchTerm.trim() === ""
-  //     ? publishedBlogs
-  //     : publishedBlogs?.filter((blog) =>
-  //         [blog?.title, blog?.content, blog?.categoryId?.name]
-  //           .filter(Boolean)
-  //           .some((name) =>
-  //             name.toLowerCase().includes(searchTerm.toLowerCase())
-  //           )
-  //       );
-
-  // const searchFilteredPagBlog =
-  //   searchTerm.trim() === ""
-  //     ? pagPublishedBlogs
-  //     : pagPublishedBlogs?.filter((blog) =>
-  //         [blog?.title, blog?.content, blog?.categoryId?.name]
-  //           .filter(Boolean)
-  //           .some((name) =>
-  //             name.toLowerCase().includes(searchTerm.toLowerCase())
-  //           )
-  //       );
-
-  // const blogsToDisplay =
-  //   searchFilteredPagBlog?.length > 0
-  //     ? searchFilteredPagBlog
-  //     : searchFilteredBlog;
-
-  // // console.log("filteredBlogs", filteredBlogs);
-  // // console.log("pagPublishedBlogs", pagPublishedBlogs);
-  // // console.log("searchFilteredBlog", searchFilteredBlog);
-
-  // // Get featured blog (first blog or most viewed)
-  // const featuredBlog =
-  //   publishedBlogs && publishedBlogs?.length > 0
-  //     ? [...publishedBlogs].sort(
-  //         (a, b) => b.countOfVisitors - a.countOfVisitors
-  //       )[0]
-  //     : null;
-
-  // // Get remaining blogs (excluding featured)
-  // // const remainingBlogs = featuredBlog
-  // //   ? filteredBlogs?.filter((blog) => blog._id !== featuredBlog._id)
-  // //   : filteredBlogs;
-
-  // useEffect(() => {
-  //   // getBlogsData("blogs", { params: { limit: 10, page } });
-  //   // getPublishedBlogs("publishedBlogs", { params: { limit: 10, page } });
-  //   getPublishedBlogs("publishedBlogs");
-  // }, []);
-
-  // // console.log(filteredBlogs);
-  // // console.log(featuredBlog);
-  // const searchQuery = searchTerm ? `search[title]=${searchTerm}` || `search[content]=${searchTerm}` || `search[categoryId.name]=${searchTerm}` : "";
-  // // const searchQuery = searchTerm ? `search[title]=${searchTerm}&search[content]=${searchTerm}&search[categoryId.name]=${searchTerm}` : ""
-
-
-  // // const displayedBlogs = searchTerm.trim() === "" ? publishedBlogs : filteredBlogs
-
-  // // console.log("displayedBlogs", displayedBlogs);
-
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search[title]") || "";
-  const {blogs: {details}} = useSelector((state) => state.blog);
+  const {blogs: { details }} = useSelector((state) => state.blog);
   console.log("blogs details", details);
-  
 
   // if (loading) {
   //   return (
@@ -141,11 +52,7 @@ const Home = () => {
         {/* Header */}
         <HomeHeader />
         {/* Search Bar */}
-        <SearchBar
-          // handleSearchSubmit={handleSearchSubmit}
-          // handleSearchChange={handleSearchChange}
-          // searchTerm={searchTerm}
-        />
+        <SearchBar />
         {/* Featured Blog */}
         {/* {featuredBlog && !searchTerm && <FeaturedBlog {...featuredBlog} />} */}
         {/* Blog Grid */}
@@ -169,9 +76,9 @@ const Home = () => {
                 // label={`Results for: "${searchTerm}"`}
                 label={`Results for: "${search}"`}
                 onDelete={() => {
-                  const params = new URLSearchParams(searchParams)
-                  params.delete("search[title]")
-                  setSearchParams(params)
+                  const params = new URLSearchParams(searchParams);
+                  params.delete("search[title]");
+                  setSearchParams(params);
                   // setSearchTerm("");
                 }}
                 color="primary"
@@ -196,22 +103,14 @@ const Home = () => {
           )} */}
           {/* Blogs */}
           <Suspense fallback={<CircularProgress color="primary" />}>
-            <Blogs/>
+            <Blogs />
           </Suspense>
         </Box>
 
         {/* Pagination */}
         <Suspense fallback={<CircularProgress color="primary" />}>
-          <PaginationComponent details={details}/>
+          <PaginationComponent details={details} />
         </Suspense>
-        {/* {searchFilteredBlog && (
-          <PaginationComponent
-            endpoint={"blogs/publishedBlogs"}
-            slice={searchTerm ? "pagFilteredBlogs" : "pagPublishedBlogs"}
-            // data={searchFilteredBlog}
-            query={searchQuery}
-          />
-        )} */}
       </Container>
     </Box>
   );
