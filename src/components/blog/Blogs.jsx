@@ -15,13 +15,13 @@ const Blogs = () => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 24;
-  const search = Number(searchParams.get("search[title]")) || "";
+  const search = searchParams.get("search[title]") || "";
 
   useEffect(() => {
-    const params = { limit, page, "filter[isPublish": true };
+    const params = { limit, page, "filter[isPublish]": true };
     if (search) params["search[title]"] = search;
     getBlogsDataNew("blogs", { params });
-  }, []);
+  }, [limit, page, search]);
 
   if (loading) {
     return <div>Loading...</div>;
