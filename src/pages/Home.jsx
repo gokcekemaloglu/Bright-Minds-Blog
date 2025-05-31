@@ -18,11 +18,12 @@ import useBlogCalls from "../hooks/useBlogCalls";
 import BlogCard from "../components/blog/BlogCard";
 import FeaturedBlog from "../components/blog/FeaturedBlog";
 import HomeHeader from "../components/home/homeHeader";
-import PaginationComponent from "../components/PaginationComponent";
+// import PaginationComponent from "../components/PaginationComponent";
 import SearchBar from "../components/SearchBar";
 import { useSearchParams } from "react-router-dom";
 import { Suspense } from "react";
 const Blogs = lazy(() => import("../components/blog/Blogs"))
+const PaginationComponent = lazy(() => import("../components/PaginationComponent"))
 
 const Home = () => {
   // const { publishedBlogs, loading } = useSelector((state) => state.blog);
@@ -115,8 +116,11 @@ const Home = () => {
 
   // // console.log("displayedBlogs", displayedBlogs);
 
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const search = searchParams.get("search[title]") || "";
+  const {blogs: {details}} = useSelector((state) => state.blog);
+  console.log("blogs details", details);
+  
 
   // if (loading) {
   //   return (
@@ -164,7 +168,12 @@ const Home = () => {
               <Chip
                 // label={`Results for: "${searchTerm}"`}
                 label={`Results for: "${search}"`}
-                // onDelete={() => setSearchTerm("")}
+                onDelete={() => {
+                  const params = new URLSearchParams(searchParams)
+                  params.delete("search[title]")
+                  setSearchParams(params)
+                  // setSearchTerm("");
+                }}
                 color="primary"
               />
             )}
@@ -185,12 +194,16 @@ const Home = () => {
               ))}
             </Grid>
           )} */}
+          {/* Blogs */}
           <Suspense fallback={<CircularProgress color="primary" />}>
             <Blogs/>
           </Suspense>
         </Box>
 
         {/* Pagination */}
+        <Suspense fallback={<CircularProgress color="primary" />}>
+          <PaginationComponent details={details}/>
+        </Suspense>
         {/* {searchFilteredBlog && (
           <PaginationComponent
             endpoint={"blogs/publishedBlogs"}
