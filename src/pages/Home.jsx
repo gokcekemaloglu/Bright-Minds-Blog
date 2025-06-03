@@ -6,15 +6,13 @@ import HomeHeader from "../components/home/homeHeader";
 import SearchBar from "../components/SearchBar";
 import { useSearchParams } from "react-router-dom";
 const Blogs = lazy(() => import("../components/blog/Blogs"));
-const PaginationComponent = lazy(() =>
-  import("../components/PaginationComponent")
-);
+const PaginationComponent = lazy(() => import("../components/PaginationComponent"));
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search[title]") || "";
   const {blogs: { details, data }} = useSelector((state) => state.blog);
-  // console.log("blogs details", details);
+  console.log("blogs details", details);
   // console.log("blogs data", data);
 
   const featuredBlog = data && data?.length > 0 ? [...data].sort((a, b) => b.countOfVisitors - a.countOfVisitors)[0] : null;
@@ -25,7 +23,7 @@ const Home = () => {
       <Container maxWidth="lg">
         {/* Header */}
         <HomeHeader />
-        
+
         {/* Search Bar */}
         <SearchBar />
 
@@ -43,11 +41,9 @@ const Home = () => {
             }}
           >
             <Typography variant="h5" component="h2" sx={{ fontWeight: "bold" }}>
-              {/* {searchTerm ? "Search Results" : "Latest Posts"} */}
               {search ? "Search Results" : "Latest Posts"}
             </Typography>
 
-            {/* {searchTerm && ( */}
             {search && (
               <Chip
                 // label={`Results for: "${searchTerm}"`}

@@ -67,7 +67,6 @@ const PaginationComponent = ({ details }) => {
       }}
     >
       <Typography variant="body2" color="text.secondary">
-        {/* Showing {totalRecords} data from 1 to {totalRecords} */}
         {totalRecords === 0
           ? "No data to display"
           : `Showing ${startRecord} to ${endRecord} of ${totalRecords} records`}
