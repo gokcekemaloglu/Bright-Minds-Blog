@@ -9,8 +9,8 @@ import Stack from "@mui/material/Stack";
 import Pagination from '@mui/material/Pagination';
 
 // const PaginationComponent = ({ endpoint, slice,  query }) => {
-const PaginationComponent = ({ details }) => {
   // const dispatch = useDispatch();
+const PaginationComponent = ({ details }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   // const { getDataByPage } = usePaginationCall();
   // const { currentPage, itemsPerPage, totalRecords } = useSelector(
@@ -33,6 +33,8 @@ const PaginationComponent = ({ details }) => {
   // //     getDataByPage(endpoint, slice, itemsPerPage, pageFromUrl, query);
   // //   }
   // // }, [searchParams]);
+
+  console.log("Pagination details", details);
 
   const totalRecords = details?.totalRecords || 0;
   const totalPages = details?.pages?.total !== undefined && details?.pages !== false ? details?.pages?.total : 1;

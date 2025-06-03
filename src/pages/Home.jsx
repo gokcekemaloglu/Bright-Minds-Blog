@@ -1,21 +1,21 @@
 import { useEffect, useState, lazy } from "react";
 import { useSelector } from "react-redux";
 import {
-  Pagination,
-  Stack,
+  // Pagination,
+  // Stack,
   Container,
   Typography,
   Box,
-  Paper,
-  InputBase,
-  IconButton,
+  // Paper,
+  // InputBase,
+  // IconButton,
   Chip,
   CircularProgress,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import SearchIcon from "@mui/icons-material/Search";
-import useBlogCalls from "../hooks/useBlogCalls";
-import BlogCard from "../components/blog/BlogCard";
+// import Grid from "@mui/material/Grid2";
+// import SearchIcon from "@mui/icons-material/Search";
+// import useBlogCalls from "../hooks/useBlogCalls";
+// import BlogCard from "../components/blog/BlogCard";
 import FeaturedBlog from "../components/blog/FeaturedBlog";
 import HomeHeader from "../components/home/homeHeader";
 // import PaginationComponent from "../components/PaginationComponent";
@@ -30,8 +30,13 @@ const PaginationComponent = lazy(() =>
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search[title]") || "";
-  const {blogs: { details }} = useSelector((state) => state.blog);
-  console.log("blogs details", details);
+  const {blogs: { details, data }} = useSelector((state) => state.blog);
+  // console.log("blogs details", details);
+  // console.log("blogs data", data);
+
+  const featuredBlog = data && data?.length > 0 ? [...data].sort((a, b) => b.countOfVisitors - a.countOfVisitors)[0] : null;
+  // console.log("featured blog", featuredBlog);
+  
 
   // if (loading) {
   //   return (
@@ -54,7 +59,7 @@ const Home = () => {
         {/* Search Bar */}
         <SearchBar />
         {/* Featured Blog */}
-        {/* {featuredBlog && !searchTerm && <FeaturedBlog {...featuredBlog} />} */}
+        {featuredBlog && <FeaturedBlog {...featuredBlog} />}
         {/* Blog Grid */}
         <Box sx={{ mb: 6 }}>
           <Box
@@ -86,21 +91,6 @@ const Home = () => {
             )}
           </Box>
 
-          {/* {searchFilteredBlog?.length === 0 ? (
-            <Paper sx={{ p: 4, textAlign: "center" }}>
-              <Typography variant="h6" color="text.secondary">
-                No blogs found matching your search.
-              </Typography>
-            </Paper>
-          ) : (
-            <Grid container spacing={3}>
-              {blogsToDisplay?.map((blog) => (
-                <Grid key={blog._id} size={{ xs: 12, sm: 6, md: 4 }}>
-                  <BlogCard {...blog} />
-                </Grid>
-              ))}
-            </Grid>
-          )} */}
           {/* Blogs */}
           <Suspense fallback={<CircularProgress color="primary" />}>
             <Blogs />
