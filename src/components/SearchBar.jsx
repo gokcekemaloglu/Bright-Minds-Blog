@@ -4,21 +4,15 @@ import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const SearchBar = ({ 
-  handleSearchSubmit, 
-  handleSearchChange, 
-  searchTerm 
-}) => {
-  // const SearchBar = () => {
+const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("search[title]") || "");
 
-  handleSearchChange = (e) => {
+  const handleSearchChange = (e) => {
     const value = e.target.value;
     setQuery(value);
     // setSearchParams({ "search[title]": value });
-    console.log(value);
-    
+    console.log(value);    
   };
 
   useEffect(() => {

@@ -18,7 +18,7 @@ const MyBlogs = () => {
   const { getSingleUserBlogs, getBlogStats } = useBlogCalls()
   const { currentUserId } = useSelector((state) => state.auth)
   const { singleUserBlogs: {data, details}, loading, stats } = useSelector((state) => state.blog)
-  console.log("Blog stats", stats);
+  // console.log("Blog stats", stats);
   
   
   const [searchParams] = useSearchParams()

@@ -10,7 +10,7 @@ import BlogCard from "./BlogCard";
 const Blogs = () => {
   const { blogs: {data}, loading } = useSelector((state) => state.blog);
   const { getBlogsDataNew } = useBlogCalls();
-  console.log("blogs data", data);
+  // console.log("blogs data", data);
 
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;

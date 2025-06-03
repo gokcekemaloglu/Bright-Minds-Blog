@@ -34,7 +34,6 @@ const PaginationComponent = ({ details }) => {
   // //   }
   // // }, [searchParams]);
 
-  console.log("Pagination details", details);
 
   const totalRecords = details?.totalRecords || 0;
   const totalPages = details?.pages?.total !== undefined && details?.pages !== false ? details?.pages?.total : 1;
@@ -54,6 +53,8 @@ const PaginationComponent = ({ details }) => {
   const pageSize = details?.limit || 24
   const startRecord = totalRecords === 0 ? 0 : ((currentPage - 1) * pageSize) + 1;
   const endRecord = Math.min(totalRecords, currentPage * pageSize);
+
+  // console.log("Pagination details", details);
 
   return (
     <Box

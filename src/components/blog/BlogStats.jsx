@@ -58,7 +58,7 @@ const BlogStats = ({ currentUserId }) => {
     getBlogStats(currentUserId)
   }, [currentUserId])
 
-  console.log("BlogStats stats", stats);
+  // console.log("BlogStats stats", stats);
   
   const totalBlogs = stats?.totalRecords || 0
   const publishedBlogs = stats?.published || 0

@@ -36,7 +36,7 @@ const blogSlice = createSlice({
       state.error = payload || "An error occurred while fetching data.";
     },
     setData: (state, {payload}) => {
-      console.log("setData payload", payload);
+      // console.log("setData payload", payload);
       
       state.loading = false;
       state.error = null;
