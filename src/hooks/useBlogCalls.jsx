@@ -23,6 +23,7 @@ const useBlogCalls = () => {
     try {
       const {data} = await axiosPublic(`${endpoint}/`, options)
       // console.log(data);
+      console.log(`Fetched ${key} data successfully!`, data)
       dispatch(getBlogsDataSuccess({blog:data.data, endpoint}))      
     } catch (error) {
       console.log(error);      
@@ -55,7 +56,7 @@ const useBlogCalls = () => {
   const getSingleBlogNew = async (id) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosPublic(`blogs/${id}`);
+      const { data: {data} } = await axiosPublic(`blogs/${id}`);
       dispatch(setSingleData({key: "blog", data}))
       // console.log(data.data);
     } catch (error) {
@@ -109,6 +110,7 @@ const useBlogCalls = () => {
     }
   }
 
+  // ??
   const getSingleUserBlogs = async(endpoint, options) => {
     dispatch(fetchStart())
     try {
@@ -116,6 +118,18 @@ const useBlogCalls = () => {
       dispatch(setData({key: "singleUserBlogs", data}))
     } catch (error) {
       handleError(error, 'Something went wrong while fetching user blogs!')
+    }
+  }
+
+  const getBlogStats = async (userId) => {
+    dispatch(fetchStart())
+    try {
+      const {data} = await axiosWithToken.get(`blogs/${userId}/stats`)
+      // Assuming the response contains stats data
+      dispatch(setData({key: "stats", data}))
+    } catch (error) {
+      handleError(error, 'Something went wrong while fetching blog stats!')
+      
     }
   }
 
@@ -155,7 +169,8 @@ const useBlogCalls = () => {
     putBlog,
     getSingleUserBlogs,
     getPublishedBlogs,
-    getPublishedBlogsNew
+    getPublishedBlogsNew,
+    getBlogStats
   }
 }
 

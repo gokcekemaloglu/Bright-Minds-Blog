@@ -5,7 +5,8 @@ const initialState = {
   error: null,
   blogs: {},
   categories: [],
-  comments: [], 
+  comments: [],
+  stats: {},
   blog: {
     _id: '',
     title: '',
@@ -35,6 +36,8 @@ const blogSlice = createSlice({
       state.error = payload || "An error occurred while fetching data.";
     },
     setData: (state, {payload}) => {
+      console.log("setData payload", payload);
+      
       state.loading = false;
       state.error = null;
       state[payload.key] = payload.data;
