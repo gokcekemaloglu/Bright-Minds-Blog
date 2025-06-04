@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import {
   Box,
   Button,
@@ -30,22 +30,14 @@ import { useSelector } from "react-redux"
 import useBlogCalls from "../hooks/useBlogCalls"
 import CommentForm from "../components/blog/CommentForm"
 import CommentCard from "../components/blog/CommentCard"
-import UpdateMyBlogModal from "../components/Modals/UpdateMyBlogModal"
 
 const Detail = () => {
   const navigate = useNavigate()
   const { _id } = useParams()
 
-  const { getSingleBlog, postLikeBlog, getBlogsData } = useBlogCalls()
-  const { blog, loading, categories } = useSelector((state) => state.blog)
+  const { getSingleBlog, postLikeBlog, getBlogsDataNew } = useBlogCalls()
+  const { blog, loading } = useSelector((state) => state.blog)
   const { currentUserId } = useSelector((state) => state.auth)
-
-  // State for comments section
-  const [open, setOpen] = useState(false)
-
-  // State for edit modal
-  const [editModalOpen, setEditModalOpen] = useState(false)
-  const handleEditModalClose = () => setEditModalOpen(false)
 
   // Extract blog data
   const { comments, content, countOfVisitors, createdAt, image, likes, title, userId, categoryId } = blog
@@ -72,7 +64,6 @@ const Detail = () => {
   // Fetch blog data
   useEffect(() => {
     getSingleBlog(_id)
-    getBlogsData("categories")
   }, [_id])
 
   if (loading) {
@@ -158,7 +149,7 @@ const Detail = () => {
 
               <Grid size={{xs: 12, sm: 6, md: 3}}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Avatar sx={{ bgcolor: "secondary.main" }}>
+                  <Avatar sx={{ bgcolor: "primary.main" }}>
                     <CalendarIcon />
                   </Avatar>
                   <Box>
@@ -251,25 +242,13 @@ const Detail = () => {
               Comments
             </Typography>
 
-            <CommentForm _id={_id} open={open} setOpen={setOpen} />
+            <CommentForm _id={_id}/>
 
             <Box sx={{ mt: 3 }}>
               <CommentCard blogId={_id} />
             </Box>
           </Paper>
-        
 
-        {/* Edit Blog Modal */}
-        {editModalOpen && (
-          <UpdateMyBlogModal
-            open={editModalOpen}
-            handleClose={handleEditModalClose}
-            blog={blog}
-            categories={categories}
-          />
-        )}
-
-        
       </Container>
     </Box>
   )
