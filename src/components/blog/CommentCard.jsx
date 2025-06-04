@@ -70,7 +70,7 @@ const CommentCard = ({ blogId }) => {
       </Paper>
     )
   } 
-  console.log(singleBlogComments);
+  // console.log(singleBlogComments);
 
     const handleDeleteBlog = (commentId, blogId) => {
     if (window.confirm("Are you sure you want to delete this comment?")) {

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, lazy, Suspense } from "react"
 import {
   Box,
   Button,
@@ -29,13 +29,14 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import useBlogCalls from "../hooks/useBlogCalls"
 import CommentForm from "../components/blog/CommentForm"
-import CommentCard from "../components/blog/CommentCard"
+// import CommentCard from "../components/blog/CommentCard"
+const CommentCard = lazy(() => import("../components/blog/CommentCard"))
 
 const Detail = () => {
   const navigate = useNavigate()
   const { _id } = useParams()
 
-  const { getSingleBlog, postLikeBlog, getBlogsDataNew } = useBlogCalls()
+  const { getSingleBlog, postLikeBlog } = useBlogCalls()
   const { blog, loading } = useSelector((state) => state.blog)
   const { currentUserId } = useSelector((state) => state.auth)
 
@@ -245,7 +246,9 @@ const Detail = () => {
             <CommentForm _id={_id}/>
 
             <Box sx={{ mt: 3 }}>
-              <CommentCard blogId={_id} />
+              <Suspense fallback={<CircularProgress color="primary" />}>
+                <CommentCard blogId={_id} />
+              </Suspense>
             </Box>
           </Paper>
 
