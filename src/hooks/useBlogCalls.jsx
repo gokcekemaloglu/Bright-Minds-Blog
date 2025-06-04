@@ -71,7 +71,7 @@ const useBlogCalls = () => {
     } catch (error) {
       handleError(error, "Something went wrong while posting the blog!");
     } finally {
-      getBlogsDataNew("blogs", { params: { limit: 10, page: 1 } })
+      getBlogsDataNew("blogs", { params: { limit: 24, page: 1 } })
     }
   }
 

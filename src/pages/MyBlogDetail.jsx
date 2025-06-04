@@ -42,9 +42,6 @@ const MyBlogDetail = () => {
   const { blog, loading, categories } = useSelector((state) => state.blog)
   const { currentUserId } = useSelector((state) => state.auth)
 
-  // State for comments section
-  const [commentsOpen, setCommentsOpen] = useState(false)
-  const toggleComments = () => setCommentsOpen(!commentsOpen)
 
   // State for edit modal
   const [editModalOpen, setEditModalOpen] = useState(false)
@@ -181,7 +178,7 @@ const MyBlogDetail = () => {
 
             <Grid size={{xs: 12, sm: 6}}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Avatar sx={{ bgcolor: "secondary.main" }}>
+                <Avatar sx={{ bgcolor: "primary.main" }}>
                   <CalendarIcon />
                 </Avatar>
                 <Box>
@@ -241,7 +238,7 @@ const MyBlogDetail = () => {
                 {likes?.length || 0} Likes
               </Button>
 
-              <Button startIcon={<CommentIcon />} onClick={toggleComments} variant="outlined" size="small">
+              <Button startIcon={<CommentIcon />} variant="outlined" size="small">
                 {comments?.length || 0} Comments
               </Button>
 
@@ -254,19 +251,18 @@ const MyBlogDetail = () => {
       </Paper>
 
       {/* Comments Section */}
-      {commentsOpen && (
-        <Paper elevation={1} sx={{ mt: 3, p: 3, borderRadius: 2 }}>
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
-            Comments
-          </Typography>
+      
+      <Paper elevation={1} sx={{ mt: 3, p: 3, borderRadius: 2 }}>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
+          Comments
+        </Typography>
 
-          <CommentForm _id={_id} />
+        <CommentForm _id={_id} />
 
-          <Box sx={{ mt: 3 }}>
-            <CommentCard blogId={_id} />
-          </Box>
-        </Paper>
-      )}
+        <Box sx={{ mt: 3 }}>
+          <CommentCard blogId={_id} />
+        </Box>
+      </Paper>     
 
       {/* Edit Blog Modal */}
       {editModalOpen && (

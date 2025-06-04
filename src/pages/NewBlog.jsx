@@ -14,20 +14,26 @@ import useBlogCalls from "../hooks/useBlogCalls";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useCategoryCall from "../hooks/useCategoryCall";
+// import useCategoryCall from "../hooks/useCategoryCall";
 
 const NewBlog = () => {
 
   const navigate = useNavigate()
-  const { postBlog } = useBlogCalls();
-  const { getAllCategories } = useCategoryCall();
+  const { postBlog, getBlogsDataNew } = useBlogCalls();
+  // const { getAllCategories } = useCategoryCall();
 
   useEffect(() => {
-    getAllCategories();
+    // getAllCategories();
+    getBlogsDataNew("categories",{params: {limit: 100}})
   }, []);
 
-  const { categories } = useSelector((state) => state.category);
+  // const { categories } = useSelector((state) => state.category);
+  const { categories } = useSelector((state) => state.blog);
   // console.log("categories", categories);
+  // console.log("categories data", categories.data);
+  const sortedCategories = categories?.data?.slice().sort((a, b) => a.name.localeCompare(b.name)) || []
+  // console.log("sortedCategories", sortedCategories);
+  
 
   const [initialState, setInitialState] = useState({
     categoryId: "",
@@ -108,7 +114,7 @@ const NewBlog = () => {
             required
           >
             <MenuItem value="" disabled>Please choose...</MenuItem>
-            {categories?.map((category) => (
+            {sortedCategories && sortedCategories?.map((category) => (
               <MenuItem key={category._id} value={category._id}>
                 {category.name}
               </MenuItem>
