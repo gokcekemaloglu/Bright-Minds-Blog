@@ -1,40 +1,12 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import usePaginationCall from "../hooks/usePaginationCall";
-import { setPage } from "../features/paginationSlice";
 import { Box, Typography } from "@mui/material";
 
 import Stack from "@mui/material/Stack";
 import Pagination from '@mui/material/Pagination';
 
-// const PaginationComponent = ({ endpoint, slice,  query }) => {
-  // const dispatch = useDispatch();
 const PaginationComponent = ({ details }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const { getDataByPage } = usePaginationCall();
-  // const { currentPage, itemsPerPage, totalRecords } = useSelector(
-  // // const { currentPage, itemsPerPage } = useSelector(
-  //   (state) => state.pagination
-  // );
-  // console.log(details);
   
-
-  // // const totalPages = Math.ceil(data?.length / itemsPerPage);
-  // const totalPages = Math.ceil(totalRecords / itemsPerPage);
-
-  // const pageFromUrl = Number(searchParams.get("page")) || 1;
-
-  // // useEffect(() => {
-  // //   if (!searchParams.get("page")) {
-  // //     setSearchParams({ page: 1 }, { replace: true });
-  // //   } else {
-  // //     dispatch(setPage(pageFromUrl));
-  // //     getDataByPage(endpoint, slice, itemsPerPage, pageFromUrl, query);
-  // //   }
-  // // }, [searchParams]);
-
-
   const totalRecords = details?.totalRecords || 0;
   const totalPages = details?.pages?.total !== undefined && details?.pages !== false ? details?.pages?.total : 1;
   const currentPage = searchParams.get("page") ? Number(searchParams.get("page")) : (details?.pages?.current || 1);
@@ -46,7 +18,6 @@ const PaginationComponent = ({ details }) => {
       const newParams = new URLSearchParams(searchParams);
       newParams.set("page", page.toString());
       setSearchParams(newParams, { replace: true });
-      // dispatch(setPage(page));
     }
   };
 
