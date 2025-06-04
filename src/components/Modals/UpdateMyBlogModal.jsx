@@ -1,19 +1,8 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  Switch,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { useState } from "react";
+import { Box, Button, FormControl, FormControlLabel, InputLabel, MenuItem, Modal, Select, Switch, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import useBlogCalls from "../../hooks/useBlogCalls";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -32,6 +21,7 @@ const style = {
 };
 
 const UpdateMyBlogModal = ({ open, handleClose, blog, categories }) => {
+  const navigate = useNavigate()
   const {putBlog} = useBlogCalls()
   const [formData, setFormData] = useState({
     title: blog?.title || "",
@@ -59,19 +49,21 @@ const UpdateMyBlogModal = ({ open, handleClose, blog, categories }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     putBlog(blog?._id, formData)
-    console.log("Form data:", formData);
+    // console.log("Form data:", formData);
     handleClose();
+    navigate("/my-blog-details/" + blog?._id);
   };
 
-  console.log("categories", categories);
-  console.log("Form data:", formData);
-  console.log("blog:", blog);
-  console.log("blog.categoryId", blog.categoryId);
+  // console.log("categories", categories);
+  // console.log("Form data:", formData);
+  // console.log("blog:", blog);
+  // console.log("blog.categoryId", blog.categoryId);
 
   return (
     <Modal
       open={open}
       onClose={handleClose}
+      onClick={(e) => e.stopPropagation()}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       slotProps={{

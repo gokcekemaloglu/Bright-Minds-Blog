@@ -12,7 +12,7 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search[title]") || "";
   const {blogs: { details, data }} = useSelector((state) => state.blog);
-  console.log("blogs details", details);
+  // console.log("blogs details", details);
   // console.log("blogs data", data);
 
   const featuredBlog = data && data?.length > 0 ? [...data].sort((a, b) => b.countOfVisitors - a.countOfVisitors)[0] : null;

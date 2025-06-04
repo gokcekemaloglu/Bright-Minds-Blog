@@ -26,6 +26,7 @@ import {
 } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import UpdateMyBlogModal from "../Modals/UpdateMyBlogModal"
+import useBlogCalls from "../../hooks/useBlogCalls"
 
 const MyBlogCard = ({
   _id,
@@ -38,13 +39,15 @@ const MyBlogCard = ({
   isPublish,
   likes,
   categoryId,
-  categories
+  categories,
+  options
 }) => {
   const blog = {_id, image, comments, content, title, createdAt, countOfVisitors, isPublish, likes, categoryId }
   const navigate = useNavigate()
+  const { deleteBlog, getSingleUserBlogs } = useBlogCalls()
   const [menuAnchorEl, setMenuAnchorEl] = useState(null)
 
-    // State for edit modal
+  // State for edit modal
   const [editModalOpen, setEditModalOpen] = useState(false)
   const handleEditModalOpen = () => setEditModalOpen(true)
   const handleEditModalClose = () => setEditModalOpen(false)
@@ -53,9 +56,11 @@ const MyBlogCard = ({
   const handleMenuClick = (event) => {
     event.stopPropagation()
     setMenuAnchorEl(event.currentTarget)
+    // console.log(event);    
   }
 
-  const handleMenuClose = () => {
+  const handleMenuClose = (e) => {
+    if (e) e.stopPropagation()
     setMenuAnchorEl(null)
   }
 
@@ -72,6 +77,16 @@ const MyBlogCard = ({
     handleEditModalOpen()
   }
 
+  // Handle delete blog
+  const handleDeleteBlog = () => {
+    if (window.confirm("Are you sure you want to delete this blog?")) {
+      handleMenuClose()
+      deleteBlog(_id, options)
+      // navigate("/myblogs")
+      getSingleUserBlogs("userBlogs", {params: options})
+    }
+  }
+
   // Format date
   const formattedDate = new Date(createdAt).toLocaleDateString("en-GB", {
     year: "numeric",
@@ -79,8 +94,7 @@ const MyBlogCard = ({
     day: "numeric",
   })
 
-  console.log("All categories object in MyBlogCard", categories);
-  
+  // console.log("All categories object in MyBlogCard", categories);  
 
   return (
     <Card
@@ -124,32 +138,41 @@ const MyBlogCard = ({
             bgcolor: "rgba(255,255,255,0.9)",
           },
         }}
-        onClick={handleMenuClick}
+        onClick={(e) => {
+          e.stopPropagation()
+          handleMenuClick(e)
+        }}
       >
         <MoreVertIcon />
       </IconButton>
 
       {/* Menu */}
-      <Menu anchorEl={menuAnchorEl} open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
+      <Menu anchorEl={menuAnchorEl} open={Boolean(menuAnchorEl)} onClose={handleMenuClose} onClick={(e) => e.stopPropagation()}>
         <MenuItem onClick={handleEditClick}>
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Edit</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
+        <MenuItem onClick={handleDeleteBlog}>
           <ListItemIcon>
             <DeleteIcon fontSize="small" color="error" />
           </ListItemIcon>
           <ListItemText>Delete</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
+        <MenuItem onClick={(event) => {
+            event.stopPropagation()
+            handleMenuClose()
+          }}>
           <ListItemIcon>
             <DuplicateIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Duplicate</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
+        <MenuItem onClick={(event) => {
+            event.stopPropagation()
+            handleMenuClose()
+          }}>
           <ListItemIcon>
             <ShareIcon fontSize="small" />
           </ListItemIcon>
@@ -235,7 +258,7 @@ const MyBlogCard = ({
           open={editModalOpen}
           handleClose={handleEditModalClose}
           blog={blog}
-          categories={categories.data}
+          categories={categories?.data}
         />
       )}
     </Card>

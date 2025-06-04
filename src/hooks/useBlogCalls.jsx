@@ -87,7 +87,19 @@ const useBlogCalls = () => {
     }
   };
 
-  const deleteBlog = async (id) => {
+  // const deleteBlog = async (id) => {
+  //   dispatch(fetchStart())
+  //   try {
+  //     await axiosWithToken.delete(`blogs/${id}`)
+  //     toastSuccessNotify("Successfully deleted your blog!");
+  //   } catch (error) {
+  //     handleError(error, 'Something went wrong while deleting the blog!')
+  //   } finally {
+  //     getBlogsDataNew("blogs", { params: { limit: 10, page } })
+  //   }
+  // }
+
+  const deleteBlog = async (id, options={limit: 24}) => {
     dispatch(fetchStart())
     try {
       await axiosWithToken.delete(`blogs/${id}`)
@@ -95,7 +107,7 @@ const useBlogCalls = () => {
     } catch (error) {
       handleError(error, 'Something went wrong while deleting the blog!')
     } finally {
-      getBlogsDataNew("blogs", { params: { limit: 10, page } })
+      getSingleUserBlogs("userBlogs", { params: options })
     }
   }
 

@@ -19,9 +19,9 @@ const MyBlogs = () => {
   const { currentUserId } = useSelector((state) => state.auth)
   const { singleUserBlogs: {data, details}, loading, stats, categories } = useSelector((state) => state.blog)
   // console.log("Blog stats", stats);
-  console.log("Blog data", data);
+  // console.log("Blog data", data);
   // console.log("Blog details", details);
-  console.log("All categories object", categories);
+  // console.log("All categories object", categories);
   
   
   const [searchParams] = useSearchParams()
@@ -83,22 +83,20 @@ const MyBlogs = () => {
     setActiveTab(newValue)
   }
 
+  const filter = {"filter[userId]": currentUserId}
+  if (activeTab === 1 ) filter["filter[isPublish]"] = true
+  if (activeTab === 2 ) filter["filter[isPublish]"] = false
+
+  let sort = undefined
+  if (sortOption === "newest") sort = "-createdAt"
+  else if (sortOption === "oldest") sort = "createdAt"
+  else if (sortOption === "mostViewed") sort = "-countOfVisitors"
+  else if (sortOption === "mostLiked") sort = "-likes"
+  else if (sortOption === "mostCommented") sort = "-comments"
+
+  const options = {limit, page, ...filter, "search[title]": search,}
+  if (sort) options.sort = sort
   useEffect(() => {
-    // getSingleUserBlogs("userBlogs", { params: { limit: 10, page } })
-    // getSingleUserBlogs("userBlogs")
-    const filter = {"filter[userId]": currentUserId}
-    if (activeTab === 1 ) filter["filter[isPublish]"] = true
-    if (activeTab === 2 ) filter["filter[isPublish]"] = false
-
-    let sort = undefined
-    if (sortOption === "newest") sort = "-createdAt"
-    else if (sortOption === "oldest") sort = "createdAt"
-    else if (sortOption === "mostViewed") sort = "-countOfVisitors"
-    else if (sortOption === "mostLiked") sort = "-likes"
-    else if (sortOption === "mostCommented") sort = "-comments"
-
-    const options = {limit, page, ...filter, "search[title]": search,}
-    if (sort) options.sort = sort
     getSingleUserBlogs("userBlogs", { params: options })
     getBlogsDataNew("categories", { params: { limit: 100 } })
   }, [page, limit, search, activeTab, sortOption, currentUserId])
@@ -187,7 +185,7 @@ const MyBlogs = () => {
           {/* {sortedBlogs?.map((blog) => ( */}
           {data?.map((blog) => (
             <Grid key={blog._id} size={{xs: 12, sm: 6, md: 4}}>
-              <MyBlogCard {...blog} categories={categories} />
+              <MyBlogCard {...blog} categories={categories} options={options} />
             </Grid>
           ))}
         </Grid>

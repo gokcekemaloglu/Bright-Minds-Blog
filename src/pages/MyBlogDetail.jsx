@@ -38,7 +38,7 @@ const MyBlogDetail = () => {
   const navigate = useNavigate()
   const { _id } = useParams()
 
-  const { getSingleBlog, deleteBlog, postLikeBlog, getBlogsData } = useBlogCalls()
+  const { getSingleBlog, deleteBlog, postLikeBlog, getBlogsDataNew, getBlogStats } = useBlogCalls()
   const { blog, loading, categories } = useSelector((state) => state.blog)
   const { currentUserId } = useSelector((state) => state.auth)
 
@@ -79,15 +79,16 @@ const MyBlogDetail = () => {
   // Fetch blog data
   useEffect(() => {
     getSingleBlog(_id)
-    getBlogsData("categories")
+    getBlogsDataNew("categories")
   }, [_id])
 
   // Handle delete blog
   const handleDeleteBlog = () => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       deleteBlog(_id)
-      navigate("/myblogs")
     }
+    getBlogStats(currentUserId)
+    navigate("/myblogs")
   }
 
   if (loading) {
