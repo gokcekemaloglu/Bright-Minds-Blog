@@ -15,10 +15,13 @@ const BlogStats = lazy(() => import("../components/blog/BlogStats"))
 const PaginationComponent = lazy(() => import("../components/PaginationComponent"))
 
 const MyBlogs = () => {
-  const { getSingleUserBlogs, getBlogStats } = useBlogCalls()
+  const { getSingleUserBlogs, getBlogStats, getBlogsDataNew } = useBlogCalls()
   const { currentUserId } = useSelector((state) => state.auth)
-  const { singleUserBlogs: {data, details}, loading, stats } = useSelector((state) => state.blog)
+  const { singleUserBlogs: {data, details}, loading, stats, categories } = useSelector((state) => state.blog)
   // console.log("Blog stats", stats);
+  console.log("Blog data", data);
+  // console.log("Blog details", details);
+  console.log("All categories object", categories);
   
   
   const [searchParams] = useSearchParams()
@@ -83,7 +86,7 @@ const MyBlogs = () => {
   useEffect(() => {
     // getSingleUserBlogs("userBlogs", { params: { limit: 10, page } })
     // getSingleUserBlogs("userBlogs")
-    const filter = {"filter[userId": currentUserId}
+    const filter = {"filter[userId]": currentUserId}
     if (activeTab === 1 ) filter["filter[isPublish]"] = true
     if (activeTab === 2 ) filter["filter[isPublish]"] = false
 
@@ -97,6 +100,7 @@ const MyBlogs = () => {
     const options = {limit, page, ...filter, "search[title]": search,}
     if (sort) options.sort = sort
     getSingleUserBlogs("userBlogs", { params: options })
+    getBlogsDataNew("categories", { params: { limit: 100 } })
   }, [page, limit, search, activeTab, sortOption, currentUserId])
 
   // if (loading) {
@@ -183,7 +187,7 @@ const MyBlogs = () => {
           {/* {sortedBlogs?.map((blog) => ( */}
           {data?.map((blog) => (
             <Grid key={blog._id} size={{xs: 12, sm: 6, md: 4}}>
-              <MyBlogCard {...blog} />
+              <MyBlogCard {...blog} categories={categories} />
             </Grid>
           ))}
         </Grid>

@@ -25,6 +25,7 @@ import {
   Share as ShareIcon,
 } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
+import UpdateMyBlogModal from "../Modals/UpdateMyBlogModal"
 
 const MyBlogCard = ({
   _id,
@@ -37,9 +38,16 @@ const MyBlogCard = ({
   isPublish,
   likes,
   categoryId,
+  categories
 }) => {
+  const blog = {_id, image, comments, content, title, createdAt, countOfVisitors, isPublish, likes, categoryId }
   const navigate = useNavigate()
   const [menuAnchorEl, setMenuAnchorEl] = useState(null)
+
+    // State for edit modal
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const handleEditModalOpen = () => setEditModalOpen(true)
+  const handleEditModalClose = () => setEditModalOpen(false)
 
   // Handle menu open/close
   const handleMenuClick = (event) => {
@@ -59,8 +67,9 @@ const MyBlogCard = ({
   // Handle edit click
   const handleEditClick = (event) => {
     event.stopPropagation()
-    navigate("/edit-blog/" + _id)
+    // navigate("/edit-blog/" + _id)
     handleMenuClose()
+    handleEditModalOpen()
   }
 
   // Format date
@@ -69,6 +78,9 @@ const MyBlogCard = ({
     month: "short",
     day: "numeric",
   })
+
+  console.log("All categories object in MyBlogCard", categories);
+  
 
   return (
     <Card
@@ -89,7 +101,7 @@ const MyBlogCard = ({
       {/* Status Chip */}
       <Chip
         label={isPublish ? "Published" : "Draft"}
-        color={isPublish ? "success" : "default"}
+        color={isPublish ? "success" : "warning"}
         size="small"
         sx={{
           position: "absolute",
@@ -216,6 +228,16 @@ const MyBlogCard = ({
           </Tooltip>
         </Box>
       </CardActions>
+
+      {/* Edit Blog Modal */}
+      {editModalOpen && (
+        <UpdateMyBlogModal
+          open={editModalOpen}
+          handleClose={handleEditModalClose}
+          blog={blog}
+          categories={categories.data}
+        />
+      )}
     </Card>
   )
 }

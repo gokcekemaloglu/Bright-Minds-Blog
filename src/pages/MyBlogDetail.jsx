@@ -274,7 +274,7 @@ const MyBlogDetail = () => {
           open={editModalOpen}
           handleClose={handleEditModalClose}
           blog={blog}
-          categories={categories}
+          categories={categories?.data}
         />
       )}
     </Container>
