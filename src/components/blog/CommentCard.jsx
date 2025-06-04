@@ -69,8 +69,14 @@ const CommentCard = ({ blogId }) => {
         </Typography>
       </Paper>
     )
-  }
+  } 
   console.log(singleBlogComments);
+
+    const handleDeleteBlog = (commentId, blogId) => {
+    if (window.confirm("Are you sure you want to delete this comment?")) {
+      deleteComment(commentId, blogId)
+    }
+  }
   
 
   return (
@@ -124,7 +130,7 @@ const CommentCard = ({ blogId }) => {
                     <Tooltip title="Delete">
                       <IconButton
                         size="small"
-                        onClick={() => deleteComment(comment._id, comment.blogId)}
+                        onClick={() => handleDeleteBlog(comment._id, comment.blogId)}
                       >
                         <DeleteOutlineIcon fontSize="small" color="error" />
                       </IconButton>
