@@ -10,7 +10,6 @@ import MyBlogCard from "../components/blog/MyBlogCard"
 import MyBlogListItem from "../components/blog/MyBlogListItem"
 import { useSearchParams } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
-
 const BlogStats = lazy(() => import("../components/blog/BlogStats"))
 const PaginationComponent = lazy(() => import("../components/PaginationComponent"))
 
@@ -22,7 +21,6 @@ const MyBlogs = () => {
   // console.log("Blog data", data);
   // console.log("Blog details", details);
   // console.log("All categories object", categories);
-  
   
   const [searchParams] = useSearchParams()
 

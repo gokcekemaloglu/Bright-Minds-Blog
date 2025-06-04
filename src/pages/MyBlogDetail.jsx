@@ -87,7 +87,6 @@ const MyBlogDetail = () => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       deleteBlog(_id)
     }
-    getBlogStats(currentUserId)
     navigate("/myblogs")
   }
 

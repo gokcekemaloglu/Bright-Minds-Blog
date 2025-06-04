@@ -44,7 +44,7 @@ const MyBlogCard = ({
 }) => {
   const blog = {_id, image, comments, content, title, createdAt, countOfVisitors, isPublish, likes, categoryId }
   const navigate = useNavigate()
-  const { deleteBlog, getSingleUserBlogs } = useBlogCalls()
+  const { deleteBlog, getSingleUserBlogs, getBlogStats } = useBlogCalls()
   const [menuAnchorEl, setMenuAnchorEl] = useState(null)
 
   // State for edit modal

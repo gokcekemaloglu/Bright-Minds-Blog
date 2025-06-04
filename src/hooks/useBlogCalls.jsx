@@ -2,12 +2,12 @@ import { useDispatch } from 'react-redux'
 import { fetchFail, fetchStart, getBlogsDataSuccess, getPublishedBlogsSuccess, getSingleBlogSuccess, getSingleUserBlogsSuccess, setData, setSingleData } from '../features/blogSlice'
 import useAxios, { axiosPublic } from './useAxios'
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 // import axios from 'axios'
 
 const useBlogCalls = () => {
 
-  // const {currentUserId} = useSelector(state=>state.auth)
+  const {currentUserId} = useSelector(state=>state.auth)
 
   const dispatch = useDispatch()
   const axiosWithToken = useAxios()
@@ -108,6 +108,7 @@ const useBlogCalls = () => {
       handleError(error, 'Something went wrong while deleting the blog!')
     } finally {
       getSingleUserBlogs("userBlogs", { params: options })
+      getBlogStats(currentUserId)
     }
   }
 
