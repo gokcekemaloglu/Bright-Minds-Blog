@@ -14,6 +14,7 @@ import useBlogCalls from "../hooks/useBlogCalls";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import WriteBlogForm from "../components/blog/WriteBlogForm";
 // import useCategoryCall from "../hooks/useCategoryCall";
 
 const NewBlog = () => {
@@ -154,6 +155,7 @@ const NewBlog = () => {
           New Blog
         </Button>
       </Box>
+      <WriteBlogForm/>
     </Box>
   );
 };

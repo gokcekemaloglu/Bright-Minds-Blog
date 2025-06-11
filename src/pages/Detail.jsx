@@ -88,7 +88,8 @@ const Detail = () => {
         >
           Back
         </Button>
-
+        
+        {/* Blog Detail Paper */}
         <Paper elevation={1} sx={{ borderRadius: 2, overflow: "hidden", mb: 4 }}>
           {/* Blog Header with Image */}
           <Box sx={{ position: "relative" }}>
@@ -236,21 +237,18 @@ const Detail = () => {
           </Box>
         </Paper>
 
-        {/* Comments Section */}
-        
-          <Paper elevation={1} sx={{ mt: 3, p: 3, borderRadius: 2 }}>
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
-              Comments
-            </Typography>
-
-            <CommentForm _id={_id}/>
-
-            <Box sx={{ mt: 3 }}>
-              <Suspense fallback={<CircularProgress color="primary" />}>
-                <CommentCard blogId={_id} />
-              </Suspense>
-            </Box>
-          </Paper>
+        {/* Comments Section */}        
+        <Paper elevation={1} sx={{ mt: 3, p: 3, borderRadius: 2 }}>
+          <Typography variant="h5" fontWeight="bold" gutterBottom>
+            Comments
+          </Typography>
+          <CommentForm _id={_id}/>
+          <Box sx={{ mt: 3 }}>
+            <Suspense fallback={<CircularProgress color="primary" />}>
+              <CommentCard blogId={_id} />
+            </Suspense>
+          </Box>
+        </Paper>
 
       </Container>
     </Box>
